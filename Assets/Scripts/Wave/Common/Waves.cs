@@ -5,40 +5,42 @@ using UnityEngine;
 
 namespace CheckYourSpeed.GameLogic
 {
-    public sealed class Waves : MonoBehaviour
+    public sealed class Waves : MonoBehaviour, IWavesContainer
     {
-        [SerializeField] private Queue<Wave> _waves = new();
-        [SerializeField] private float _catchTime = 1.5f;
+        [SerializeField] private List<Wave> _waves = new();
+
+        private readonly Queue<Wave> _wavesQueue = new();
         private Wave _lastWave;
 
-        private bool IsEmpty => _waves.Count > 0;
+        private bool IsEmpty => _wavesQueue.Count == 0;
 
-        private void Awake()
+        public void Init(ILoseTimer loseTimer)
         {
-            var timer = new LoseTimer(_catchTime);
             foreach (var wave in _waves)
             {
+                _wavesQueue.Enqueue(wave);
                 foreach (var currentPoint in wave.Points)
                 {
                     if (currentPoint is Point point)
                     {
-                        point.SetTimer(timer);
+                        point.SetTimer(loseTimer);
                     }
                 }
             }
         }
+
         public Wave Get()
         {
             TryAdd();
-            _lastWave = _waves.Peek();
-            return _waves.Dequeue();
+            _lastWave = _wavesQueue.Peek();
+            return _wavesQueue.Dequeue();
         }
 
         public void RemoveFirst()
         {
             if (IsEmpty)
                 throw new InvalidOperationException();
-            _waves.Dequeue();
+            _wavesQueue.Dequeue();
         }
 
         private void TryAdd()
@@ -46,7 +48,7 @@ namespace CheckYourSpeed.GameLogic
             if (IsEmpty)
             {
                 var nextWave = new Wave(_lastWave.PointsCountInWave, _lastWave.Points, _lastWave.PointsCountInWave + 1, _lastWave.DelayAfterEnd);
-                _waves.Enqueue(nextWave);
+                _wavesQueue.Enqueue(nextWave);
             }
         }
     }

@@ -21,9 +21,10 @@ namespace CheckYourSpeed.GameLogic
             {
                 for (int y = 0; y < _yCount; y++)
                 {
-                    var prefab = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    var point = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     var position = new Vector2(StartPosition.x + (x * _offset), StartPosition.y + (y * _offset));
-                    var point = Instantiate(prefab, position, Quaternion.identity, transform);
+                    point.transform.position = position;
+                    point.gameObject.SetActive(false);
                     _positions.Add(point.transform.position);
                 }
             }

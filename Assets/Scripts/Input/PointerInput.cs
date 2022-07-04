@@ -3,7 +3,6 @@ using System;
 
 namespace CheckYourSpeed.GameLogic
 {
-    [Serializable]
     public sealed class PointerInput : IInput, IUpdatable
     {
         private Camera _camera;
@@ -13,9 +12,7 @@ namespace CheckYourSpeed.GameLogic
             _camera = camera ?? throw new ArgumentNullException(nameof(camera));
         }
 
-        public PointerInput() { }
-
-        public event Action<PointView> OnInputed;
+        public event Action<IPointView> OnInputed;
 
         public void Update(float deltaTime)
         {
@@ -24,10 +21,13 @@ namespace CheckYourSpeed.GameLogic
                 var mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);
                 var hit = Physics2D.Raycast(mousePosition, Vector2.zero);
 
-                if (hit.collider.TryGetComponent(out PointView point))
+                if (hit.collider != null)
                 {
-                    point.Apply();
-                    OnInputed?.Invoke(point);
+                    if (hit.collider.TryGetComponent(out IPointView point))
+                    {
+                        point.Apply();
+                        OnInputed?.Invoke(point);
+                    }
                 }
             }
         }

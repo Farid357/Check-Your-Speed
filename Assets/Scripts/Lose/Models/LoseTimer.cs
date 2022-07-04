@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace CheckYourSpeed.Model
 {
-    public sealed class LoseTimer
+    public sealed class LoseTimer : ILoseTimer
     {
         private float _time;
         private readonly float _startTime;
@@ -19,6 +19,12 @@ namespace CheckYourSpeed.Model
         public void Reset()
         {
             _time = _startTime;
+            Enable();
+        }
+
+        public void ResetWithAdd(float time)
+        {
+            _time = _startTime + time;
             Enable();
         }
 

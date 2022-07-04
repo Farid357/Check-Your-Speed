@@ -5,9 +5,9 @@ namespace CheckYourSpeed.Model
     [Serializable]
     public abstract class Point : IPoint
     {
-        private LoseTimer _timer;
+        private ILoseTimer _timer;
 
-        public void SetTimer(LoseTimer timer)
+        public void SetTimer(ILoseTimer timer)
         {
             _timer = timer ?? throw new ArgumentNullException(nameof(timer));
         }

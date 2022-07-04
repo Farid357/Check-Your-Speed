@@ -10,7 +10,7 @@ namespace CheckYourSpeed.GameLogic
         [SerializeField] private TMP_Text _text;
         [SerializeField] private float _scaleCofficient = 1.2f;
         [SerializeField] private float _scaleDelay = 0.6f;
-        [SerializeField] private Color _increaseTextColor = Color.red;
+        [SerializeField, ColorUsage(false)] private Color _increaseTextColor = Color.red;
         private Score _score;
 
         public void Init(Score score)
@@ -31,10 +31,10 @@ namespace CheckYourSpeed.GameLogic
 
         private void ReturnToStartScale(TMP_Text text, Vector2 startScale)
         {
-            text.transform.localScale = startScale;
+            text.transform.DOScale(startScale, _scaleDelay / 2f);
             var startColor = text.color;
             text.DOColor(_increaseTextColor, _scaleDelay / 2f)
-                .OnComplete(new TweenCallback(() => text.color = startColor));
+                .OnComplete(new TweenCallback(() => text.DOColor(startColor, _scaleDelay / 3f)));
         }
     }
 }

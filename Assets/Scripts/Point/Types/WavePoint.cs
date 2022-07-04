@@ -7,6 +7,8 @@ namespace CheckYourSpeed.Model
     {
         private readonly IWaveCleaner _cleaner;
 
+        public WavePoint() { }
+
         public WavePoint(IWaveCleaner cleaner)
         {
             _cleaner = cleaner ?? throw new ArgumentNullException(nameof(cleaner));
