@@ -390,6 +390,54 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &737540035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 737540037}
+  - component: {fileID: 737540036}
+  m_Layer: 0
+  m_Name: Lose
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &737540036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737540035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e4910dd5ba03f24f82c0b82b78dd27b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _panel: {fileID: 890930917}
+  _delay: 0.9
+  _loseColor: {r: 1, g: 0, b: 0, a: 1}
+  _loseImage: {fileID: 1288146664}
+--- !u!4 &737540037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737540035}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.085675284, y: 3.2459812, z: 308.30316}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &805216446
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,9 +448,10 @@ GameObject:
   m_Component:
   - component: {fileID: 805216450}
   - component: {fileID: 805216449}
-  - component: {fileID: 805216448}
-  - component: {fileID: 805216447}
   - component: {fileID: 805216451}
+  - component: {fileID: 805216454}
+  - component: {fileID: 805216453}
+  - component: {fileID: 805216452}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -410,68 +459,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &805216447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 805216446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee492368e5fd45249a6ee89f449ab782, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _waves:
-  - _pointsCountOnScreen: 2
-    _points:
-    - rid: 6924680355855204432
-    - rid: 6924680355855204447
-    _pointsCountInWave: 4
-    _delayAfterEnd: 4
-  - _pointsCountOnScreen: 2
-    _points:
-    - rid: 6924680355855204432
-    - rid: 6924680355855204433
-    _pointsCountInWave: 4
-    _delayAfterEnd: 4
-  - _pointsCountOnScreen: 2
-    _points:
-    - rid: 6924680355855204432
-    - rid: 6924680355855204433
-    _pointsCountInWave: 4
-    _delayAfterEnd: 4
-  - _pointsCountOnScreen: 2
-    _points:
-    - rid: 6924680355855204432
-    - rid: 6924680355855204433
-    _pointsCountInWave: 4
-    _delayAfterEnd: 4
-  references:
-    version: 2
-    RefIds:
-    - rid: 6924680355855204432
-      type: {class: ScorePoint, ns: CheckYourSpeed.Model, asm: Assembly-CSharp}
-    - rid: 6924680355855204433
-      type: {class: ScorePoint, ns: CheckYourSpeed.Model, asm: Assembly-CSharp}
-    - rid: 6924680355855204447
-      type: {class: ScorePoint, ns: CheckYourSpeed.Model, asm: Assembly-CSharp}
---- !u!114 &805216448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 805216446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e4910dd5ba03f24f82c0b82b78dd27b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _panel: {fileID: 890930917}
-  _delay: 0.9
-  _loseColor: {r: 1, g: 0, b: 0, a: 1}
-  _loseImage: {fileID: 1288146664}
 --- !u!114 &805216449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,8 +474,8 @@ MonoBehaviour:
   _pointsPositionsSpawner: {fileID: 953188339}
   _waveSpawner: {fileID: 877091191}
   _scoreView: {fileID: 558577010}
-  _loseTimerView: {fileID: 805216448}
-  _waves: {fileID: 805216447}
+  _loseTimerView: {fileID: 737540036}
+  _waves: {fileID: 877091192}
   _catchTime: 4
   _waveSpawnerView: {fileID: 877091189}
 --- !u!4 &805216450
@@ -520,6 +507,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wave: {r: 0.7415894, g: 0.15471691, b: 1, a: 1}
   _score: {r: 1, g: 0.54863906, b: 0, a: 0.62352943}
+--- !u!114 &805216452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805216446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4dee4bb37627747a7bcdaeaec2e631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _roots:
+  - {fileID: 805216454}
+  - {fileID: 805216453}
+  - {fileID: 805216449}
+--- !u!114 &805216453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805216446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a1e130dc6e2894abb533edbfd25583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &805216454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805216446}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32cd79bc2ef1932489cb1b48aa500c61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &877091188
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,6 +558,7 @@ GameObject:
   - component: {fileID: 877091190}
   - component: {fileID: 877091189}
   - component: {fileID: 877091191}
+  - component: {fileID: 877091192}
   m_Layer: 0
   m_Name: Wave
   m_TagString: Untagged
@@ -583,8 +611,54 @@ MonoBehaviour:
   _delay: 0.5
   _startCount: 5
   _prefab: {fileID: 2868406419382348793, guid: b8a81e7ca49f7ed4fb09f0d8b0768224, type: 3}
-  _waves: {fileID: 805216447}
+  _waves: {fileID: 877091192}
   _provider: {fileID: 805216451}
+--- !u!114 &877091192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877091188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee492368e5fd45249a6ee89f449ab782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _waves:
+  - _pointsCountOnScreen: 2
+    _points:
+    - rid: 6924680355855204432
+    - rid: 6924680355855204447
+    _pointsCountInWave: 4
+    _delayAfterEnd: 4
+  - _pointsCountOnScreen: 2
+    _points:
+    - rid: 6924680355855204432
+    - rid: 6924680355855204433
+    _pointsCountInWave: 4
+    _delayAfterEnd: 4
+  - _pointsCountOnScreen: 2
+    _points:
+    - rid: 6924680355855204432
+    - rid: 6924680355855204433
+    _pointsCountInWave: 4
+    _delayAfterEnd: 4
+  - _pointsCountOnScreen: 2
+    _points:
+    - rid: 6924680355855204432
+    - rid: 6924680355855204433
+    _pointsCountInWave: 4
+    _delayAfterEnd: 4
+  references:
+    version: 2
+    RefIds:
+    - rid: 6924680355855204432
+      type: {class: ScorePoint, ns: CheckYourSpeed.Model, asm: Assembly-CSharp}
+    - rid: 6924680355855204433
+      type: {class: ScorePoint, ns: CheckYourSpeed.Model, asm: Assembly-CSharp}
+    - rid: 6924680355855204447
+      type: {class: ScorePoint, ns: CheckYourSpeed.Model, asm: Assembly-CSharp}
 --- !u!1 &890930915
 GameObject:
   m_ObjectHideFlags: 0
