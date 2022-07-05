@@ -1,4 +1,4 @@
-﻿using CheckYourSpeed.Model;
+﻿using CheckYourSpeed.Factory;
 using System;
 using UnityEngine;
 
@@ -8,21 +8,20 @@ namespace CheckYourSpeed.GameLogic
     public struct Wave
     {
         [SerializeField, Range(1, 4)] private int _pointsCountOnScreen;
-        [SerializeReference, SubclassSelector] private IPoint[] _points;
+        [SerializeField] private PointType[] _types;
         [SerializeField] private int _pointsCountInWave;
         [SerializeField] private float _delayAfterEnd;
 
-        public Wave(int pointsCountOnScreen, IPoint[] points, int pointsCountInWave, float delayAfterWave)
+        public Wave(int pointsCountOnScreen, PointType[] points, int pointsCountInWave, float delayAfterWave)
         {
-            Debug.Log(pointsCountOnScreen);
             _pointsCountOnScreen = pointsCountOnScreen > 0 ? pointsCountOnScreen : throw new ArgumentOutOfRangeException(nameof(pointsCountOnScreen)); ;
-            _points = points ?? throw new ArgumentNullException(nameof(points));
+            _types = points ?? throw new ArgumentNullException(nameof(points));
             _pointsCountInWave = pointsCountInWave > 0 ? pointsCountInWave : throw new ArgumentOutOfRangeException(nameof(pointsCountInWave));
             _delayAfterEnd = delayAfterWave > 0 ? delayAfterWave : throw new ArgumentOutOfRangeException(nameof(delayAfterWave));
         }
 
         public int PointsCountOnScreen => _pointsCountOnScreen;
-        public IPoint[] Points => _points;
+        public PointType[] Points => _types;
         public int PointsCountInWave => _pointsCountInWave;
 
         public float DelayAfterEnd => _delayAfterEnd;

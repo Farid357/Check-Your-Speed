@@ -3,6 +3,7 @@ using UnityEngine;
 using CheckYourSpeed.Utils;
 using CheckYourSpeed.Model;
 using System;
+using System.Collections.Generic;
 
 namespace CheckYourSpeed.GameLogic
 {
@@ -15,6 +16,7 @@ namespace CheckYourSpeed.GameLogic
         [SerializeField] private PointColorProvider _provider;
         private ILoseTimer _loseTimer;
         private IPointsSubscriber _pointsSubscriber;
+        private readonly List<IPointView> _spawnedPoints = new();
         private Vector2[] _positions;
         private Wave _currentWave;
         private ObjectPool<PointView> _pool;
@@ -30,7 +32,7 @@ namespace CheckYourSpeed.GameLogic
             _positions = positions ?? throw new ArgumentNullException(nameof(positions));
             _pointsSubscriber = pointsSubscriber ?? throw new ArgumentNullException(nameof(pointsSubscriber));
             _pool = new ObjectPool<PointView>(_startCount, _prefab, transform);
-            StartCoroutine(Spawn(_prefab));
+             StartCoroutine(Spawn(_prefab));
         }
 
         private IEnumerator Spawn(PointView prefab)
@@ -39,6 +41,9 @@ namespace CheckYourSpeed.GameLogic
 
             while (true)
             {
+                if (_currentWave.Points != null)
+                    yield return new WaitForSeconds(_currentWave.DelayAfterEnd);
+
                 _currentWave = Waves.Get();
                 var count = _currentWave.PointsCountInWave;
 
@@ -48,9 +53,10 @@ namespace CheckYourSpeed.GameLogic
                     {
                         yield return wait;
                         var pointView = _pool.Get(prefab);
-                        var randomPoint = GetRandomPoint(_currentWave);
+                        var randomPoint = _waves.GetRandomPoint(_currentWave);
                         _pointsSubscriber.Subscribe(randomPoint);
                         pointView.transform.position = new Vector2().GetRandomPointFrom(_positions);
+                        _spawnedPoints.Add(pointView);
                         pointView.gameObject.SetActive(true);
                         pointView.SetColor(_provider.Get(randomPoint));
                         pointView.Init(randomPoint);
@@ -65,18 +71,13 @@ namespace CheckYourSpeed.GameLogic
             }
         }
 
-        private IPoint GetRandomPoint(Wave wave)
-        {
-            var randomIndex = UnityEngine.Random.Range(0, wave.Points.Length);
-            return wave.Points[randomIndex];
-        }
-
         public void CleanWave()
         {
             if (_currentWave.Points == null)
                 throw new InvalidOperationException();
             Waves.RemoveFirst();
             StartCoroutine(Spawn(_prefab));
+            _spawnedPoints.ForEach(point => point.Disable());
         }
     }
 }

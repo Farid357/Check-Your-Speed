@@ -1,5 +1,5 @@
-﻿using CheckYourSpeed.Model;
-using System;
+﻿using CheckYourSpeed.Factory;
+using CheckYourSpeed.Model;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,25 +8,24 @@ namespace CheckYourSpeed.GameLogic
     public sealed class Waves : MonoBehaviour, IWavesContainer
     {
         [SerializeField] private List<Wave> _waves = new();
-
+        private PointFactory _pointFactory;
         private readonly Queue<Wave> _wavesQueue = new();
+
         private Wave _lastWave;
 
         private bool IsEmpty => _wavesQueue.Count == 0;
 
-        public void Init(ILoseTimer loseTimer)
+        public void Init(ILoseTimer loseTimer, IWaveCleaner waveCleaner)
         {
-            foreach (var wave in _waves)
-            {
-                _wavesQueue.Enqueue(wave);
-                foreach (var currentPoint in wave.Points)
-                {
-                    if (currentPoint is Point point)
-                    {
-                        point.SetTimer(loseTimer);
-                    }
-                }
-            }
+            _pointFactory = new(loseTimer, waveCleaner);
+            _waves.ForEach(wave => _wavesQueue.Enqueue(wave));
+        }
+
+        public IPoint GetRandomPoint(Wave wave)
+        {
+            var randomIndex = Random.Range(0, wave.Points.Length);
+            var randomPointType = wave.Points[randomIndex];
+            return _pointFactory.Get(randomPointType);
         }
 
         public Wave Get()
@@ -38,8 +37,7 @@ namespace CheckYourSpeed.GameLogic
 
         public void RemoveFirst()
         {
-            if (IsEmpty)
-                throw new InvalidOperationException();
+            TryAdd();
             _wavesQueue.Dequeue();
         }
 

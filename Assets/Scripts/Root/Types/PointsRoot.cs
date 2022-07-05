@@ -20,7 +20,7 @@ namespace CheckYourSpeed.Root
         public override void Compose()
         {
             _loseTimer = new LoseTimer(_catchTime);
-            _waves.Init(_loseTimer);
+            _waves.Init(_loseTimer, _waveSpawner);
             _loseTimerView.Init(_loseTimer as LoseTimer);
             _score = new Score();
             _pointsPositionsSpawner.Spawn();

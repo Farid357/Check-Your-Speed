@@ -627,38 +627,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waves:
   - _pointsCountOnScreen: 2
-    _points:
-    - rid: 6924680355855204432
-    - rid: 6924680355855204447
+    _types: 00000000
     _pointsCountInWave: 4
-    _delayAfterEnd: 4
+    _delayAfterEnd: 10
   - _pointsCountOnScreen: 2
-    _points:
-    - rid: 6924680355855204432
-    - rid: 6924680355855204433
+    _types: 0000000000000000
     _pointsCountInWave: 4
     _delayAfterEnd: 4
-  - _pointsCountOnScreen: 2
-    _points:
-    - rid: 6924680355855204432
-    - rid: 6924680355855204433
-    _pointsCountInWave: 4
-    _delayAfterEnd: 4
-  - _pointsCountOnScreen: 2
-    _points:
-    - rid: 6924680355855204432
-    - rid: 6924680355855204433
-    _pointsCountInWave: 4
-    _delayAfterEnd: 4
-  references:
-    version: 2
-    RefIds:
-    - rid: 6924680355855204432
-      type: {class: ScorePoint, ns: CheckYourSpeed.Model, asm: Assembly-CSharp}
-    - rid: 6924680355855204433
-      type: {class: ScorePoint, ns: CheckYourSpeed.Model, asm: Assembly-CSharp}
-    - rid: 6924680355855204447
-      type: {class: ScorePoint, ns: CheckYourSpeed.Model, asm: Assembly-CSharp}
 --- !u!1 &890930915
 GameObject:
   m_ObjectHideFlags: 0

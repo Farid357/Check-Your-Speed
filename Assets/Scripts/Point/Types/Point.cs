@@ -2,12 +2,11 @@
 
 namespace CheckYourSpeed.Model
 {
-    [Serializable]
     public abstract class Point : IPoint
     {
         private ILoseTimer _timer;
 
-        public void SetTimer(ILoseTimer timer)
+        public Point(ILoseTimer timer)
         {
             _timer = timer ?? throw new ArgumentNullException(nameof(timer));
         }

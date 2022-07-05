@@ -29,5 +29,8 @@ namespace CheckYourSpeed.GameLogic
             gameObject.SetActive(false);
             Instantiate(_particle, transform.position, Quaternion.identity).Play();
         }
+
+        public void Disable() => gameObject.SetActive(false);
+
     }
 }

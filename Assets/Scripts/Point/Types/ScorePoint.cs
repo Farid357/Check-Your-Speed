@@ -1,10 +1,10 @@
-﻿using System;
-
-namespace CheckYourSpeed.Model
+﻿namespace CheckYourSpeed.Model
 {
-    [Serializable]
     public sealed class ScorePoint : Point
     {
+        public ScorePoint(ILoseTimer timer) : base(timer)
+        {
+        }
 
         protected override void PlayApplyFeedback()
         {
