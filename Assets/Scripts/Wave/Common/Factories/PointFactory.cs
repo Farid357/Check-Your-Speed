@@ -32,5 +32,4 @@ namespace CheckYourSpeed.Factory
             throw new InvalidOperationException();
         }
     }
-
 }

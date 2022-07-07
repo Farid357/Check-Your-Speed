@@ -14,19 +14,17 @@ namespace CheckYourSpeed.Root
         [SerializeField] private Waves _waves;
         [SerializeField] private float _catchTime = 1.5f;
         [SerializeField] private WaveSpawnerView _waveSpawnerView;
-        private IPointsSubscriber _score;
-        private ILoseTimer _loseTimer;
 
         public override void Compose()
         {
-            _loseTimer = new LoseTimer(_catchTime);
-            _waves.Init(_loseTimer, _waveSpawner);
-            _loseTimerView.Init(_loseTimer as LoseTimer);
-            _score = new Score();
+            var loseTimer = new LoseTimer(_catchTime);
+            _waves.Init(loseTimer, _waveSpawner);
+            _loseTimerView.Init(loseTimer);
+            var score = new Score();
             _pointsPositionsSpawner.Spawn();
-            _scoreView.Init(_score as Score);
+            _scoreView.Init(score);
             _waveSpawnerView.Init(_waveSpawner);
-            _waveSpawner.Init(_score, _loseTimer, _pointsPositionsSpawner.Positions.ToArray());
+            _waveSpawner.Init(score, loseTimer, _pointsPositionsSpawner.Positions.ToArray());
         }
     }
 }
