@@ -3,11 +3,10 @@ using CheckYourSpeed.Utils;
 using CheckYourSpeed.Model;
 using System;
 using System.Collections.Generic;
-using IDisposable = CheckYourSpeed.Model.IDisposable;
 
 namespace CheckYourSpeed.GameLogic
 {
-    public sealed class PointsSpawner : MonoBehaviour, IDisposable
+    public sealed class PointsSpawner : MonoBehaviour
     {
         [SerializeField] private PointView _prefab;
         [SerializeField] private int _startCount = 5;
@@ -18,6 +17,8 @@ namespace CheckYourSpeed.GameLogic
         private Waves _waves;
         private ObjectPool<PointView> _pool;
 
+        public IEnumerable<IPointView> SpawnedPoints => _spawnedPoints;
+
         public void Init(IPointsSubscriber pointsSubscriber, Waves waves, Vector2[] positions)
         {
             _positions = positions ?? throw new ArgumentNullException(nameof(positions));
@@ -25,8 +26,6 @@ namespace CheckYourSpeed.GameLogic
             _waves = waves ?? throw new ArgumentNullException(nameof(waves));
             _pool = new ObjectPool<PointView>(_startCount, _prefab, transform);
         }
-
-        public void Dispose() => _spawnedPoints.ForEach(point => point.Disable());
 
         public void Spawn(Wave wave)
         {
@@ -39,5 +38,8 @@ namespace CheckYourSpeed.GameLogic
             pointView.SetColor(_provider.Get(randomPoint));
             pointView.Init(randomPoint);
         }
+
+        public void DisableAll() => _spawnedPoints.ForEach(point => point.Disable());
+
     }
 }

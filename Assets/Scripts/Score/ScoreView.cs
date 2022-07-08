@@ -24,8 +24,8 @@ namespace CheckYourSpeed.GameLogic
         private void Display(int count)
         {
             var startScale = _text.transform.localScale;
-            _text.text = count.ToString();
-            _text.transform.DOScale(startScale * _scaleCofficient, _scaleDelay).
+            _text.DOText(count.ToString(), 0.4f, scrambleMode: ScrambleMode.Numerals);
+            _text.DOScale(_scaleCofficient, _scaleDelay).
                 OnComplete(new TweenCallback(() => ReturnToStartScale(_text, startScale))); 
         }
 

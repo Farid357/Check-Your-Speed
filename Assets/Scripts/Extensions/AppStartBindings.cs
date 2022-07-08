@@ -6,7 +6,6 @@ namespace CheckYourSpeed.GameLogic
 {
     public sealed class AppStartBindings : MonoInstaller
     {
-        [SerializeField] private WaveSpawner _waveSpawner;
         [SerializeField] private float _catchTime = 1.5f;
 
         public override void InstallBindings()

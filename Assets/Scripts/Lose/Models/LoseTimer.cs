@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace CheckYourSpeed.Model
 {
-    public sealed class LoseTimer : ILoseTimer
+    public sealed class LoseTimer : ILoseTimer, IUpdatable
     {
         private float _time;
         private readonly float _startTime;
@@ -16,23 +15,18 @@ namespace CheckYourSpeed.Model
 
         public event Action OnEnded;
 
-        public void Reset()
-        {
-            _time = _startTime;
-            Enable();
-        }
+        public void Reset() => _time = _startTime;
 
-        public void ResetWithAdd(float time)
-        {
-            _time = _startTime + time;
-            Enable();
-        }
+        public void ResetWithAdd(float time) => _time = _startTime + time;
 
-        private async void Enable()
+        public void Update(float deltaTime)
         {
-            await Task.Delay(TimeSpan.FromSeconds(_time));
-            _time = 0;
-            OnEnded?.Invoke();
+            _time -= deltaTime;
+
+            if (_time <= 0)
+            {
+                OnEnded?.Invoke();
+            }
         }
     }
 }

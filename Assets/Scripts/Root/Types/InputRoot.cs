@@ -1,4 +1,5 @@
 ﻿using CheckYourSpeed.GameLogic;
+using CheckYourSpeed.Model;
 using UnityEngine;
 
 namespace CheckYourSpeed.Root

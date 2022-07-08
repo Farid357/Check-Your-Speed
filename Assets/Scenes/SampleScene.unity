@@ -153,7 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b911f41ca01165045a3247b028bcb6b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waveSpawner: {fileID: 877091191}
   _catchTime: 1.5
 --- !u!114 &76732567
 MonoBehaviour:
@@ -555,7 +554,9 @@ MonoBehaviour:
   _scoreView: {fileID: 558577010}
   _loseTimerView: {fileID: 737540036}
   _waves: {fileID: 877091192}
+  _catchTime: 1.5
   _waveSpawnerView: {fileID: 877091189}
+  _pointsSpawner: {fileID: 877091193}
 --- !u!4 &805216450
 Transform:
   m_ObjectHideFlags: 0
@@ -704,12 +705,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waves:
   - _pointsCountOnScreen: 2
-    _types: 00000000
-    _pointsCountInWave: 4
+    _types: 01000000
+    _pointsCountInWave: 2
     _delayAfterEnd: 10
   - _pointsCountOnScreen: 2
-    _types: 0000000000000000
-    _pointsCountInWave: 4
+    _types: 01000000
+    _pointsCountInWave: 5
     _delayAfterEnd: 4
 --- !u!114 &877091193
 MonoBehaviour:
@@ -1027,7 +1028,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 953188338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.24, y: -2.97, z: 0}
+  m_LocalPosition: {x: -2.24, y: -3.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1231,7 +1232,6 @@ GameObject:
   - component: {fileID: 2064139998}
   - component: {fileID: 2064140000}
   - component: {fileID: 2064140001}
-  - component: {fileID: 2064139999}
   m_Layer: 5
   m_Name: Ready
   m_TagString: Untagged
@@ -1259,26 +1259,6 @@ RectTransform:
   m_AnchoredPosition: {x: 1, y: -138}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &2064139999
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2064139997}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a3c2380b2d47b7e4aa13d60e46f6c311, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!222 &2064140000
 CanvasRenderer:
   m_ObjectHideFlags: 0

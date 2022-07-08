@@ -1,4 +1,5 @@
 ﻿using CheckYourSpeed.Model;
+using System;
 using UnityEngine;
 
 namespace CheckYourSpeed.GameLogic
@@ -10,13 +11,15 @@ namespace CheckYourSpeed.GameLogic
         private IPoint _point;
         private SpriteRenderer _spriteRenderer;
 
+        public event Action OnDisabled;
+
         public void Apply() => _point.Apply();
 
         private void Awake() => _spriteRenderer = GetComponent<SpriteRenderer>();
 
         public void Init(IPoint point)
         { 
-            _point = point ?? throw new System.ArgumentNullException(nameof(point));
+            _point = point ?? throw new ArgumentNullException(nameof(point));
             _point.OnApplyed += Disable;
         }
 
@@ -28,9 +31,13 @@ namespace CheckYourSpeed.GameLogic
         {
             gameObject.SetActive(false);
             Instantiate(_particle, transform.position, Quaternion.identity).Play();
+            OnDisabled?.Invoke();
         }
 
-        public void Disable() => gameObject.SetActive(false);
-
+        public void Disable()
+        {
+            gameObject.SetActive(false);
+            OnDisabled?.Invoke();
+        }
     }
 }

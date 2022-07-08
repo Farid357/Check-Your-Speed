@@ -10,19 +10,18 @@ namespace CheckYourSpeed.GameLogic
         [SerializeField] private Image _waiting;
         [SerializeField] private Image _startWave;
         [SerializeField] private float _scaleCofficient = 1.4f;
-
         private IWaveSpawner _waveSpawner;
 
         public void Init(IWaveSpawner waveSpawner)
         {
             _waveSpawner = waveSpawner ?? throw new ArgumentNullException(nameof(waveSpawner));
-            _waveSpawner.OnWaitingNextWave += ShowWaitingImage;
+            _waveSpawner.OnWaiting += ShowWaitingImage;
             _waveSpawner.OnSpawningNextWave += ShowStartWave;
         }
 
         private void OnDisable()
         {
-            _waveSpawner.OnWaitingNextWave -= ShowWaitingImage;
+            _waveSpawner.OnWaiting -= ShowWaitingImage;
             _waveSpawner.OnSpawningNextWave -= ShowStartWave;
         }
 
@@ -36,8 +35,6 @@ namespace CheckYourSpeed.GameLogic
 
         private void ShowStartWave()
         {
-            if (_waiting.gameObject.activeInHierarchy == false)
-                throw new InvalidOperationException();
             _startWave.color = new Color(_startWave.color.r, _startWave.color.g, _startWave.color.b, 1);
             _waiting.gameObject.SetActive(false);
             _startWave.gameObject.SetActive(true);
