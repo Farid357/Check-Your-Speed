@@ -706,7 +706,7 @@ MonoBehaviour:
   _waves:
   - _pointsCountOnScreen: 2
     _types: 01000000
-    _pointsCountInWave: 2
+    _pointsCountInWave: 16
     _delayAfterEnd: 10
   - _pointsCountOnScreen: 2
     _types: 01000000
@@ -745,7 +745,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &890930916
 RectTransform:
   m_ObjectHideFlags: 0
@@ -792,7 +792,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.754717, g: 0.20932715, b: 0.20932715, a: 0.392}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1046,7 +1046,6 @@ GameObject:
   - component: {fileID: 1288146662}
   - component: {fileID: 1288146665}
   - component: {fileID: 1288146664}
-  - component: {fileID: 1288146663}
   m_Layer: 5
   m_Name: LosePanel (1)
   m_TagString: Untagged
@@ -1074,18 +1073,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1288146663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1288146661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41f4eb12b2b8c254fa0d16aec985fd94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1288146664
 MonoBehaviour:
   m_ObjectHideFlags: 0

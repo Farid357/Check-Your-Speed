@@ -26,7 +26,7 @@ namespace CheckYourSpeed.Root
             var score = new Score();
             _pointsPositionsSpawner.Spawn();
             _scoreView.Init(score);
-            _waveSpawner.Spawn();
+            _waveSpawner.Spawn(true);
             _pointsSpawner.Init(score, _waves, _pointsPositionsSpawner.Positions.ToArray());
             _pointsCounter = new(_waveSpawner, _loseTimer);
             _waveSpawnerView.Init(_waveSpawner);

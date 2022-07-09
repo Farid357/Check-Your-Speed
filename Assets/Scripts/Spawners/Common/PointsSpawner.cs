@@ -3,6 +3,7 @@ using CheckYourSpeed.Utils;
 using CheckYourSpeed.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CheckYourSpeed.GameLogic
 {
@@ -39,7 +40,9 @@ namespace CheckYourSpeed.GameLogic
             pointView.Init(randomPoint);
         }
 
-        public void DisableAll() => _spawnedPoints.ForEach(point => point.Disable());
-
+        public void DisableAll()
+        {
+            _spawnedPoints.Where(point => point.Enable).ToList().ForEach(point => point.Disable());
+        }
     }
 }

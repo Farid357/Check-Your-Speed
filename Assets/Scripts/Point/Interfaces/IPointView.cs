@@ -10,5 +10,7 @@ namespace CheckYourSpeed.GameLogic
 
         public event Action OnDisabled;
 
+        public bool Enable { get; }
+
     }
 }

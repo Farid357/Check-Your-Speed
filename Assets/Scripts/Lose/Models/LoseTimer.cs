@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Text;
+using TMPro;
+using UnityEngine;
 
 namespace CheckYourSpeed.Model
 {
@@ -27,6 +30,45 @@ namespace CheckYourSpeed.Model
             {
                 OnEnded?.Invoke();
             }
+        }
+    }
+
+    public sealed class User : IUser
+    {
+        public readonly string Name;
+        public readonly string Password;
+
+        public User(string name, string password)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException($"\"{nameof(name)}\" не может быть пустым или содержать только пробел.", nameof(name));
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentException($"\"{nameof(password)}\" не может быть пустым или содержать только пробел.", nameof(password));
+            }
+
+            Name = name;
+            Password = password;
+        }
+
+        public bool IsAccountable => false;
+    }
+
+    public sealed class WithoutRegisteringUser : IUser
+    {
+        public bool IsAccountable => false;
+    }
+
+    public sealed class UserView : MonoBehaviour
+    {
+        [SerializeField] private TMP_Text _helloText;
+
+        public void Show(User user)
+        {
+            _helloText.text = $"Привет, {user.Name}!";
         }
     }
 }

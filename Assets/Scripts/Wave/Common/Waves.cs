@@ -45,7 +45,7 @@ namespace CheckYourSpeed.GameLogic
         {
             if (IsEmpty)
             {
-                var nextWave = new Wave(_lastWave.PointsCountInWave, _lastWave.Points, _lastWave.PointsCountInWave + 1, _lastWave.DelayAfterEnd);
+                var nextWave = new Wave(_lastWave.PointsCountOnScreen, _lastWave.Points, _lastWave.PointsCountInWave + 1, _lastWave.DelayAfterEnd);
                 _wavesQueue.Enqueue(nextWave);
             }
         }
