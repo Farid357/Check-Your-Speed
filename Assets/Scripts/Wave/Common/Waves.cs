@@ -28,17 +28,11 @@ namespace CheckYourSpeed.GameLogic
             return _pointFactory.Get(randomPointType);
         }
 
-        public Wave Get()
+        public Wave GetNext()
         {
             TryAdd();
             _lastWave = _wavesQueue.Peek();
             return _wavesQueue.Dequeue();
-        }
-
-        public void RemoveFirst()
-        {
-            TryAdd();
-            _wavesQueue.Dequeue();
         }
 
         private void TryAdd()

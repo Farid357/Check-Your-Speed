@@ -1,4 +1,4 @@
-﻿namespace CheckYourSpeed.Model
+﻿namespace CheckYourSpeed.Logging
 {
     public interface IUser
     {

@@ -19,6 +19,7 @@ namespace CheckYourSpeed.GameLogic
             _loseTimer = loseTimer ?? throw new ArgumentNullException(nameof(loseTimer));
             _waveSpawner = waveSpawner ?? throw new ArgumentNullException(nameof(waveSpawner));
             _waveSpawner.OnChangedWave += Count;
+            _waveSpawner.OnCleanedWave += Reset;
         }
 
         private void Count(Wave wave, IEnumerable<IPointView> spawnedPoints)
@@ -31,14 +32,14 @@ namespace CheckYourSpeed.GameLogic
 
         private void Count() => Count(_currentWave);
 
+        private void Reset() => Reset(_currentWave);
+
         private void Count(in Wave wave)
         {
             _count++;
             if (_count >= wave.PointsCountInWave)
             {
-                _loseTimer.ResetWithAdd(wave.DelayAfterEnd);
-                _count = 0;
-                _waveSpawner.SpawnWithDelay();
+                Reset(wave);
             }
 
             else if (_count == wave.PointsCountOnScreen || wave.PointsCountOnScreen.InPlusEqual(wave.PointsCountInWave, _count))
@@ -47,10 +48,18 @@ namespace CheckYourSpeed.GameLogic
             }
         }
 
+        private void Reset(in Wave wave)
+        {
+            _loseTimer.ResetWithAdd(wave.DelayAfterEnd);
+            _count = 0;
+            _waveSpawner.SpawnWithDelay();
+        }
+
         public void Dispose()
         {
             _allPoints.ForEach(point => point.OnDisabled -= Count);
             _waveSpawner.OnChangedWave -= Count;
+            _waveSpawner.OnCleanedWave -= Reset;
         }
     }
 }

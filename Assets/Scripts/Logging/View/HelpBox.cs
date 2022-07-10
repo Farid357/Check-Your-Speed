@@ -25,7 +25,7 @@ namespace CheckYourSpeed.Logging
 
         private void DisplayCheckMark() => Display(true);
 
-        public void Display(bool valid)
+        private void Display(bool valid)
         {
             _helpBox.gameObject.SetActive(!valid);
             _checkMark.gameObject.SetActive(valid);
