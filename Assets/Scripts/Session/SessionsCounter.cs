@@ -1,43 +1,48 @@
 ﻿using CheckYourSpeed.Model;
 using System;
 using IDisposable = CheckYourSpeed.Model.IDisposable;
+using UniRx;
 
-namespace CheckYourSpeed.Logging
+namespace CheckYourSpeed.Loging
 {
-    public sealed partial class SessionsCounter : IDisposable
+    public sealed class SessionsCounter : IDisposable, ISessionsCounter
     {
         private readonly IUser _user;
         private readonly LoseTimer _loseTimer;
-        private int _count;
+        private ReactiveProperty<int> _count = new();
+        private bool _hasIncreased;
 
         public SessionsCounter(LoseTimer loseTimer, IUser user)
         {
             _loseTimer = loseTimer ?? throw new ArgumentNullException(nameof(loseTimer));
             _user = user ?? throw new ArgumentNullException(nameof(user));
-            _loseTimer.OnEnded += Count;
+            _loseTimer.OnEnded += TryIncrease;
         }
 
-        public event Action<int> OnChanged;
+        public IReadOnlyReactiveProperty<int> Count => _count;
 
-        private event Action<int> _onChangedUserData;
+        public event Action<int> OnChangedUserData;
 
-        private void SetCount(int count)
+        public void SetCount(int count)
         {
-            _count = count;
-            OnChanged?.Invoke(_count);
+            if (_count.Value != 0)
+                throw new InvalidOperationException();
+            _count.Value = count;
         }
 
-        private void Count()
+        private void TryIncrease()
         {
-            _count++;
+            if (_hasIncreased)
+                return;
+
+            _hasIncreased = true;
+            _count.Value++;
             if (_user.IsAccountable)
             {
-                _onChangedUserData?.Invoke(_count);
+                OnChangedUserData?.Invoke(Count.Value);
             }
-
-            OnChanged?.Invoke(_count);
         }
 
-        public void Dispose() => _loseTimer.OnEnded -= Count;
+        public void Dispose() => _loseTimer.OnEnded -= TryIncrease;
     }
 }

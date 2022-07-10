@@ -8,7 +8,7 @@ namespace CheckYourSpeed.GameLogic
 {
     public sealed class LoseTimerView : MonoBehaviour
     {
-        [SerializeField] private LosePanel _panel;
+        [SerializeField] private LoseWindow _panel;
         [SerializeField] private float _delay = 0.9f;
         [SerializeField] private Color _loseColor = Color.red;
         [SerializeField] private Image _loseImage;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CheckYourSpeed.Logging
+namespace CheckYourSpeed.Loging
 {
     [Serializable]
     public sealed class User : IUser

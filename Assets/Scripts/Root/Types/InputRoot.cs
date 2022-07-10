@@ -1,16 +1,29 @@
-﻿using CheckYourSpeed.GameLogic;
-using CheckYourSpeed.Model;
-using UnityEngine;
+﻿using UnityEngine;
+using CheckYourSpeed.App;
+using CheckYourSpeed.GameLogic;
 
 namespace CheckYourSpeed.Root
 {
-    public sealed class InputRoot : CompositeRoot
+    public sealed class InputRoot : MonoBehaviour
     {
-        private IUpdatable _updatable;
+        [SerializeField] private PauseButton _pauseButton;
+        [SerializeField] private ContinueButton _continueButton;
+        private GameState _gameState;
+        private PointerInput _input;
 
-        public override void Compose() => _updatable = new PointerInput(Camera.main);
+        public void Init(GameState gameState)
+        {
+            _gameState = gameState ?? throw new System.ArgumentNullException(nameof(gameState));
+            _input = new PointerInput(Camera.main, gameState);
+        }
 
-        private void Update() => _updatable.Update(Time.deltaTime);
+        public void Compose()
+        {
+            _pauseButton.Init(_gameState);
+            _continueButton.Init(_gameState);
+        }
+
+        private void Update() => _input.Update(Time.deltaTime);
 
     }
 }

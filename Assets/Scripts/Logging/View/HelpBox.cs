@@ -1,24 +1,24 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace CheckYourSpeed.Logging
+namespace CheckYourSpeed.Loging
 {
     public sealed class HelpBox : MonoBehaviour
     {
-        [SerializeField] private FakeLogging _logging;
+        [SerializeField] private LogInField _logging;
         [SerializeField] private GameObject _helpBox;
         [SerializeField] private Image _checkMark;
 
         private void OnEnable()
         {
             _logging.OnFoundInvalidSymbols += DisplayBox;
-            _logging.OnLogged += DisplayCheckMark;
+            _logging.OnWrote += DisplayCheckMark;
         }
 
         private void OnDisable()
         {
             _logging.OnFoundInvalidSymbols -= DisplayBox;
-            _logging.OnLogged -= DisplayCheckMark;
+            _logging.OnWrote -= DisplayCheckMark;
         }
 
         private void DisplayBox() => Display(false);

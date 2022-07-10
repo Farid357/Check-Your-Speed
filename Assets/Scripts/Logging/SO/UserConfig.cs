@@ -1,7 +1,7 @@
 ﻿using CheckYourSpeed.Model;
 using UnityEngine;
 
-namespace CheckYourSpeed.Logging
+namespace CheckYourSpeed.Loging
 {
     [CreateAssetMenu(fileName = "User Config", menuName = "Create/User Config")]
     public sealed class UserConfig : ScriptableObject, IUserConfig

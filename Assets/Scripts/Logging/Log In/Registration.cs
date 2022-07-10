@@ -1,5 +1,6 @@
-﻿namespace CheckYourSpeed.Logging
+﻿namespace CheckYourSpeed.Loging
 {
-    public sealed class Registration : UserLoggIn { }
-
+    public sealed class Registration : UserLogIn
+    {
+    }
 }

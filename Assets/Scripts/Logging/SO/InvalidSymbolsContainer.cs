@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace CheckYourSpeed.Logging
+namespace CheckYourSpeed.Loging
 {
     [CreateAssetMenu(fileName = "Symbols", menuName = "Create/Invalid Symbols")]
     public sealed class InvalidSymbolsContainer : ScriptableObject

@@ -1,24 +1,26 @@
 ﻿using DG.Tweening;
 using System;
 using TMPro;
+using UniRx;
 using UnityEngine;
 
-namespace CheckYourSpeed.Logging
+namespace CheckYourSpeed.Loging
 {
     public sealed class SessionsCounterView : MonoBehaviour
     {
         [SerializeField] private TMP_Text _text;
         [SerializeField] private float _duration;
 
-        private SessionsCounter _sessionsCounter;
+        private ISessionsCounter _sessionsCounter;
+        private readonly CompositeDisposable _disposables = new();
 
-        public void Init(SessionsCounter sessionsCounter)
+        public void Init(ISessionsCounter sessionsCounter)
         {
             _sessionsCounter = sessionsCounter ?? throw new ArgumentNullException(nameof(sessionsCounter));
-            _sessionsCounter.OnChanged += Display;
+            _sessionsCounter.Count.Subscribe(count => Display(count)).AddTo(_disposables);
         }
 
-        private void OnDisable() => _sessionsCounter.OnChanged -= Display;
+        private void OnDestroy() => _disposables.Clear();
 
         private void Display(int count)
         {
