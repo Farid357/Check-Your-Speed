@@ -27,7 +27,7 @@ namespace CheckYourSpeed.Root
             _close.onClick.AddListener(Close);
             _config.SetUser(new WithoutRegisteringUser());
             _userLoggIn.Init(loggings => loggings.HasNotAny(logging => logging.Invalid) && loggings.All(l => l.NotEmpty),
-             users => users.Any(user => user.Name == _nameLogging.Text == true));
+             users => CheckUsers(users));
             var logginStorage = new LoggIn.UserLogginStorage(new BinaryStorage(), _userLoggIn);
             var sessionsCounter = new SessionsCounter(new LoseTimer(1), new WithoutRegisteringUser());
             var sessionStorage = new SessionsCounter.Storage(sessionsCounter, new BinaryStorage());
@@ -35,8 +35,15 @@ namespace CheckYourSpeed.Root
             _registration.Init(loggin => true, user => true);
             var registrationStorage = new Registration.UserLogginStorage(new BinaryStorage(), _registration);
             _disposables.AddRange(new List<IDisposable> { sessionsCounter, sessionStorage, logginStorage, registrationStorage });
-            _userLoggIn.OnFoundUser += ChangeUser;
-            _registration.OnFoundUser += ChangeUser;
+            _userLoggIn.OnChangedUser += ChangeUser;
+            _registration.OnChangedUser += ChangeUser;
+        }
+
+        private bool CheckUsers(List<User> users)
+        {
+            if (users == null)
+                return false;
+            return users.Any(user => user.Name == _nameLogging.Text);
         }
 
         private void Close()
@@ -54,8 +61,8 @@ namespace CheckYourSpeed.Root
         private void OnDisable()
         {
             _disposables.ForEach(disposable => disposable.Dispose());
-            _userLoggIn.OnFoundUser -= ChangeUser;
-            _registration.OnFoundUser -= ChangeUser;
+            _userLoggIn.OnChangedUser -= ChangeUser;
+            _registration.OnChangedUser -= ChangeUser;
         }
 
         private void OnDestroy() => _close.onClick.RemoveListener(Close);

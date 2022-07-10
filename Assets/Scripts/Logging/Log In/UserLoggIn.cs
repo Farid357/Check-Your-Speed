@@ -43,7 +43,6 @@ namespace CheckYourSpeed.Logging
             {
                 if (_userPredicate.Invoke(_users))
                 {
-                    Debug.Log("log");
                     LogIn();
                 }
             }
@@ -53,7 +52,7 @@ namespace CheckYourSpeed.Logging
         {
             var user = new User(_nameLogging.Text, _passwordLogging.Text);
             _users.Add(user);
-            _onChangedData?.Invoke(_lastUser, _users);
+            _onChangedData?.Invoke(user, _users);
             OnChangedUser?.Invoke(user);
         }
     }

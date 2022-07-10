@@ -1,5 +1,4 @@
-﻿using CheckYourSpeed.Model;
-using CheckYourSpeed.SaveSystem;
+﻿using CheckYourSpeed.SaveSystem;
 using System;
 using System.Collections.Generic;
 
@@ -19,8 +18,9 @@ namespace CheckYourSpeed.Logging
             {
                 _storage = storage ?? throw new ArgumentNullException(nameof(storage));
                 _userLoggIn = userLoggIn ?? throw new ArgumentNullException(nameof(userLoggIn));
-                _userLoggIn._users = _storage.Load<List<User>>(UsersPath);
-                _userLoggIn._lastUser = _storage.Load<User>(LastUser);
+
+                _userLoggIn._users = _storage.Exists(UsersPath) ? _storage.Load<List<User>>(UsersPath) : new();
+                _userLoggIn._lastUser = _storage.Exists(UsersPath) ? _storage.Load<User>(LastUser) : null;
                 _userLoggIn._onChangedData += Save;
             }
 
