@@ -23,9 +23,6 @@ namespace CheckYourSpeed.Logging
 
         private void Start()
         {
-            _loggings.AddRange(new List<FakeLogging> { _nameLogging, _passwordLogging });
-            _logButton.onClick.AddListener(TryLogIn);
-
             if (_lastUser != null)
             {
                 OnFoundUser?.Invoke(_lastUser);
@@ -36,14 +33,14 @@ namespace CheckYourSpeed.Logging
         {
             _loggingPredicate = predicate ?? throw new ArgumentNullException(nameof(predicate));
             _userPredicate = userPredicate ?? throw new ArgumentNullException(nameof(userPredicate));
+            _loggings.AddRange(new List<FakeLogging> { _nameLogging, _passwordLogging });
+            _logButton.onClick.AddListener(TryLogIn);
         }
 
         private void TryLogIn()
         {
             if (_loggingPredicate.Invoke(_loggings))
             {
-                Debug.Log("log In pred");
-
                 if (_userPredicate.Invoke(_users))
                 {
                     Debug.Log("log");

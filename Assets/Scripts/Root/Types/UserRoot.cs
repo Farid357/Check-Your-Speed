@@ -26,8 +26,8 @@ namespace CheckYourSpeed.Root
         {
             _close.onClick.AddListener(Close);
             _config.SetUser(new WithoutRegisteringUser());
-            _userLoggIn.Init(loggings => loggings.All(logging => logging.Invalid == false),
-             users => users.Any(user => user.Name == _nameLogging.Text == false));
+            _userLoggIn.Init(loggings => loggings.HasNotAny(logging => logging.Invalid) && loggings.All(l => l.NotEmpty),
+             users => users.Any(user => user.Name == _nameLogging.Text == true));
             var logginStorage = new LoggIn.UserLogginStorage(new BinaryStorage(), _userLoggIn);
             var sessionsCounter = new SessionsCounter(new LoseTimer(1), new WithoutRegisteringUser());
             var sessionStorage = new SessionsCounter.Storage(sessionsCounter, new BinaryStorage());
@@ -45,7 +45,11 @@ namespace CheckYourSpeed.Root
             _logginView.DisableUserUI();
         }
 
-        private void ChangeUser(IUser user) => _config.SetUser(user);
+        private void ChangeUser(IUser user)
+        {
+            _config.SetUser(user);
+            _logginView.DisableUserUI();
+        }
 
         private void OnDisable()
         {

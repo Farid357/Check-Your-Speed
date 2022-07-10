@@ -22,7 +22,6 @@ namespace CheckYourSpeed.Logging
             {
                 if(text.Contains(symbol))
                 {
-                    Debug.Log("c");
                     count++;
                 }
             }

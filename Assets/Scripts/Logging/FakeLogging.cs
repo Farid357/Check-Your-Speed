@@ -13,6 +13,8 @@ namespace CheckYourSpeed.Logging
         public string Text { get; private set; }
         public bool Invalid { get; private set; } = true;
 
+        public bool NotEmpty => !string.IsNullOrEmpty(Text);
+
         public event Action OnFoundInvalidSymbols;
         public event Action OnLogged;
 
@@ -27,7 +29,7 @@ namespace CheckYourSpeed.Logging
 
             Invalid = _container.IsInvalidText(text);
 
-            if (Invalid)
+            if (Invalid || NotEmpty == false)
             {
                 OnFoundInvalidSymbols?.Invoke();
             }
