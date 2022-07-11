@@ -6,7 +6,7 @@ namespace CheckYourSpeed.Loging
     [CreateAssetMenu(fileName = "User Config", menuName = "Create/User Config")]
     public sealed class UserConfig : ScriptableObject, IUserConfig
     {
-        public IUser _user;
+        private IUser _user;
 
         public void SetUser(IUser user)
         {

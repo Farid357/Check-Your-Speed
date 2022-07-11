@@ -21,7 +21,7 @@ namespace CheckYourSpeed.Loging
 
         public IReadOnlyReactiveProperty<int> Count => _count;
 
-        public event Action<int> OnChangedUserData;
+        public event Action<User, int> OnChangedUserData;
 
         public void SetCount(int count)
         {
@@ -39,7 +39,7 @@ namespace CheckYourSpeed.Loging
             _count.Value++;
             if (_user.IsAccountable)
             {
-                OnChangedUserData?.Invoke(Count.Value);
+                OnChangedUserData?.Invoke(_user as User, Count.Value);
             }
         }
 

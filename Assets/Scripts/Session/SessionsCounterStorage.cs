@@ -14,13 +14,31 @@ namespace CheckYourSpeed.Loging
         {
             _counter = counter ?? throw new ArgumentNullException(nameof(counter));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
-            _counter.SetCount(_storage.Load<int>(Path));
+            var data = _storage.Load<Data>(Path);
+
+            if (data.User != null)
+                _counter.SetCount(data.Count);
             _counter.OnChangedUserData += Save;
         }
 
-        private void Save(int count) => _storage.Save(Path, count);
+        private void Save(User user, int count)
+        {
+            var data = new Data (user, count);
+            _storage.Save(Path, data);
+        }
 
         public void Dispose() => _counter.OnChangedUserData -= Save;
 
+        private class Data
+        {
+            public readonly User User;
+            public readonly int Count;
+
+            public Data(User user, int count)
+            {
+                User = user ?? throw new ArgumentNullException(nameof(user));
+                Count = count;
+            }
+        }
     }
 }

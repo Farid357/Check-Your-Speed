@@ -17,7 +17,11 @@ namespace CheckYourSpeed.Loging
         public event Action OnFoundInvalidSymbols;
         public event Action OnWrote;
 
-        private void Awake() => _inputField.onEndEdit.AddListener(Validate);
+        private void Awake()
+        {
+            _inputField.onEndEdit.AddListener(Validate);
+            OnFoundInvalidSymbols?.Invoke();
+        }
 
         private void Validate(string text)
         {

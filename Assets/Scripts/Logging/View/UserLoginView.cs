@@ -2,7 +2,7 @@
 
 namespace CheckYourSpeed.Loging
 {
-    public sealed class UserLoginView : MonoBehaviour
+    public sealed class UserLogInView : MonoBehaviour
     {
         [SerializeField] private Canvas _userCanvas;
         [SerializeField] private Canvas _menuCanvas;
