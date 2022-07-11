@@ -690,12 +690,12 @@ MonoBehaviour:
   _scoreView: {fileID: 558577010}
   _loseTimerView: {fileID: 737540036}
   _waves: {fileID: 877091192}
-  _catchTime: 1.5
   _waveSpawnerView: {fileID: 877091189}
   _pointsSpawner: {fileID: 877091193}
   _userConfig: {fileID: 11400000, guid: ea673605f1a2979419825b9efe759881, type: 2}
   _counterView: {fileID: 805216455}
   _inputRoot: {fileID: 805216456}
+  _difficultyConfig: {fileID: 11400000, guid: 430e1db90d0727748b525ead9d62baff, type: 2}
 --- !u!4 &805216450
 Transform:
   m_ObjectHideFlags: 0

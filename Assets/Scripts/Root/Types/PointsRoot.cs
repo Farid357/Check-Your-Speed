@@ -6,6 +6,7 @@ using CheckYourSpeed.Loging;
 using CheckYourSpeed.SaveSystem;
 using System.Collections.Generic;
 using CheckYourSpeed.App;
+using CheckYourSpeed.Settings;
 
 namespace CheckYourSpeed.Root
 {
@@ -16,12 +17,12 @@ namespace CheckYourSpeed.Root
         [SerializeField] private ScoreView _scoreView;
         [SerializeField] private LoseTimerView _loseTimerView;
         [SerializeField] private Waves _waves;
-        [SerializeField] private float _catchTime = 1.5f;
         [SerializeField] private WaveSpawnerView _waveSpawnerView;
         [SerializeField] private PointsSpawner _pointsSpawner;
         [SerializeField] private UserConfig _userConfig;
         [SerializeField] private SessionsCounterView _counterView;
         [SerializeField] private InputRoot _inputRoot;
+        [SerializeField] private DifficultyConfig _difficultyConfig;
 
         private readonly List<IDisposable> _disposables = new();
         private PointsCounter _pointsCounter;
@@ -29,7 +30,7 @@ namespace CheckYourSpeed.Root
 
         public override void Compose()
         {
-            _loseTimer = new LoseTimer(_catchTime);
+            _loseTimer = new LoseTimer(_difficultyConfig.GetSelected().CatchTime);
             IUser user = _userConfig.GetUser();
             var gameState = new GameState(_loseTimer);
             _inputRoot.Init(gameState);
