@@ -1,40 +1,37 @@
 ﻿using CheckYourSpeed.SaveSystem;
 using System;
-using IDisposable = CheckYourSpeed.Model.IDisposable;
 
 namespace CheckYourSpeed.Loging
 {
-    public sealed class SessionsCounterStorage : IDisposable
+    public sealed class SessionsCounterStorage
     {
-        private readonly SessionsCounter _counter;
         private readonly IStorage _storage;
-        private const string Path = "Attempts";
+        private const string Path = "AttemptCount";
 
-        public SessionsCounterStorage(SessionsCounter counter, IStorage storage)
+        public SessionsCounterStorage(IStorage storage)
         {
-            _counter = counter ?? throw new ArgumentNullException(nameof(counter));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
-            var data = _storage.Load<Data>(Path);
-
-            if (data.User != null)
-                _counter.SetCount(data.Count);
-            _counter.OnChangedUserData += Save;
         }
 
-        private void Save(User user, int count)
+        public int Load()
         {
-            var data = new Data (user, count);
+            var data = _storage.Load<UserData>(Path);
+            return data.User != null ? data.Count : 0;
+        }
+
+        public void Save(IUser user, int count)
+        {
+            var data = new UserData(user, count);
             _storage.Save(Path, data);
         }
 
-        public void Dispose() => _counter.OnChangedUserData -= Save;
-
-        private class Data
+        [Serializable]
+        private readonly struct UserData
         {
-            public readonly User User;
+            public readonly IUser User;
             public readonly int Count;
 
-            public Data(User user, int count)
+            public UserData(IUser user, int count)
             {
                 User = user ?? throw new ArgumentNullException(nameof(user));
                 Count = count;

@@ -4694,7 +4694,7 @@ MonoBehaviour:
   _logInNameField: {fileID: 1694017869}
   _config: {fileID: 11400000, guid: ea673605f1a2979419825b9efe759881, type: 2}
   _close: {fileID: 1849427390}
-  _logginView: {fileID: 1345154073}
+  _loggInView: {fileID: 1345154073}
   _registrationView: {fileID: 1124517035}
   _passwordField: {fileID: 418114196}
 --- !u!4 &1246354557

@@ -21,29 +21,31 @@ namespace CheckYourSpeed.Root
         [SerializeField] private UserLogInView _loggInView;
         [SerializeField] private UserLogInView _registrationView;
         [SerializeField] private PasswordField _passwordField;
+        [SerializeField] private NotFoundUserText[] _notFoundUserTexts;
 
         private readonly List<IDisposable> _disposables = new();
 
         public override void Compose()
         {
+            _notFoundUserTexts.ToList().ForEach(text => text.Enable());
             _close.onClick.AddListener(Close);
             _config.SetUser(new WithoutRegisteringUser());
+            var loginStorage = new UserLogInStorage(new BinaryStorage());
             _userLogIn.Init(logings => logings.HasNotAny(loging => loging.Invalid) && logings.All(l => l.NotEmpty),
-             users => CheckUsers(users));
-            var loginStorage = new UserLogInStorage(new BinaryStorage(), _userLogIn);
-            var sessionsCounter = new SessionsCounter(new LoseTimer(1), new WithoutRegisteringUser());
-            var sessionStorage = new SessionsCounterStorage(sessionsCounter, new BinaryStorage());
+             users => HaveAnyCorrectUserFrom(users), loginStorage);
+            var sessionStorage = new SessionsCounterStorage(new BinaryStorage());
+            var sessionsCounter = new SessionsCounter(new LoseTimer(1), new WithoutRegisteringUser(), sessionStorage);
             _loggInView.Init(_userLogIn);
             _sessionsCounterView.Init(sessionsCounter);
-            _registration.Init(loggin => true, user => true);
-            var registrationStorage = new UserLogInStorage(new BinaryStorage(), _registration);
+            var registrationStorage = new UserLogInStorage(new BinaryStorage());
+            _registration.Init(loggin => true, user => true, registrationStorage);
             _registrationView.Init(_registration);
-            _disposables.AddRange(new List<IDisposable> { sessionsCounter, sessionStorage, loginStorage, registrationStorage });
+            _disposables.AddRange(new List<IDisposable> { sessionsCounter });
             _userLogIn.OnFoundUser += ChangeUser;
             _registration.OnFoundUser += ChangeUser;
         }
 
-        private bool CheckUsers(List<User> users)
+        private bool HaveAnyCorrectUserFrom(List<User> users)
         {
             if (users == null)
                 return false;

@@ -34,8 +34,8 @@ namespace CheckYourSpeed.Root
             var gameState = new GameState(_loseTimer);
             _inputRoot.Init(gameState);
             _inputRoot.Compose();
-            var sessionCounter = new SessionsCounter(_loseTimer, user);
-            var sessionStorage = new SessionsCounterStorage(sessionCounter, new BinaryStorage());
+            var sessionStorage = new SessionsCounterStorage(new PlayerPrefsStorage());
+            var sessionCounter = new SessionsCounter(_loseTimer, user, sessionStorage);
             _counterView.Init(sessionCounter);
             _waves.Init(_loseTimer, _waveSpawner);
             _loseTimerView.Init(_loseTimer);
@@ -46,7 +46,7 @@ namespace CheckYourSpeed.Root
             _pointsSpawner.Init(score, _waves, _pointsPositionsSpawner.Positions.ToArray());
             _pointsCounter = new(_waveSpawner, _loseTimer);
             _waveSpawnerView.Init(_waveSpawner);
-            _disposables.AddRange(new List<IDisposable> { _pointsCounter, gameState, sessionStorage });
+            _disposables.AddRange(new List<IDisposable> { _pointsCounter, gameState });
         }
 
         private void Update() => _loseTimer.Update(Time.deltaTime);

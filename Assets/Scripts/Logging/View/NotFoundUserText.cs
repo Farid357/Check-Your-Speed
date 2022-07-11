@@ -12,7 +12,7 @@ namespace CheckYourSpeed.Loging
         [SerializeField] private float _showDelay = 1.8f;
         private TMP_Text _text;
 
-        private void Start()
+        public void Enable()
         {
             _text = GetComponent<TMP_Text>();
             _userLogIn.OnNotFoundUser += Display;
@@ -20,15 +20,10 @@ namespace CheckYourSpeed.Loging
 
         private void OnDestroy() => _userLogIn.OnNotFoundUser -= Display;
 
-        private void Display()
-        {
-            Debug.Log("Disla");
-            DisplayText();
-        }
+        private void Display() => DisplayText();
 
         private async UniTaskVoid DisplayText()
         {
-            Debug.Log("ld");
             _text.gameObject.SetActive(true);
             await UniTask.Delay(TimeSpan.FromSeconds(_showDelay));
             _text.gameObject.SetActive(false);
