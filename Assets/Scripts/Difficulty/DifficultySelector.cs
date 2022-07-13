@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using CheckYourSpeed.SaveSystem;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -9,17 +10,15 @@ namespace CheckYourSpeed.Settings
         [SerializeField] private TMP_Dropdown _dropdown;
         [SerializeField] private DifficultyConfig _config;
         private Difficulties _difficulties;
+        private IStorage _storage;
 
-        public void Init(Difficulties difficulties)
+        private const string Path = "SelectedDifficulty";
+
+        public void Init(Difficulties difficulties, IStorage storage)
         {
-            var difficultyName = _config.GetSelected().Name;
-
-            if (_dropdown.captionText.text != difficultyName)
-            {
-                _dropdown.captionText.text = difficultyName;
-            }
-
             _difficulties = difficulties ?? throw new System.ArgumentNullException(nameof(difficulties));
+            _storage = storage ?? throw new System.ArgumentNullException(nameof(storage));
+            _dropdown.value = _storage.Load<int>(Path);
             _dropdown.onValueChanged.AddListener(Select);
         }
 
@@ -29,6 +28,11 @@ namespace CheckYourSpeed.Settings
         {
             var difficulty = _difficulties.All.ElementAt(index);
             _config.SetSelectedDifficulty(difficulty);
+
+            if (index != 0)
+            {
+                _storage.Save(Path, index);
+            }
         }
     }
 }

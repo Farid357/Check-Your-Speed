@@ -35,7 +35,7 @@ namespace CheckYourSpeed.Root
             var gameState = new GameState(_loseTimer);
             _inputRoot.Init(gameState);
             _inputRoot.Compose();
-            var sessionStorage = new SessionsCounterStorage(new PlayerPrefsStorage());
+            var sessionStorage = new SessionsCounterStorage(new BinaryStorage());
             var sessionCounter = new SessionsCounter(_loseTimer, user, sessionStorage);
             _counterView.Init(sessionCounter);
             _waves.Init(_loseTimer, _waveSpawner);

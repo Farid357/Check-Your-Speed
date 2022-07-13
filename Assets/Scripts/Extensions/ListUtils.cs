@@ -8,7 +8,7 @@ namespace CheckYourSpeed.Utils
     {
         public static bool HasNotAny<T>(this List<T> list, Func<T, bool> predicate)
         {
-            return list.Any(item => predicate.Invoke(item) == false);
+            return list.Any(item => predicate.Invoke(item)) == false;
         }
     }
 }

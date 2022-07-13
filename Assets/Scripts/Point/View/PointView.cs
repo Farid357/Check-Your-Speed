@@ -16,34 +16,33 @@ namespace CheckYourSpeed.GameLogic
 
         public event Action OnDisabled { add => _onDisabled = value; remove => _onDisabled -= value; }
 
-        private void Awake() => _spriteRenderer = GetComponent<SpriteRenderer>();
+        private void Awake() => _spriteRenderer ??= GetComponent<SpriteRenderer>();
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             if (_point != null)
                 _point.OnApplyed -= Disable;
         }
 
-        public void Init(IPoint point)
+        public void Init(IPoint point, Color color)
         {
             _point = point ?? throw new ArgumentNullException(nameof(point));
             _point.OnApplyed += Disable;
+            _spriteRenderer.color = color;
         }
+
         public void Apply() => _point.Apply();
-
-        public void SetColor(Color color) => _spriteRenderer.color = color;
-
-
-        private void Disable(IPoint point)
-        {
-            Instantiate(_particle, transform.position, Quaternion.identity).Play();
-            Disable();
-        }
 
         public void Disable()
         {
+            Instantiate(_particle, transform.position, Quaternion.identity).Play();
             gameObject.SetActive(false);
+        }
+
+        private void Disable(IPoint point)
+        {
             _onDisabled?.Invoke();
+            Disable();
         }
     }
 }

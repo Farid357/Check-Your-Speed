@@ -11,7 +11,7 @@ namespace CheckYourSpeed.SaveSystem
         {
             if (Exists(path))
             {
-                string saveJson = File.ReadAllText(path);
+                var saveJson = File.ReadAllText(path);
                 return JsonUtility.FromJson<T>(saveJson);
             }
             return default;
@@ -19,7 +19,7 @@ namespace CheckYourSpeed.SaveSystem
 
         public void Save<T>(string path, T saveObject)
         {
-            var saveJson = JsonUtility.ToJson(path);
+            var saveJson = JsonUtility.ToJson(saveObject);
             File.WriteAllText(path, saveJson);
         }
     }

@@ -17,13 +17,13 @@ namespace CheckYourSpeed.Loging
 
         private void OnDestroy() => _userFinder.OnFoundUser -= Display;
 
+        public void DisableUserUI() => ShowMenu();
+
         private void Display(User user)
         {
             _userView.Show(user);
             ShowMenu();
         }
-
-        public void DisableUserUI() => ShowMenu();
 
         private void ShowMenu()
         {

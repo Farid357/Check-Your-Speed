@@ -36,8 +36,7 @@ namespace CheckYourSpeed.GameLogic
             pointView.transform.position = new Vector2().GetRandomPointFrom(_positions);
             _spawnedPoints.Add(pointView);
             pointView.gameObject.SetActive(true);
-            pointView.SetColor(_provider.Get(randomPoint));
-            pointView.Init(randomPoint);
+            pointView.Init(randomPoint, _provider.Get(randomPoint));
         }
 
         public void DisableAll()

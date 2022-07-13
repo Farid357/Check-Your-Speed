@@ -10,7 +10,7 @@ namespace CheckYourSpeed.SaveSystem
         {
             if (Exists(key))
             {
-                string loadJson = PlayerPrefs.GetString(key);
+                var loadJson = PlayerPrefs.GetString(key);
                 return JsonUtility.FromJson<T>(loadJson);
             }
             return default;

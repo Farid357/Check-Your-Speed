@@ -22,6 +22,7 @@ namespace CheckYourSpeed.Root
         [SerializeField] private UserLogInView _registrationView;
         [SerializeField] private PasswordField _passwordField;
         [SerializeField] private NotFoundUserText[] _notFoundUserTexts;
+        [SerializeField] private NameField _registrationField;
 
         private readonly List<IDisposable> _disposables = new();
 
@@ -38,7 +39,7 @@ namespace CheckYourSpeed.Root
             _loggInView.Init(_userLogIn);
             _sessionsCounterView.Init(sessionsCounter);
             var registrationStorage = new UserLogInStorage(new BinaryStorage());
-            _registration.Init(loggin => true, user => true, registrationStorage);
+            _registration.Init(loggins => true, users => users.HasNotAny(user => user.Name.Equals(_registrationField.Text)), registrationStorage);
             _registrationView.Init(_registration);
             _disposables.AddRange(new List<IDisposable> { sessionsCounter });
             _userLogIn.OnFoundUser += ChangeUser;
@@ -61,6 +62,9 @@ namespace CheckYourSpeed.Root
 
         private void ChangeUser(IUser user)
         {
+            var sessionStorage = new SessionsCounterStorage(new BinaryStorage());
+            var sessionsCounter = new SessionsCounter(new LoseTimer(1), user, sessionStorage);
+            _sessionsCounterView.Init(sessionsCounter);
             _config.SetUser(user);
             _loggInView.DisableUserUI();
         }

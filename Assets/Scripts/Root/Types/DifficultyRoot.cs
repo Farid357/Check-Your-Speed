@@ -1,4 +1,5 @@
-﻿using CheckYourSpeed.Settings;
+﻿using CheckYourSpeed.SaveSystem;
+using CheckYourSpeed.Settings;
 using UnityEngine;
 
 namespace CheckYourSpeed.Root
@@ -12,7 +13,7 @@ namespace CheckYourSpeed.Root
         public override void Compose()
         {
             _dropdown.Init(_difficulties);
-            _selector.Init(_difficulties);
+            _selector.Init(_difficulties, new BinaryStorage());
         }
     }
 }

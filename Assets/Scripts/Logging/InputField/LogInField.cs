@@ -9,7 +9,8 @@ namespace CheckYourSpeed.Loging
         [SerializeField] private TMP_InputField _inputField;
         [SerializeField] private InvalidSymbolsContainer _container;
 
-        public string Text { get; private set; }
+        public string Text => _inputField.text;
+
         public bool Invalid { get; private set; } = true;
 
         public bool NotEmpty => !string.IsNullOrWhiteSpace(Text);
@@ -25,7 +26,6 @@ namespace CheckYourSpeed.Loging
 
         private void Validate(string text)
         {
-            Text = text;
             Invalid = _container.IsInvalidText(text);
 
             if (Invalid || string.IsNullOrWhiteSpace(Text))

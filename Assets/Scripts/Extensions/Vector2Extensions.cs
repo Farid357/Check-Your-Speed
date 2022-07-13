@@ -13,6 +13,9 @@ namespace CheckYourSpeed.Utils
 
         public static Vector2 GetRandomPointFrom(this Vector2 vector, Vector2[] points)
         {
+            if (_point != null)
+                _previousPoint = _point;
+
             if (points is null)
             {
                 throw new System.ArgumentNullException(nameof(points));

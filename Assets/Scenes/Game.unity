@@ -1006,12 +1006,28 @@ MonoBehaviour:
   _waves:
   - _pointsCountOnScreen: 2
     _types: 01000000
-    _pointsCountInWave: 16
-    _delayAfterEnd: 10
+    _pointsCountInWave: 10
+    _delayAfterEnd: 4
   - _pointsCountOnScreen: 2
     _types: 01000000
-    _pointsCountInWave: 5
-    _delayAfterEnd: 4
+    _pointsCountInWave: 12
+    _delayAfterEnd: 5
+  - _pointsCountOnScreen: 2
+    _types: 01000000
+    _pointsCountInWave: 12
+    _delayAfterEnd: 6
+  - _pointsCountOnScreen: 3
+    _types: 01000000
+    _pointsCountInWave: 12
+    _delayAfterEnd: 6
+  - _pointsCountOnScreen: 3
+    _types: 0100000000000000
+    _pointsCountInWave: 12
+    _delayAfterEnd: 6
+  - _pointsCountOnScreen: 4
+    _types: 0100000000000000
+    _pointsCountInWave: 12
+    _delayAfterEnd: 6
 --- !u!114 &877091193
 MonoBehaviour:
   m_ObjectHideFlags: 0
