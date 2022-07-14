@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace CheckYourSpeed.GameLogic
+namespace CheckYourSpeed.Model
 {
-    public interface IInput
+    public interface IPointInput
     {
         public event Action<IPointView> OnInputed;
     }

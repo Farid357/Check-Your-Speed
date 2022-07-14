@@ -8,6 +8,7 @@ namespace CheckYourSpeed.GameLogic
         [SerializeField] private int _xCount;
         [SerializeField] private int _yCount;
         [SerializeField] private float _offset = 0.5f;
+        [SerializeField] private PointPositionPrimitive _primitive;
 
         private readonly List<Vector2> _positions = new();
 
@@ -21,8 +22,8 @@ namespace CheckYourSpeed.GameLogic
             {
                 for (int y = 0; y < _yCount; y++)
                 {
-                    var point = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     var position = new Vector2(StartPosition.x + (x * _offset), StartPosition.y + (y * _offset));
+                    var point = Instantiate(_primitive, position, Quaternion.identity);
                     point.transform.position = position;
                     point.gameObject.SetActive(false);
                     _positions.Add(point.transform.position);

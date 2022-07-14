@@ -14,6 +14,8 @@ namespace CheckYourSpeed.GameLogic
 
         public bool Enable => gameObject.activeInHierarchy;
 
+        public Vector3 Position => transform.position;
+
         public event Action OnDisabled { add => _onDisabled = value; remove => _onDisabled -= value; }
 
         private void Awake() => _spriteRenderer ??= GetComponent<SpriteRenderer>();

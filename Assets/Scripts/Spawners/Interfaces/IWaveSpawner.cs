@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CheckYourSpeed.Model;
+using System;
 using System.Collections.Generic;
 
 namespace CheckYourSpeed.GameLogic

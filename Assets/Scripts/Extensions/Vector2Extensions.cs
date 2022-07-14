@@ -16,7 +16,7 @@ namespace CheckYourSpeed.Utils
             if (_point != null)
                 _previousPoint = _point;
 
-            if (points is null)
+            if (points is null || points.Length == 0)
             {
                 throw new System.ArgumentNullException(nameof(points));
             }

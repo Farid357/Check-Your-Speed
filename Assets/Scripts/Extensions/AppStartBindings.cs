@@ -6,12 +6,13 @@ namespace CheckYourSpeed.GameLogic
 {
     public sealed class AppStartBindings : MonoInstaller
     {
-        [SerializeField] private float _catchTime = 1.5f;
+        [SerializeField] private PointsRandomPositionsSpawner _randomPositionsSpawner;
 
         public override void InstallBindings()
         {
-            var timer = new LoseTimer(_catchTime);
-            Container.BindInterfacesTo<LoseTimer>().FromInstance(timer).AsSingle();
+            Container.BindInterfacesAndSelfTo<PointsRandomPositionsSpawner>().FromInstance(_randomPositionsSpawner).AsSingle();
+            var pointsSwicth = new PointsSwitch(_randomPositionsSpawner);
+            Container.BindInterfacesAndSelfTo<PointsSwitch>().FromInstance(pointsSwicth).AsSingle();
         }
     }
 }

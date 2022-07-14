@@ -5,7 +5,7 @@ using CheckYourSpeed.App;
 
 namespace CheckYourSpeed.GameLogic
 {
-    public sealed class PointerInput : IInput, IUpdatable
+    public sealed class PointerInput : IPointInput, IUpdatable
     {
         private readonly Camera _camera;
         private readonly GameState _gameState;

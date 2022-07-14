@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b911f41ca01165045a3247b028bcb6b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _catchTime: 1.5
+  _randomPositionsSpawner: {fileID: 677338672}
 --- !u!114 &76732567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,6 +336,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292608311}
   m_CullTransparentMesh: 1
+--- !u!1 &469621788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 469621790}
+  - component: {fileID: 469621789}
+  m_Layer: 0
+  m_Name: InAreaPointsPositionsSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &469621789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469621788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e16c13f56f48bd4c8d295661d583d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 2868406419382348793, guid: b8a81e7ca49f7ed4fb09f0d8b0768224, type: 3}
+  _startCount: 5
+  _provider: {fileID: 805216451}
+  _radius: 2
+--- !u!4 &469621790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469621788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.080931, y: -5.4346886, z: 643.98315}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,6 +651,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583281741}
   m_CullTransparentMesh: 1
+--- !u!1 &677338671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 677338673}
+  - component: {fileID: 677338672}
+  m_Layer: 0
+  m_Name: PointsRandomPositionSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &677338672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677338671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa622bfc0a2681e47a2e3721970db45f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 2868406419382348793, guid: b8a81e7ca49f7ed4fb09f0d8b0768224, type: 3}
+  _startCount: 5
+  _provider: {fileID: 805216451}
+--- !u!4 &677338673
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677338671}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.080931, y: -5.4346886, z: 643.98315}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &737540035
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,11 +786,11 @@ MonoBehaviour:
   _loseTimerView: {fileID: 737540036}
   _waves: {fileID: 877091192}
   _waveSpawnerView: {fileID: 877091189}
-  _pointsSpawner: {fileID: 877091193}
   _userConfig: {fileID: 11400000, guid: ea673605f1a2979419825b9efe759881, type: 2}
   _counterView: {fileID: 805216455}
   _inputRoot: {fileID: 805216456}
   _difficultyConfig: {fileID: 11400000, guid: 430e1db90d0727748b525ead9d62baff, type: 2}
+  _pointsInAreaSpawner: {fileID: 469621789}
 --- !u!4 &805216450
 Transform:
   m_ObjectHideFlags: 0
@@ -725,6 +820,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wave: {r: 0.7415894, g: 0.15471691, b: 1, a: 1}
   _score: {r: 1, g: 0.54863906, b: 0, a: 0.62352943}
+  _disable: {r: 0.39864218, g: 1, b: 0, a: 1}
+  _miltiple: {r: 0, g: 1, b: 0.9192662, a: 1}
+  _random: {r: 0.539953, g: 0.07326444, b: 0.9245283, a: 1}
 --- !u!114 &805216452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,6 +878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pauseButton: {fileID: 875126258}
   _continueButton: {fileID: 2103456995}
+  _pointsInAreaSpawner: {fileID: 469621789}
 --- !u!1 &875126256
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,7 +916,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.15318106, y: 0.82962966}
   m_AnchorMax: {x: 0.15318106, y: 0.82962966}
-  m_AnchoredPosition: {x: -9, y: 23}
+  m_AnchoredPosition: {x: -9.000061, y: 23}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &875126258
@@ -938,7 +1037,6 @@ GameObject:
   - component: {fileID: 877091189}
   - component: {fileID: 877091191}
   - component: {fileID: 877091192}
-  - component: {fileID: 877091193}
   m_Layer: 0
   m_Name: Wave
   m_TagString: Untagged
@@ -990,7 +1088,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _delay: 0.5
   _waves: {fileID: 877091192}
-  _pointsSpawner: {fileID: 877091193}
+  _pointsSpawner: {fileID: 677338672}
 --- !u!114 &877091192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1005,44 +1103,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waves:
   - _pointsCountOnScreen: 2
-    _types: 01000000
-    _pointsCountInWave: 10
+    _types: 0100000004000000
+    _pointsCountInWave: 22
     _delayAfterEnd: 4
   - _pointsCountOnScreen: 2
     _types: 01000000
     _pointsCountInWave: 12
     _delayAfterEnd: 5
   - _pointsCountOnScreen: 2
-    _types: 01000000
-    _pointsCountInWave: 12
-    _delayAfterEnd: 6
-  - _pointsCountOnScreen: 3
-    _types: 01000000
+    _types: 0100000002000000
     _pointsCountInWave: 12
     _delayAfterEnd: 6
   - _pointsCountOnScreen: 3
     _types: 0100000000000000
+    _pointsCountInWave: 12
+    _delayAfterEnd: 6
+  - _pointsCountOnScreen: 3
+    _types: 010000000000000003000000
     _pointsCountInWave: 12
     _delayAfterEnd: 6
   - _pointsCountOnScreen: 4
-    _types: 0100000000000000
+    _types: 01000000000000000200000003000000
     _pointsCountInWave: 12
     _delayAfterEnd: 6
---- !u!114 &877091193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 877091188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93ae3718070494745aa470fcabcd6731, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 2868406419382348793, guid: b8a81e7ca49f7ed4fb09f0d8b0768224, type: 3}
-  _startCount: 5
-  _provider: {fileID: 805216451}
+  - _pointsCountOnScreen: 4
+    _types: 0100000000000000020000000300000004000000
+    _pointsCountInWave: 12
+    _delayAfterEnd: 6.5
 --- !u!1 &890930915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,6 +1429,7 @@ MonoBehaviour:
   _xCount: 4
   _yCount: 7
   _offset: 1.4
+  _primitive: {fileID: 3367249410941132551, guid: b8a81e7ca49f7ed4fb09f0d8b0768224, type: 3}
 --- !u!4 &953188340
 Transform:
   m_ObjectHideFlags: 0

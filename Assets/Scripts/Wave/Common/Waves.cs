@@ -2,6 +2,7 @@
 using CheckYourSpeed.Model;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace CheckYourSpeed.GameLogic
 {
@@ -12,19 +13,24 @@ namespace CheckYourSpeed.GameLogic
         private readonly Queue<Wave> _wavesQueue = new();
 
         private Wave _lastWave;
+        private DiContainer _container;
 
         private bool IsEmpty => _wavesQueue.Count == 0;
 
+        [Inject]
+        public void Init(DiContainer container) => _container = container;
+
         public void Init(ILoseTimer loseTimer, IWaveCleaner waveCleaner)
         {
-            _pointFactory = new(loseTimer, waveCleaner);
+            _pointFactory = _container.Instantiate<PointFactory>();
+            _pointFactory.Init(loseTimer, waveCleaner);
             _waves.ForEach(wave => _wavesQueue.Enqueue(wave));
         }
 
-        public IPoint GetRandomPoint(Wave wave)
+        public IPoint GetRandomPoint(PointType[] pointTypes)
         {
-            var randomIndex = Random.Range(0, wave.Points.Length);
-            var randomPointType = wave.Points[randomIndex];
+            var randomIndex = Random.Range(0, pointTypes.Length);
+            var randomPointType = pointTypes[randomIndex];
             return _pointFactory.Get(randomPointType);
         }
 

@@ -20,5 +20,12 @@
             return false;
         }
 
+        public static int TryThrowLessOrEqualZeroException(this int number)
+        {
+            if (number <= 0)
+                throw new LessOrEqualZeroException(nameof(number));
+
+            return number;
+        }
     }
 }

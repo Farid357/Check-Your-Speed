@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace CheckYourSpeed.GameLogic
+namespace CheckYourSpeed.Model
 {
     [Serializable]
     public struct Wave

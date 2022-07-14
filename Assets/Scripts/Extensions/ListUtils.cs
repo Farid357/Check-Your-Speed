@@ -10,5 +10,20 @@ namespace CheckYourSpeed.Utils
         {
             return list.Any(item => predicate.Invoke(item)) == false;
         }
+
+        public static Queue<T> ToQueue<T>(this List<T> list)
+        {
+            if (list.Count == 0)
+                throw new InvalidOperationException(nameof(list));
+
+            var queue = new Queue<T>(list.Count);
+
+            foreach (var item in list)
+            {
+                queue.Enqueue(item);
+            }
+
+            return queue;
+        }
     }
 }

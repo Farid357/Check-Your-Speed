@@ -1,4 +1,4 @@
-﻿namespace CheckYourSpeed.GameLogic
+﻿namespace CheckYourSpeed.Model
 {
     public interface IWavesContainer
     {
