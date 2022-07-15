@@ -1,4 +1,5 @@
-﻿using CheckYourSpeed.Loging;
+﻿using CheckYourSpeed.App;
+using CheckYourSpeed.Loging;
 using CheckYourSpeed.Model;
 using CheckYourSpeed.SaveSystem;
 using CheckYourSpeed.Utils;
@@ -35,7 +36,7 @@ namespace CheckYourSpeed.Root
             _userLogIn.Init(logings => logings.HasNotAny(loging => loging.Invalid) && logings.All(l => l.NotEmpty),
              users => HaveAnyCorrectUserFrom(users), loginStorage);
             var sessionStorage = new SessionsCounterStorage(new BinaryStorage());
-            var sessionsCounter = new SessionsCounter(new LoseTimer(1), new WithoutRegisteringUser(), sessionStorage);
+            var sessionsCounter = new SessionsCounter(new LoseTimer(1, new PauseBroadcaster()), new WithoutRegisteringUser(), sessionStorage);
             _loggInView.Init(_userLogIn);
             _sessionsCounterView.Init(sessionsCounter);
             var registrationStorage = new UserLogInStorage(new BinaryStorage());
@@ -63,7 +64,7 @@ namespace CheckYourSpeed.Root
         private void ChangeUser(IUser user)
         {
             var sessionStorage = new SessionsCounterStorage(new BinaryStorage());
-            var sessionsCounter = new SessionsCounter(new LoseTimer(1), user, sessionStorage);
+            var sessionsCounter = new SessionsCounter(new LoseTimer(1, new PauseBroadcaster()), user, sessionStorage);
             _sessionsCounterView.Init(sessionsCounter);
             _config.SetUser(user);
             _loggInView.DisableUserUI();

@@ -7,20 +7,20 @@ namespace CheckYourSpeed.GameLogic
 {
     public sealed class PointerInput : IPointInput, IUpdatable
     {
+        private readonly IPauseBroadcaster _pauseBroadcaster;
         private readonly Camera _camera;
-        private readonly GameState _gameState;
 
-        public PointerInput(Camera camera, GameState gameState)
+        public PointerInput(Camera camera, IPauseBroadcaster pause)
         {
             _camera = camera ?? throw new ArgumentNullException(nameof(camera));
-            _gameState = gameState ?? throw new ArgumentNullException(nameof(gameState));
+            _pauseBroadcaster = pause ?? throw new ArgumentNullException(nameof(pause));
         }
 
         public event Action<IPointView> OnInputed;
 
         public void Update(float deltaTime)
         {
-            if (_gameState.IsPaused)
+            if (_pauseBroadcaster.IsPaused)
                 return;
 
             if (Input.GetMouseButtonDown(0))

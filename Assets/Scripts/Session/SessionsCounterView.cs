@@ -20,7 +20,7 @@ namespace CheckYourSpeed.Loging
             _sessionsCounter.Count.Subscribe(count => Display(count)).AddTo(_disposables);
         }
 
-        private void OnDestroy() => _disposables.Clear();
+        private void OnDestroy() => _disposables.Dispose();
 
         private void Display(int count)
         {

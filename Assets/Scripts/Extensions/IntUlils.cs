@@ -27,5 +27,13 @@
 
             return number;
         }
+
+        public static float TryThrowLessOrEqualZeroException(this float number)
+        {
+            if (number <= 0)
+                throw new LessOrEqualZeroException(nameof(number));
+
+            return number;
+        }
     }
 }

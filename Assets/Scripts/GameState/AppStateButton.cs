@@ -1,4 +1,4 @@
-using CheckYourSpeed.Model;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,16 +7,19 @@ namespace CheckYourSpeed.App
     [RequireComponent(typeof(Button))]
     public abstract class AppStateButton : MonoBehaviour
     {
-        private GameState _gameState;
         private Button _button;
 
-        public void Init(GameState gameState)
+        public void Init(PauseBroadcaster pauseBroadcaster)
         {
-            _gameState = gameState ?? throw new System.ArgumentNullException(nameof(gameState));
+            if (pauseBroadcaster is null)
+            {
+                throw new ArgumentNullException(nameof(pauseBroadcaster));
+            }
+
             _button = GetComponent<Button>();
-            _button.onClick.AddListener(() => OnClick(_gameState));
+            _button.onClick.AddListener(() => OnClick(pauseBroadcaster));
         }
 
-        protected abstract void OnClick(GameState gameState);
+        protected abstract void OnClick(PauseBroadcaster pauseBroadcaster);
     }
 }

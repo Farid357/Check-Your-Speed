@@ -2,6 +2,7 @@
 using CheckYourSpeed.Model;
 using TMPro;
 using DG.Tweening;
+using UniRx;
 
 namespace CheckYourSpeed.GameLogic
 {
@@ -12,14 +13,15 @@ namespace CheckYourSpeed.GameLogic
         [SerializeField] private float _scaleDelay = 0.6f;
         [SerializeField, ColorUsage(false)] private Color _increaseTextColor = Color.red;
         private Score _score;
+        private readonly CompositeDisposable _disposables = new();
 
         public void Init(Score score)
         {
             _score = score ?? throw new System.ArgumentNullException(nameof(score));
-            _score.OnChanged += Display;
+            _score.Count.Subscribe(_ => Display(_)).AddTo(_disposables);
         }
 
-        private void OnDisable() => _score.OnChanged -= Display;
+        private void OnDisable() => _disposables.Dispose();
 
         private void Display(int count)
         {

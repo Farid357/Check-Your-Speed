@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UniRx;
 
 namespace CheckYourSpeed.Model
 {
@@ -7,6 +8,7 @@ namespace CheckYourSpeed.Model
     {
         private readonly ScoreCounter _counter = new();
         private readonly List<IPoint> _points = new();
+        private readonly ReactiveProperty<int> _count = new();
 
         public void Subscribe(IPoint point)
         {
@@ -19,16 +21,14 @@ namespace CheckYourSpeed.Model
             _points.Add(point);
         }
 
-        public event Action<int> OnChanged;
-
-        private int Count => _counter.Score;
+        public IReadOnlyReactiveProperty<int> Count => _count;
 
         public void Dispose() => _points.ForEach(point => point.OnApplyed -= Add);
 
         private void Add(IPoint point)
         {
             _counter.Visit((dynamic)point);
-            OnChanged?.Invoke(Count);
+            _count.Value = _counter.Score;
         }
 
 

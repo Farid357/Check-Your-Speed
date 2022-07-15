@@ -34,10 +34,11 @@ namespace CheckYourSpeed.Root
         {
             var pointsSwitch = new PointsSwitch(_randomPositionsSpawner);
             _waveSpawner.Init(pointsSwitch);
-            _loseTimer = new LoseTimer(_difficultyConfig.GetSelected().CatchTime);
+            var pause = new PauseBroadcaster();
+            _loseTimer = new LoseTimer(_difficultyConfig.GetSelected().CatchTime, pause);
+            var gameState = new GameState(pause, _loseTimer);
             IUser user = _userConfig.GetUser();
-            var gameState = new GameState(_loseTimer);
-            _inputRoot.Init(gameState);
+            _inputRoot.Init(pause);
             _inputRoot.Compose();
             var sessionStorage = new SessionsCounterStorage(new BinaryStorage());
             var sessionCounter = new SessionsCounter(_loseTimer, user, sessionStorage);

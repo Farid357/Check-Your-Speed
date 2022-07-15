@@ -1,15 +1,19 @@
-﻿using System;
+﻿using CheckYourSpeed.App;
+using System;
+using CheckYourSpeed.Utils;
 
 namespace CheckYourSpeed.Model
 {
     public sealed class LoseTimer : ILoseTimer, IUpdatable
     {
-        private float _time;
+        private readonly IPauseBroadcaster _pauseBroadcaster;
         private readonly float _startTime;
+        private float _time;
 
-        public LoseTimer(float time)
+        public LoseTimer(float time, IPauseBroadcaster pauseBroadcaster)
         {
-            _time = time > 0 ? time : throw new ArgumentOutOfRangeException(nameof(time));
+            _time = time.TryThrowLessOrEqualZeroException();
+            _pauseBroadcaster = pauseBroadcaster ?? throw new ArgumentNullException(nameof(pauseBroadcaster));
             _startTime = _time;
         }
 
@@ -21,6 +25,9 @@ namespace CheckYourSpeed.Model
 
         public void Update(float deltaTime)
         {
+            if (_pauseBroadcaster.IsPaused)
+                return;
+
             _time -= deltaTime;
 
             if (_time <= 0)

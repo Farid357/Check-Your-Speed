@@ -9,20 +9,20 @@ namespace CheckYourSpeed.Root
         [SerializeField] private PauseButton _pauseButton;
         [SerializeField] private ContinueButton _continueButton;
         [SerializeField] private PointsInAreaSpawner _pointsInAreaSpawner;
-        private GameState _gameState;
+        private PauseBroadcaster _pauseBroadcaster;
         private PointerInput _input;
 
-        public void Init(GameState gameState)
+        public void Init(PauseBroadcaster pauseBroadcaster)
         {
-            _gameState = gameState ?? throw new System.ArgumentNullException(nameof(gameState));
-            _input = new PointerInput(Camera.main, gameState);
+            _pauseBroadcaster = pauseBroadcaster ?? throw new System.ArgumentNullException(nameof(pauseBroadcaster));
+            _input = new PointerInput(Camera.main, pauseBroadcaster);
         }
 
         public void Compose()
         {
             _pointsInAreaSpawner.Init(_input);
-            _pauseButton.Init(_gameState);
-            _continueButton.Init(_gameState);
+            _pauseButton.Init(_pauseBroadcaster);
+            _continueButton.Init(_pauseBroadcaster);
         }
 
         private void Update() => _input.Update(Time.deltaTime);

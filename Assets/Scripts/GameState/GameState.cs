@@ -6,21 +6,22 @@ namespace CheckYourSpeed.App
 {
     public sealed class GameState : IDisposable
     {
+        private readonly PauseBroadcaster _pauseBroadcaster;
         private readonly LoseTimer _loseTimer;
 
-        public GameState(LoseTimer loseTimer)
+        public GameState(PauseBroadcaster pauseBroadcaster, LoseTimer loseTimer)
         {
+            _pauseBroadcaster = pauseBroadcaster ?? throw new ArgumentNullException(nameof(pauseBroadcaster));
             _loseTimer = loseTimer ?? throw new ArgumentNullException(nameof(loseTimer));
-            _loseTimer.OnEnded += Pause;
+            _loseTimer.OnEnded += _pauseBroadcaster.Pause;
         }
 
-        public bool IsPaused { get; private set; }
+        public void Dispose() => _loseTimer.OnEnded -= _pauseBroadcaster.Pause;
 
-        public void Pause() => IsPaused = true;
+    }
 
-        public void UnPause() => IsPaused = false;
-
-        public void Dispose() => _loseTimer.OnEnded -= Pause;
-
+    public interface IPauseBroadcaster
+    {
+        public bool IsPaused { get; }
     }
 }

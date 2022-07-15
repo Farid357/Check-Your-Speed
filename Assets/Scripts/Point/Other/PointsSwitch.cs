@@ -23,13 +23,15 @@ namespace CheckYourSpeed.Model
 
         public void Disable(int count)
         {
-            if (_enablePoints.Count < count)
-                count = _enablePoints.Count;
-
-            for (int i = 0; i < count; i++)
+            try
             {
-                _enablePoints[i].Disable();
+                for (int i = 0; i < count; i++)
+                {
+                    _enablePoints[i].Disable();
+                }
             }
+
+            catch (Exception) { }        
         }
 
         private void Add(IPointView point) => _points.Add(point);
