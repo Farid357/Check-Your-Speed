@@ -12,10 +12,10 @@ namespace CheckYourSpeed.GameLogic
         [SerializeField] private float _scaleCofficient = 1.2f;
         [SerializeField] private float _scaleDelay = 0.6f;
         [SerializeField, ColorUsage(false)] private Color _increaseTextColor = Color.red;
-        private Score _score;
+        private IScore _score;
         private readonly CompositeDisposable _disposables = new();
 
-        public void Init(Score score)
+        public void Init(IScore score)
         {
             _score = score ?? throw new System.ArgumentNullException(nameof(score));
             _score.Count.Subscribe(_ => Display(_)).AddTo(_disposables);

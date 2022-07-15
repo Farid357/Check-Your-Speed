@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using CheckYourSpeed.App;
 using CheckYourSpeed.Settings;
 using Zenject;
+using UniRx;
 
 namespace CheckYourSpeed.Root
 {
@@ -24,6 +25,7 @@ namespace CheckYourSpeed.Root
         [SerializeField] private InputRoot _inputRoot;
         [SerializeField] private DifficultyConfig _difficultyConfig;
         [SerializeField] private PointsInAreaSpawner _pointsInAreaSpawner;
+        [SerializeField] private ScoreRoot _scoreRoot;
 
         private PointsRandomPositionsSpawner _randomPositionsSpawner;
         private readonly List<IDisposable> _disposables = new();
@@ -45,7 +47,7 @@ namespace CheckYourSpeed.Root
             _counterView.Init(sessionCounter);
             _waves.Init(_loseTimer, _waveSpawner);
             _loseTimerView.Init(_loseTimer);
-            var score = new Score();
+            var score = _scoreRoot.Compose();
             _randomPositionsSpawner.Init(score, _waves);
             _pointsInAreaSpawner.Init(score, _waves);
             _pointsPositionsSpawner.Spawn();

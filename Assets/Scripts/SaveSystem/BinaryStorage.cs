@@ -27,6 +27,7 @@ namespace CheckYourSpeed.SaveSystem
                 using FileStream file = File.Open(allPath, FileMode.Open);
                 return (T)_formatter.Deserialize(file);
             }
+
             return default;
         }
 

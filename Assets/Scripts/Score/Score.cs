@@ -4,7 +4,8 @@ using UniRx;
 
 namespace CheckYourSpeed.Model
 {
-    public sealed class Score : IPointsSubscriber
+    [Serializable]
+    public sealed class Score : IPointsSubscriber, IScore
     {
         private readonly ScoreCounter _counter = new();
         private readonly List<IPoint> _points = new();

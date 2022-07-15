@@ -1,16 +1,11 @@
-﻿using DG.Tweening;
+﻿using CheckYourSpeed.GameLogic;
 using System;
-using TMPro;
 using UniRx;
-using UnityEngine;
 
 namespace CheckYourSpeed.Loging
 {
-    public sealed class SessionsCounterView : MonoBehaviour
+    public sealed class SessionsCounterView : TextView
     {
-        [SerializeField] private TMP_Text _text;
-        [SerializeField] private float _duration;
-
         private ISessionsCounter _sessionsCounter;
         private readonly CompositeDisposable _disposables = new();
 
@@ -22,10 +17,5 @@ namespace CheckYourSpeed.Loging
 
         private void OnDestroy() => _disposables.Dispose();
 
-        private void Display(int count)
-        {
-            _text.text = count.ToString();
-            _text.DOText(count.ToString(), _duration, scrambleMode: ScrambleMode.Numerals);
-        }
     }
 }
