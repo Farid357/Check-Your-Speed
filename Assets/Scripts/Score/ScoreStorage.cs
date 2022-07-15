@@ -1,7 +1,8 @@
-﻿using CheckYourSpeed.Utils;
+﻿using CheckYourSpeed.Model;
+using CheckYourSpeed.Utils;
 using UnityEngine;
 
-namespace CheckYourSpeed.Model
+namespace CheckYourSpeed.GameLogic
 {
     public sealed class ScoreStorage : IScoreStorage
     {

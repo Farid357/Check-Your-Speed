@@ -1,6 +1,7 @@
 ﻿using CheckYourSpeed.Model;
 using UnityEngine;
 using UniRx;
+using CheckYourSpeed.GameLogic;
 
 namespace CheckYourSpeed.Root
 {
@@ -17,8 +18,7 @@ namespace CheckYourSpeed.Root
             _scoreStorage = new ScoreStorage();
             _score = _scoreStorage.Load() is null ? new() : _scoreStorage.Load();
             _score.Count.Subscribe(_ => SaveScore(_)).AddTo(_disposables);
-            var score = _score;
-            _scoreRecord = new ScoreRecord(score);
+            _scoreRecord = new ScoreRecord(_score);
             _recordView.Init(_scoreRecord);
             return _score;
         }

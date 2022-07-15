@@ -19,6 +19,7 @@ namespace CheckYourSpeed.GameLogic
         {
             _score = score ?? throw new System.ArgumentNullException(nameof(score));
             _score.Count.Subscribe(_ => Display(_)).AddTo(_disposables);
+            Display(0);
         }
 
         private void OnDisable() => _disposables.Dispose();
