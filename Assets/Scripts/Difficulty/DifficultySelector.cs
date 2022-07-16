@@ -28,11 +28,8 @@ namespace CheckYourSpeed.Settings
         {
             var difficulty = _difficulties.All.ElementAt(index);
             _config.SetSelectedDifficulty(difficulty);
-
-            if (index != 0)
-            {
-                _storage.Save(Path, index);
-            }
+            _storage.Save(Path, index);
         }
     }
+}
 }
