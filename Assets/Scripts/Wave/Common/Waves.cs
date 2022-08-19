@@ -20,7 +20,7 @@ namespace CheckYourSpeed.GameLogic
         [Inject]
         public void Init(DiContainer container) => _container = container;
 
-        public void Init(ILoseTimer loseTimer, IWaveCleaner waveCleaner)
+        public void Init(ITimer loseTimer, IWaveCleaner waveCleaner)
         {
             _pointFactory = _container.Instantiate<PointFactory>();
             _pointFactory.Init(loseTimer, waveCleaner);

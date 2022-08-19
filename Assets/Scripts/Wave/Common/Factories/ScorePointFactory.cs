@@ -4,9 +4,9 @@ namespace CheckYourSpeed.Factory
 {
     public sealed class ScorePointFactory : IFactory
     {
-        private readonly ILoseTimer _loseTimer;
+        private readonly ITimer _loseTimer;
 
-        public ScorePointFactory(ILoseTimer loseTimer)
+        public ScorePointFactory(ITimer loseTimer)
         {
             _loseTimer = loseTimer ?? throw new System.ArgumentNullException(nameof(loseTimer));
         }

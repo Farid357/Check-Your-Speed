@@ -1,17 +1,19 @@
 ﻿using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using CheckYourSpeed.Model;
 
 namespace CheckYourSpeed.GameLogic
 {
-    public class TextView : MonoBehaviour
+    public sealed class TextView : MonoBehaviour, ITextView
     {
         [SerializeField] private TMP_Text _text;
         [SerializeField] private float _duration = 1.5f;
+        [SerializeField] private ScrambleMode _scrambleMode = ScrambleMode.Numerals;
 
-        protected void Display(int count)
+        public void Display(int count)
         {
-            _text.DOText(count.ToString(), _duration, scrambleMode: ScrambleMode.Numerals);
+            _text.DOText(count.ToString(), _duration, scrambleMode: _scrambleMode);
         }
     }
 }

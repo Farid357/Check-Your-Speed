@@ -2,8 +2,9 @@
 
 namespace CheckYourSpeed.Loging
 {
-    public interface ISessionsCounter
+    public interface IReactiveCounter
     {
         public IReadOnlyReactiveProperty<int> Count { get; }
+
     }
 }

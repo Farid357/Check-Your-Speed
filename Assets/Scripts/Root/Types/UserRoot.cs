@@ -1,4 +1,5 @@
 ﻿using CheckYourSpeed.App;
+using CheckYourSpeed.GameLogic;
 using CheckYourSpeed.Loging;
 using CheckYourSpeed.Model;
 using CheckYourSpeed.SaveSystem;
@@ -7,13 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using IDisposable = CheckYourSpeed.Model.IDisposable;
 
 namespace CheckYourSpeed.Root
 {
     public sealed class UserRoot : CompositeRoot
     {
-        [SerializeField] private SessionsCounterView _sessionsCounterView;
+        [SerializeField] private TextView _sessionsCounterView;
         [SerializeField] private LogIn _userLogIn;
         [SerializeField] private Registration _registration;
         [SerializeField] private NameField _logInNameField;
@@ -24,8 +24,7 @@ namespace CheckYourSpeed.Root
         [SerializeField] private PasswordField _passwordField;
         [SerializeField] private NotFoundUserText[] _notFoundUserTexts;
         [SerializeField] private NameField _registrationField;
-
-        private readonly List<IDisposable> _disposables = new();
+        private SessionsCounter _sessionsCounter;
 
         public override void Compose()
         {
@@ -36,13 +35,12 @@ namespace CheckYourSpeed.Root
             _userLogIn.Init(logings => logings.HasNotAny(loging => loging.Invalid) && logings.All(l => l.NotEmpty),
              users => HaveAnyCorrectUserFrom(users), loginStorage);
             var sessionStorage = new SessionsCounterStorage(new BinaryStorage());
-            var sessionsCounter = new SessionsCounter(new LoseTimer(1, new PauseBroadcaster()), new WithoutRegisteringUser(), sessionStorage);
+             _sessionsCounter = new SessionsCounter(new Timer(1, new PauseBroadcaster()), new WithoutRegisteringUser(), sessionStorage);
             _loggInView.Init(_userLogIn);
-            _sessionsCounterView.Init(sessionsCounter);
+            _sessionsCounterView.Init(_sessionsCounter);
             var registrationStorage = new UserLogInStorage(new BinaryStorage());
             _registration.Init(loggins => true, users => users.HasNotAny(user => user.Name.Equals(_registrationField.Text)), registrationStorage);
             _registrationView.Init(_registration);
-            _disposables.AddRange(new List<IDisposable> { sessionsCounter });
             _userLogIn.OnFoundUser += ChangeUser;
             _registration.OnFoundUser += ChangeUser;
         }
@@ -64,7 +62,7 @@ namespace CheckYourSpeed.Root
         private void ChangeUser(IUser user)
         {
             var sessionStorage = new SessionsCounterStorage(new BinaryStorage());
-            var sessionsCounter = new SessionsCounter(new LoseTimer(1, new PauseBroadcaster()), user, sessionStorage);
+            var sessionsCounter = new SessionsCounter(new Timer(1, new PauseBroadcaster()), user, sessionStorage);
             _sessionsCounterView.Init(sessionsCounter);
             _config.SetUser(user);
             _loggInView.DisableUserUI();
@@ -72,12 +70,15 @@ namespace CheckYourSpeed.Root
 
         private void OnDisable()
         {
-            _disposables.ForEach(disposable => disposable.Dispose());
             _userLogIn.OnFoundUser -= ChangeUser;
             _registration.OnFoundUser -= ChangeUser;
         }
 
         private void OnDestroy() => _close.onClick.RemoveListener(Close);
 
+        private void Update()
+        {
+            _sessionsCounter.Update(Time.deltaTime);
+        }
     }
 }

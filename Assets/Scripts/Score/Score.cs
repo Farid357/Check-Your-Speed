@@ -37,7 +37,7 @@ namespace CheckYourSpeed.Model
         {
             public int Score { get; private set; }
 
-            public void Visit(ScorePoint scorePoint) => Score += 25;
+            public void Visit(TimerPoint timerPoint) => Score += 25;
 
             public void Visit(WavePoint wavePoint) => Score += 50;
 

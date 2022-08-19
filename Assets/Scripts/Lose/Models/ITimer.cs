@@ -1,6 +1,6 @@
 ﻿namespace CheckYourSpeed.Model
 {
-    public interface ILoseTimer
+    public interface ITimer
     {
         public void Reset();
 

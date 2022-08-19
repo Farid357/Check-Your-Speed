@@ -6,22 +6,27 @@ using DG.Tweening;
 
 namespace CheckYourSpeed.GameLogic
 {
-    public sealed class LoseTimerView : MonoBehaviour
+    public sealed class TimerFinishedCountdownView : MonoBehaviour
     {
         [SerializeField] private LoseWindow _panel;
         [SerializeField] private float _delay = 0.9f;
         [SerializeField] private Color _loseColor = Color.red;
         [SerializeField] private Image _loseImage;
 
-        private LoseTimer _loseTimer;
+        private Timer _timer;
 
-        public void Init(LoseTimer loseTimer)
+        public void Init(Timer timer)
         {
-            _loseTimer = loseTimer ?? throw new ArgumentNullException(nameof(loseTimer));
-            _loseTimer.OnEnded += Lose;
+            _timer = timer ?? throw new ArgumentNullException(nameof(timer));
         }
 
-        private void OnDisable() => _loseTimer.OnEnded -= Lose;
+        private void Update()
+        {
+            if (_timer.FinishedCountdown)
+            {
+                Lose();
+            }
+        }
 
         private void Lose()
         {

@@ -2,11 +2,11 @@
 
 namespace CheckYourSpeed.Model
 {
-    public abstract class Point : IPoint
+    public sealed class TimerPoint : IPoint
     {
-        private ILoseTimer _timer;
+        private readonly ITimer _timer;
 
-        public Point(ILoseTimer timer)
+        public TimerPoint(ITimer timer)
         {
             _timer = timer ?? throw new ArgumentNullException(nameof(timer));
         }
@@ -16,10 +16,7 @@ namespace CheckYourSpeed.Model
         public void Apply()
         {
             _timer.Reset();
-            PlayApplyFeedback();
             OnApplyed?.Invoke(this);
         }
-
-        protected abstract void PlayApplyFeedback();
     }
 }

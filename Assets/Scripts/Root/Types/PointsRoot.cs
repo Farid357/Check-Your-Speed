@@ -17,7 +17,7 @@ namespace CheckYourSpeed.Root
         [SerializeField] private PointsPositionsSpawner _pointsPositionsSpawner;
         [SerializeField] private WaveSpawner _waveSpawner;
         [SerializeField] private ScoreView _scoreView;
-        [SerializeField] private LoseTimerView _loseTimerView;
+        [SerializeField] private TimerFinishedCountdownView _loseTimerView;
         [SerializeField] private Waves _waves;
         [SerializeField] private WaveSpawnerView _waveSpawnerView;
         [SerializeField] private UserConfig _userConfig;
@@ -30,14 +30,14 @@ namespace CheckYourSpeed.Root
         private PointsRandomPositionsSpawner _randomPositionsSpawner;
         private readonly List<IDisposable> _disposables = new();
         private PointsCounter _pointsCounter;
-        private LoseTimer _loseTimer;
+        private Timer _loseTimer;
 
         public override void Compose()
         {
             var pointsSwitch = new PointsSwitch(_randomPositionsSpawner);
             _waveSpawner.Init(pointsSwitch);
             var pause = new PauseBroadcaster();
-            _loseTimer = new LoseTimer(_difficultyConfig.GetSelected().CatchTime, pause);
+            _loseTimer = new Timer(_difficultyConfig.GetSelected().CatchTime, pause);
             var gameState = new GameState(pause, _loseTimer);
             IUser user = _userConfig.GetUser();
             _inputRoot.Init(pause);

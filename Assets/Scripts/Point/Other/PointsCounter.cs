@@ -8,13 +8,13 @@ namespace CheckYourSpeed.GameLogic
 {
     public sealed class PointsCounter : IDisposable
     {
-        private readonly ILoseTimer _loseTimer;
+        private readonly ITimer _loseTimer;
         private readonly WaveSpawner _waveSpawner;
         private readonly List<IPointView> _allPoints = new();
         private int _count;
         private Wave _currentWave;
 
-        public PointsCounter(WaveSpawner waveSpawner, ILoseTimer loseTimer)
+        public PointsCounter(WaveSpawner waveSpawner, ITimer loseTimer)
         {
             _loseTimer = loseTimer ?? throw new ArgumentNullException(nameof(loseTimer));
             _waveSpawner = waveSpawner ?? throw new ArgumentNullException(nameof(waveSpawner));

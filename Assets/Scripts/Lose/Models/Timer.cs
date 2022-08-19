@@ -4,21 +4,21 @@ using CheckYourSpeed.Utils;
 
 namespace CheckYourSpeed.Model
 {
-    public sealed class LoseTimer : ILoseTimer, IUpdatable
+    public sealed class Timer : ITimer, IUpdateble
     {
         private readonly IPauseBroadcaster _pauseBroadcaster;
         private readonly float _startTime;
         private float _time;
 
-        public LoseTimer(float time, IPauseBroadcaster pauseBroadcaster)
+        public Timer(float time, IPauseBroadcaster pauseBroadcaster)
         {
             _time = time.TryThrowLessOrEqualZeroException();
             _pauseBroadcaster = pauseBroadcaster ?? throw new ArgumentNullException(nameof(pauseBroadcaster));
             _startTime = _time;
         }
 
-        public event Action OnEnded;
-
+        public bool FinishedCountdown => _time == 0;
+        
         public void Reset() => _time = _startTime;
 
         public void ResetWithAdd(float time) => _time = _startTime + time;
@@ -28,12 +28,7 @@ namespace CheckYourSpeed.Model
             if (_pauseBroadcaster.IsPaused)
                 return;
 
-            _time -= deltaTime;
-
-            if (_time <= 0)
-            {
-                OnEnded?.Invoke();
-            }
+            _time = MathF.Max(0, _time - deltaTime);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UniRx;
 
 namespace CheckYourSpeed.Model
@@ -5,25 +6,26 @@ namespace CheckYourSpeed.Model
     public sealed class ScoreRecord : IDisposable
     {
         private readonly IScore _score;
+        private readonly ITextView _textView;
         private readonly CompositeDisposable _disposables = new();
-        private readonly ReactiveProperty<int> _record = new();
+        private int _record;
 
-        public ScoreRecord(IScore score)
+        public ScoreRecord(IScore score, ITextView textView)
         {
-            _score = score ?? throw new System.ArgumentNullException(nameof(score));
-            _score.Count.Subscribe(_ => TrySetNew(_)).AddTo(_disposables);
-            TrySetNew(_score.Count.Value);
+            _score = score ?? throw new ArgumentNullException(nameof(score));
+            _textView = textView ?? throw new ArgumentNullException(nameof(textView));
+            _score.Count.Subscribe(_ => TryIncrease(_)).AddTo(_disposables);
+            TryIncrease(_score.Count.Value);
         }
-
-        public IReactiveProperty<int> Record => _record;
 
         public void Dispose() => _disposables.Dispose();
 
-        private void TrySetNew(int count)
+        private void TryIncrease(int count)
         {
-            if (_record.Value < count)
+            if (_record < count)
             {
-                _record.Value = count;
+                _record = count;
+                _textView.Display(_record);
             }
         }
     }

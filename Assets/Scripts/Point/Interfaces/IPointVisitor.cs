@@ -2,7 +2,7 @@
 {
     public interface IPointVisitor
     {
-        public void Visit(ScorePoint scorePoint);
+        public void Visit(TimerPoint timerPoint);
 
         public void Visit(WavePoint wavePoint);
 

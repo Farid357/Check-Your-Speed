@@ -6,25 +6,25 @@ namespace CheckYourSpeed.Model
 {
     public sealed class RandomPoint : IPoint
     {
-        private IWaveCleaner _waveCleaner;
-        private ILoseTimer _loseTimer;
-        private IPointsSwicth _pointsSwitch;
+        private readonly IWaveCleaner _waveCleaner;
+        private readonly ITimer _timer;
+        private readonly IPointsSwicth _pointsSwitch;
 
         public event Action<IPoint> OnApplyed;
-
-        public void Init(ILoseTimer loseTimer, IWaveCleaner waveCleaner)
-        {
-            _waveCleaner = waveCleaner ?? throw new ArgumentNullException(nameof(waveCleaner));
-            _loseTimer = loseTimer ?? throw new ArgumentNullException(nameof(loseTimer));
-        }
 
         [Inject]
         public RandomPoint(IPointsSwicth pointSwitch) => _pointsSwitch = pointSwitch;
 
+        public RandomPoint(IWaveCleaner waveCleaner, ITimer timer)
+        {
+            _waveCleaner = waveCleaner ?? throw new ArgumentNullException(nameof(waveCleaner));
+            _timer = timer ?? throw new ArgumentNullException(nameof(timer));
+        }
+
         public void Apply()
         {
-          var point =  new Random().GetRandomFromArray<Point>(new ScorePoint(_loseTimer), new WavePoint(_loseTimer,
-                _waveCleaner), new DisablePoint(_loseTimer, _pointsSwitch));
+          var point =  new Random().GetRandomFromArray<IPoint>(new TimerPoint(_timer), new WavePoint(_waveCleaner, 
+              new TimerPoint(_timer)), new DisablePoint(_pointsSwitch, new TimerPoint(_timer)));
             point.Apply();
         }
     }

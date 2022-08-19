@@ -10,12 +10,12 @@ namespace CheckYourSpeed.Factory
         private readonly IPointsSpawner _pointsSpawner;
         private readonly IPointsSwicth _pointsSwitch;
         private IWaveCleaner _waveCleaner;
-        private ILoseTimer _loseTimer;
+        private ITimer _loseTimer;
         private IFactory _factory;
         private RandomPointFactory _randomPointFactory;
         private DiContainer _container;
 
-        public void Init(ILoseTimer loseTimer, IWaveCleaner waveCleaner)
+        public void Init(ITimer loseTimer, IWaveCleaner waveCleaner)
         {
             _waveCleaner = waveCleaner ?? throw new ArgumentNullException(nameof(waveCleaner));
             _loseTimer = loseTimer ?? throw new ArgumentNullException(nameof(loseTimer));

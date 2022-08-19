@@ -7,9 +7,9 @@ namespace CheckYourSpeed.App
     public sealed class GameState : IDisposable
     {
         private readonly PauseBroadcaster _pauseBroadcaster;
-        private readonly LoseTimer _loseTimer;
+        private readonly Timer _loseTimer;
 
-        public GameState(PauseBroadcaster pauseBroadcaster, LoseTimer loseTimer)
+        public GameState(PauseBroadcaster pauseBroadcaster, Timer loseTimer)
         {
             _pauseBroadcaster = pauseBroadcaster ?? throw new ArgumentNullException(nameof(pauseBroadcaster));
             _loseTimer = loseTimer ?? throw new ArgumentNullException(nameof(loseTimer));

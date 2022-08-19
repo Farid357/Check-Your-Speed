@@ -7,19 +7,18 @@ namespace CheckYourSpeed.Root
 {
     public sealed class ScoreRoot : MonoBehaviour
     {
-        [SerializeField] private ScoreRecordView _recordView;
+        [SerializeField] private TextView _recordView;
         private readonly CompositeDisposable _disposables = new();
         private IScoreStorage _scoreStorage;
+        private IDisposable _scoreRecord;
         private Score _score;
-        private ScoreRecord _scoreRecord;
 
         public Score Compose()
         {
             _scoreStorage = new ScoreStorage();
             _score = _scoreStorage.Load() is null ? new() : _scoreStorage.Load();
             _score.Count.Subscribe(_ => SaveScore(_)).AddTo(_disposables);
-            _scoreRecord = new ScoreRecord(_score);
-            _recordView.Init(_scoreRecord);
+            _scoreRecord = new ScoreRecord(_score, _recordView);
             return _score;
         }
 
