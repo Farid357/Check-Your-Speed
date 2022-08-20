@@ -17,12 +17,12 @@ namespace CheckYourSpeed.GameLogic
         public void Init(IPointInput pointInput)
         {
             _pointInput = pointInput ?? throw new ArgumentNullException(nameof(pointInput));
-            _pointInput.OnInputed += ChangePosition;
+            _pointInput.OnInputed += TranslateTo;
         }
 
-        private void OnDisable() => _pointInput.OnInputed -= ChangePosition;
+        private void OnDisable() => _pointInput.OnInputed -= TranslateTo;
 
-        private void ChangePosition(IPointView point) => transform.position = point.Position;
+        private void TranslateTo(IPointView point) => transform.position = point.Position;
 
         protected override Vector2 GetSpawnPoint()
         {

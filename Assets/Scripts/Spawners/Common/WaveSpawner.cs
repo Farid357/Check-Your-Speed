@@ -13,7 +13,7 @@ namespace CheckYourSpeed.GameLogic
         [SerializeField] private PointsSpawner _pointsSpawner;
        
         private Wave _currentWave;
-        private IPointsSwicth _pointsSwicth;
+        private IPointsSwitch _pointsSwicth;
 
         public event Action OnSpawningNextWave;
         public event Action<Wave, IEnumerable<IPointView>> OnChangedWave;
@@ -22,7 +22,7 @@ namespace CheckYourSpeed.GameLogic
 
         private IWavesContainer Waves => _waves;
 
-        public void Init(IPointsSwicth pointsSwicth) => _pointsSwicth = pointsSwicth ?? throw new ArgumentNullException(nameof(pointsSwicth));
+        public void Init(IPointsSwitch pointsSwicth) => _pointsSwicth = pointsSwicth ?? throw new ArgumentNullException(nameof(pointsSwicth));
 
         public async UniTaskVoid SpawnWithDelay()
         {

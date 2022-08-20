@@ -1,6 +1,6 @@
 ﻿namespace CheckYourSpeed.App
 {
-    public sealed class PauseBroadcaster : IPauseBroadcaster
+    public sealed class PauseBroadcaster : IPauseBroadcaster, IPauseSwitch
     {
         public bool IsPaused { get; private set; }
 

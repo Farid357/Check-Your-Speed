@@ -9,17 +9,17 @@ namespace CheckYourSpeed.App
     {
         private Button _button;
 
-        public void Init(PauseBroadcaster pauseBroadcaster)
+        public void Init(IPauseSwitch pauseSwitch)
         {
-            if (pauseBroadcaster is null)
+            if (pauseSwitch is null)
             {
-                throw new ArgumentNullException(nameof(pauseBroadcaster));
+                throw new ArgumentNullException(nameof(pauseSwitch));
             }
 
             _button = GetComponent<Button>();
-            _button.onClick.AddListener(() => OnClick(pauseBroadcaster));
+            _button.onClick.AddListener(() => OnClick(pauseSwitch));
         }
 
-        protected abstract void OnClick(PauseBroadcaster pauseBroadcaster);
+        protected abstract void OnClick(IPauseSwitch pauseSwitch);
     }
 }

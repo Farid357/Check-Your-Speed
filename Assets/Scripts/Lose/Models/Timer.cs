@@ -1,19 +1,16 @@
-﻿using CheckYourSpeed.App;
-using System;
+﻿using System;
 using CheckYourSpeed.Utils;
 
 namespace CheckYourSpeed.Model
 {
     public sealed class Timer : ITimer, IUpdateble
     {
-        private readonly IPauseBroadcaster _pauseBroadcaster;
         private readonly float _startTime;
         private float _time;
 
-        public Timer(float time, IPauseBroadcaster pauseBroadcaster)
+        public Timer(float time)
         {
             _time = time.TryThrowLessOrEqualZeroException();
-            _pauseBroadcaster = pauseBroadcaster ?? throw new ArgumentNullException(nameof(pauseBroadcaster));
             _startTime = _time;
         }
 
@@ -23,12 +20,7 @@ namespace CheckYourSpeed.Model
 
         public void ResetWithAdd(float time) => _time = _startTime + time;
 
-        public void Update(float deltaTime)
-        {
-            if (_pauseBroadcaster.IsPaused)
-                return;
+        public void Update(float deltaTime) => _time = MathF.Max(0, _time - deltaTime);
 
-            _time = MathF.Max(0, _time - deltaTime);
-        }
     }
 }

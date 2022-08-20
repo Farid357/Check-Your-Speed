@@ -11,7 +11,7 @@ namespace CheckYourSpeed.GameLogic
         [SerializeField] private float _duration = 1.5f;
         [SerializeField] private ScrambleMode _scrambleMode = ScrambleMode.Numerals;
 
-        public void Display(int count)
+        public void Visualize(int count)
         {
             _text.DOText(count.ToString(), _duration, scrambleMode: _scrambleMode);
         }

@@ -2,9 +2,9 @@
 {
     public sealed class PauseButton : AppStateButton
     {
-        protected override void OnClick(PauseBroadcaster pauseBroadcaster)
+        protected override void OnClick(IPauseSwitch pauseSwitch)
         {
-            pauseBroadcaster.Pause();
+            pauseSwitch.Pause();
         }
     }
 }

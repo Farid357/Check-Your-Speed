@@ -1,26 +1,24 @@
 ﻿using CheckYourSpeed.Model;
 using System;
-using Zenject;
 
 namespace CheckYourSpeed.Factory
 {
     public sealed class RandomPointFactory : IFactory
     {
-        private readonly DiContainer _container;
-        private ITimer _loseTimer;
-        private IWaveCleaner _waveCleaner;
+        private readonly ITimer _timer;
+        private readonly IWaveCleaner _waveCleaner;
+        private readonly IPointsSwitch _pointsSwitch;
 
-        public RandomPointFactory(ITimer loseTimer, IWaveCleaner waveCleaner, DiContainer container)
+        public RandomPointFactory(ITimer timer, IWaveCleaner waveCleaner, IPointsSwitch pointsSwitch)
         {
-            _loseTimer = loseTimer ?? throw new ArgumentNullException(nameof(loseTimer));
+            _timer = timer ?? throw new ArgumentNullException(nameof(timer));
             _waveCleaner = waveCleaner ?? throw new ArgumentNullException(nameof(waveCleaner));
-            _container = container ?? throw new ArgumentNullException(nameof(container));
+            _pointsSwitch = pointsSwitch ?? throw new ArgumentNullException(nameof(pointsSwitch));
         }
 
-        public IPoint Get()
+        public IPoint Create()
         {
-            var randomPoint = _container.Instantiate<RandomPoint>();
-            randomPoint.Init(_loseTimer, _waveCleaner);
+            var randomPoint = new RandomPoint(_waveCleaner, _timer, _pointsSwitch);
             return randomPoint;
         }
     }

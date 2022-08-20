@@ -6,6 +6,6 @@ namespace CheckYourSpeed.Model
     {
         public void Apply();
 
-        public event Action<IPoint> OnApplyed;
+        public event Action<IPoint> OnApplied;
     }
 }

@@ -2,7 +2,7 @@
 {
     public interface ITextView
     {
-        public void Display(int count);
+        public void Visualize(int count);
 
     }
 }

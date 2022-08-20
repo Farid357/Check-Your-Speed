@@ -25,7 +25,7 @@ namespace CheckYourSpeed.Model
             if (_record < count)
             {
                 _record = count;
-                _textView.Display(_record);
+                _textView.Visualize(_record);
             }
         }
     }

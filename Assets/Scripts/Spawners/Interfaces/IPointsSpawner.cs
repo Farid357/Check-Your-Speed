@@ -1,12 +1,10 @@
-﻿using System;
+﻿using CheckYourSpeed.Factory;
 
 namespace CheckYourSpeed.Model
 {
     public interface IPointsSpawner
     {
-        public void Spawn(Factory.PointType[] pointTypes);
-
-        public event Action<IPointView> OnSpawned;
+        public void Spawn(PointType[] pointTypes);
 
     }
 }

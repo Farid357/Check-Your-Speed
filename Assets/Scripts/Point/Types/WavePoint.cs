@@ -13,13 +13,13 @@ namespace CheckYourSpeed.Model
             _point = point ?? throw new ArgumentNullException(nameof(point));
         }
 
-        public event Action<IPoint> OnApplyed;
+        public event Action<IPoint> OnApplied;
 
         public void Apply()
         {
             _point.Apply();
             _cleaner.CleanWave();
-            OnApplyed?.Invoke(this);
+            OnApplied?.Invoke(this);
         }
     }
 }

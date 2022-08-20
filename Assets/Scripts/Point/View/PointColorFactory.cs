@@ -4,18 +4,18 @@ using System;
 
 namespace CheckYourSpeed.GameLogic
 {
-    public sealed class PointColorProvider : MonoBehaviour
+    public sealed class PointColorFactory : MonoBehaviour
     {
         [SerializeField] private Color _wave, _score, _disable, _miltiple, _random;
 
-        public Color Get(IPoint point)
+        public Color CreateFrom(IPoint point)
         {
             if (point is WavePoint)
             {
                 return _wave;
             }
 
-            else if (point is ScorePoint)
+            else if (point is TimerPoint)
             {
                 return _score;
             }
@@ -35,7 +35,7 @@ namespace CheckYourSpeed.GameLogic
                 return _random;
             }
 
-            throw new InvalidOperationException();
+            throw new InvalidOperationException(nameof(point.GetType));
         }
     }
 }

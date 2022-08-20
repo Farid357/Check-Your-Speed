@@ -1,5 +1,4 @@
-﻿using CheckYourSpeed.App;
-using CheckYourSpeed.GameLogic;
+﻿using CheckYourSpeed.GameLogic;
 using CheckYourSpeed.Loging;
 using CheckYourSpeed.Model;
 using CheckYourSpeed.SaveSystem;
@@ -13,7 +12,7 @@ namespace CheckYourSpeed.Root
 {
     public sealed class UserRoot : CompositeRoot
     {
-        [SerializeField] private TextView _sessionsCounterView;
+        [SerializeField] private TextView _textView;
         [SerializeField] private LogIn _userLogIn;
         [SerializeField] private Registration _registration;
         [SerializeField] private NameField _logInNameField;
@@ -34,10 +33,7 @@ namespace CheckYourSpeed.Root
             var loginStorage = new UserLogInStorage(new BinaryStorage());
             _userLogIn.Init(logings => logings.HasNotAny(loging => loging.Invalid) && logings.All(l => l.NotEmpty),
              users => HaveAnyCorrectUserFrom(users), loginStorage);
-            var sessionStorage = new SessionsCounterStorage(new BinaryStorage());
-             _sessionsCounter = new SessionsCounter(new Timer(1, new PauseBroadcaster()), new WithoutRegisteringUser(), sessionStorage);
             _loggInView.Init(_userLogIn);
-            _sessionsCounterView.Init(_sessionsCounter);
             var registrationStorage = new UserLogInStorage(new BinaryStorage());
             _registration.Init(loggins => true, users => users.HasNotAny(user => user.Name.Equals(_registrationField.Text)), registrationStorage);
             _registrationView.Init(_registration);
@@ -62,10 +58,10 @@ namespace CheckYourSpeed.Root
         private void ChangeUser(IUser user)
         {
             var sessionStorage = new SessionsCounterStorage(new BinaryStorage());
-            var sessionsCounter = new SessionsCounter(new Timer(1, new PauseBroadcaster()), user, sessionStorage);
-            _sessionsCounterView.Init(sessionsCounter);
+            _sessionsCounter = new SessionsCounter(new FakeTimer(), user, sessionStorage, _textView);
             _config.SetUser(user);
             _loggInView.DisableUserUI();
+            _textView.Visualize(_sessionsCounter.Count);
         }
 
         private void OnDisable()
@@ -76,9 +72,5 @@ namespace CheckYourSpeed.Root
 
         private void OnDestroy() => _close.onClick.RemoveListener(Close);
 
-        private void Update()
-        {
-            _sessionsCounter.Update(Time.deltaTime);
-        }
     }
 }

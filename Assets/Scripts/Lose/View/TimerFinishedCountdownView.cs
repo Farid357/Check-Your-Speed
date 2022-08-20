@@ -13,9 +13,9 @@ namespace CheckYourSpeed.GameLogic
         [SerializeField] private Color _loseColor = Color.red;
         [SerializeField] private Image _loseImage;
 
-        private Timer _timer;
+        private ITimer _timer;
 
-        public void Init(Timer timer)
+        public void Init(ITimer timer)
         {
             _timer = timer ?? throw new ArgumentNullException(nameof(timer));
         }

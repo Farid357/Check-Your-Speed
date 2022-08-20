@@ -4,6 +4,6 @@ namespace CheckYourSpeed.Factory
 {
     public interface IFactory
     {
-        public abstract IPoint Get();
+        public IPoint Create();
     }
 }

@@ -6,5 +6,7 @@
 
         public void ResetWithAdd(float time);
 
+        public bool FinishedCountdown { get; }
+
     }
 }

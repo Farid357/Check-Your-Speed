@@ -2,36 +2,30 @@
 using CheckYourSpeed.Model;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
+using CheckYourSpeed.Utils;
 
 namespace CheckYourSpeed.GameLogic
 {
     public sealed class Waves : MonoBehaviour, IWavesContainer
     {
         [SerializeField] private List<Wave> _waves = new();
-        private PointFactory _pointFactory;
+        private IPointsFactory _pointsFactory;
         private readonly Queue<Wave> _wavesQueue = new();
 
         private Wave _lastWave;
-        private DiContainer _container;
 
         private bool IsEmpty => _wavesQueue.Count == 0;
 
-        [Inject]
-        public void Init(DiContainer container) => _container = container;
-
-        public void Init(ITimer loseTimer, IWaveCleaner waveCleaner)
+        public void Init(IPointsFactory pointsFactory)
         {
-            _pointFactory = _container.Instantiate<PointFactory>();
-            _pointFactory.Init(loseTimer, waveCleaner);
+            _pointsFactory = pointsFactory ?? throw new System.ArgumentNullException(nameof(pointsFactory));
             _waves.ForEach(wave => _wavesQueue.Enqueue(wave));
         }
 
-        public IPoint GetRandomPoint(PointType[] pointTypes)
+        public IPoint CreateRandomPoint(PointType[] pointTypes)
         {
-            var randomIndex = Random.Range(0, pointTypes.Length);
-            var randomPointType = pointTypes[randomIndex];
-            return _pointFactory.Get(randomPointType);
+            var randomPointType = new System.Random().GetRandomFromArray(pointTypes);
+            return _pointsFactory.CreateFrom(randomPointType);
         }
 
         public Wave GetNext()

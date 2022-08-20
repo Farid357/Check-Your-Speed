@@ -1,5 +1,4 @@
 ﻿using CheckYourSpeed.Model;
-using CheckYourSpeed.Utils;
 using UnityEngine;
 
 namespace CheckYourSpeed.GameLogic
@@ -11,7 +10,7 @@ namespace CheckYourSpeed.GameLogic
         public Score Load()
         {
             var loadJson = PlayerPrefs.GetString(Path);
-            return loadJson.FromJson<Score>();
+            return JsonUtility.FromJson<Score>(loadJson);
         }
 
         public void Save(Score score)
@@ -21,7 +20,7 @@ namespace CheckYourSpeed.GameLogic
                 throw new System.ArgumentNullException(nameof(score));
             }
 
-            var json = score.ToJson();
+            var json = JsonUtility.ToJson(score);
             PlayerPrefs.SetString(Path, json);
             PlayerPrefs.Save();
         }

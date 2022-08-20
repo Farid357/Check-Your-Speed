@@ -13,8 +13,8 @@ public sealed class WavePointFactory : IFactory
         _loseTimer = loseTimer ?? throw new ArgumentNullException(nameof(loseTimer));
     }
 
-    public IPoint Get()
+    public IPoint Create()
     {
-        return new WavePoint(_loseTimer, _waveCleaner);
+        return new WavePoint(_waveCleaner, new TimerPoint(_loseTimer));
     }
 }

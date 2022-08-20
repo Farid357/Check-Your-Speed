@@ -10,9 +10,7 @@ namespace CheckYourSpeed.GameLogic
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<PointsRandomPositionsSpawner>().FromInstance(_randomPositionsSpawner).AsSingle();
-            var pointsSwicth = new PointsSwitch(_randomPositionsSpawner);
-            Container.BindInterfacesAndSelfTo<PointsSwitch>().FromInstance(pointsSwicth).AsSingle();
+
         }
     }
 }

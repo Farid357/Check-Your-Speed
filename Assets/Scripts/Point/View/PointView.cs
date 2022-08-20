@@ -23,13 +23,13 @@ namespace CheckYourSpeed.GameLogic
         private void OnDisable()
         {
             if (_point != null)
-                _point.OnApplyed -= Disable;
+                _point.OnApplied -= Disable;
         }
 
         public void Init(IPoint point, Color color)
         {
             _point = point ?? throw new ArgumentNullException(nameof(point));
-            _point.OnApplyed += Disable;
+            _point.OnApplied += Disable;
             _spriteRenderer.color = color;
         }
 

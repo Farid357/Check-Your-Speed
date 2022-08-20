@@ -3,7 +3,7 @@
     public enum PointType
     {
         Wave,
-        Score,
+        Standart,
         Multiple,
         Disable,
         Random

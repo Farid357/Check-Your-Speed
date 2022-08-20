@@ -18,13 +18,13 @@ namespace CheckYourSpeed.Model
                 throw new ArgumentNullException(nameof(point));
             }
 
-            point.OnApplyed += Add;
+            point.OnApplied += Add;
             _points.Add(point);
         }
 
         public IReadOnlyReactiveProperty<int> Count => _count;
 
-        public void Dispose() => _points.ForEach(point => point.OnApplyed -= Add);
+        public void Dispose() => _points.ForEach(point => point.OnApplied -= Add);
 
         private void Add(IPoint point)
         {
@@ -37,7 +37,7 @@ namespace CheckYourSpeed.Model
         {
             public int Score { get; private set; }
 
-            public void Visit(TimerPoint timerPoint) => Score += 25;
+            public void Visit(IPoint timerPoint) => Score += 25;
 
             public void Visit(WavePoint wavePoint) => Score += 50;
 

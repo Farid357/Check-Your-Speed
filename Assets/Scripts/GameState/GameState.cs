@@ -1,23 +1,26 @@
 ﻿using CheckYourSpeed.Model;
 using System;
-using IDisposable = CheckYourSpeed.Model.IDisposable;
 
 namespace CheckYourSpeed.App
 {
-    public sealed class GameState : IDisposable
+    public sealed class GameState : IUpdateble
     {
-        private readonly PauseBroadcaster _pauseBroadcaster;
-        private readonly Timer _loseTimer;
+        private readonly ITimer _loseTimer;
+        private readonly IPauseSwitch _pauseSwitch;
 
-        public GameState(PauseBroadcaster pauseBroadcaster, Timer loseTimer)
+        public GameState(IPauseSwitch pauseSwitch, ITimer loseTimer)
         {
-            _pauseBroadcaster = pauseBroadcaster ?? throw new ArgumentNullException(nameof(pauseBroadcaster));
+            _pauseSwitch = pauseSwitch ?? throw new ArgumentNullException(nameof(pauseSwitch));
             _loseTimer = loseTimer ?? throw new ArgumentNullException(nameof(loseTimer));
-            _loseTimer.OnEnded += _pauseBroadcaster.Pause;
         }
 
-        public void Dispose() => _loseTimer.OnEnded -= _pauseBroadcaster.Pause;
-
+        public void Update(float deltaTime)
+        {
+            if (_loseTimer.FinishedCountdown)
+            {
+                _pauseSwitch.Pause();
+            }
+        }
     }
 
     public interface IPauseBroadcaster

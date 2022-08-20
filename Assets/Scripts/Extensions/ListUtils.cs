@@ -11,6 +11,11 @@ namespace CheckYourSpeed.Utils
             return list.Any(item => predicate.Invoke(item)) == false;
         }
 
+        public static void AddRange<T>(this List<T> list, params T[] enumerable)
+        {
+            list.AddRange(enumerable);
+        }
+
         public static Queue<T> ToQueue<T>(this List<T> list)
         {
             if (list.Count == 0)

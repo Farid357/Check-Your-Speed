@@ -1,6 +1,6 @@
 ﻿namespace CheckYourSpeed.Model
 {
-    public interface IPointsSwicth
+    public interface IPointsSwitch
     {
         public void DisableAll();
 

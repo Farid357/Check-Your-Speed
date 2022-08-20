@@ -3,22 +3,28 @@ using CheckYourSpeed.Utils;
 
 namespace CheckYourSpeed.Model
 {
-    public sealed class MultiplePoint : TimerPoint
+    public sealed class MultiplePoint : IPoint
     {
         private readonly int _count;
         private readonly IPointsSpawner _pointsSpawner;
+        private readonly IPoint _point;
 
-        public MultiplePoint(ITimer timer, int count, IPointsSpawner pointsSpawner) : base(timer)
+        public MultiplePoint(int count, IPointsSpawner pointsSpawner, IPoint point)
         {
             _count = count.TryThrowLessOrEqualZeroException();
             _pointsSpawner = pointsSpawner ?? throw new ArgumentNullException(nameof(pointsSpawner));
+            _point = point ?? throw new ArgumentNullException(nameof(point));
         }
 
-        protected override void PlayApplyFeedback()
+        public event Action<IPoint> OnApplied;
+
+        public void Apply()
         {
+            _point.Apply();
+            OnApplied?.Invoke(this);
             for (int i = 0; i < _count; i++)
             {
-                _pointsSpawner.Spawn(new Factory.PointType[] { Factory.PointType.Score });
+                _pointsSpawner.Spawn(new Factory.PointType[] { Factory.PointType.Standart });
             }
         }
     }

@@ -7,17 +7,17 @@ namespace CheckYourSpeed.Factory
     {
         private const int Count = 3;
         private readonly IPointsSpawner _pointsSpawner;
-        private readonly ITimer _loseTimer;
+        private readonly ITimer _timer;
 
-        public MiltiplePointFactory(ITimer loseTimer, IPointsSpawner pointsSpawner)
+        public MiltiplePointFactory(ITimer timer, IPointsSpawner pointsSpawner)
         {
             _pointsSpawner = pointsSpawner ?? throw new ArgumentNullException(nameof(pointsSpawner));
-            _loseTimer = loseTimer ?? throw new ArgumentNullException(nameof(loseTimer));
+            _timer = timer ?? throw new ArgumentNullException(nameof(timer));
         }
 
-        public IPoint Get()
+        public IPoint Create()
         {
-            return new MultiplePoint(_loseTimer, Count, _pointsSpawner);
+            return new MultiplePoint(Count, _pointsSpawner, new TimerPoint(_timer));
         }
     }
 }
