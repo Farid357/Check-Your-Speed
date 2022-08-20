@@ -2,12 +2,13 @@
 using UnityEngine;
 using UniRx;
 using CheckYourSpeed.GameLogic;
+using CheckYourSpeed.Utils;
 
 namespace CheckYourSpeed.Root
 {
     public sealed class ScoreRoot : MonoBehaviour
     {
-        [SerializeField] private TextView _recordView;
+        [SerializeField, RequireInterface(typeof(ITextView))] private MonoBehaviour _recordView;
         private readonly CompositeDisposable _disposables = new();
         private IScoreStorage _scoreStorage;
         private IDisposable _scoreRecord;
@@ -18,7 +19,7 @@ namespace CheckYourSpeed.Root
             _scoreStorage = new ScoreStorage();
             _score = _scoreStorage.Load() is null ? new() : _scoreStorage.Load();
             _score.Count.Subscribe(_ => SaveScore(_)).AddTo(_disposables);
-            _scoreRecord = new ScoreRecord(_score, _recordView);
+            _scoreRecord = new ScoreRecord(_score, _recordView as ITextView);
             return _score;
         }
 

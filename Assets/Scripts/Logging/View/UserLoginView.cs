@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using CheckYourSpeed.Utils;
 
 namespace CheckYourSpeed.Loging
 {
@@ -6,26 +8,25 @@ namespace CheckYourSpeed.Loging
     {
         [SerializeField] private Canvas _userCanvas;
         [SerializeField] private Canvas _menuCanvas;
-        [SerializeField] private UserView _userView;
-        private IUserFinder _userFinder;
+        [SerializeField, RequireInterface(typeof(IUserEnterView))] private MonoBehaviour _userView;
+        private ISystem _system;
 
-        public void Init(IUserFinder userFinder)
+        public void Init(ISystem system)
         {
-            _userFinder = userFinder ?? throw new System.ArgumentNullException(nameof(userFinder));
-            _userFinder.OnFoundUser += Display;
+            _system = system ?? throw new ArgumentNullException(nameof(system));
+            _system.OnUserEntered += Visualize;
         }
 
-        private void OnDestroy() => _userFinder.OnFoundUser -= Display;
+        private void OnDestroy() => _system.OnUserEntered -= Visualize;
 
-        public void DisableUserUI() => ShowMenu();
-
-        private void Display(User user)
+        private void Visualize(User user)
         {
-            _userView.Show(user);
+            var userView = _userView as IUserEnterView;
+            userView.Visualize(user);
             ShowMenu();
         }
 
-        private void ShowMenu()
+        public void ShowMenu()
         {
             _userCanvas.gameObject.SetActive(false);
             _menuCanvas.gameObject.SetActive(true);

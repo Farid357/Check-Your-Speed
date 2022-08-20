@@ -22,14 +22,14 @@ namespace CheckYourSpeed.Root
         [SerializeField] private Waves _waves;
         [SerializeField] private WaveSpawnerView _waveSpawnerView;
         [SerializeField] private UserConfig _userConfig;
-        [SerializeField] private TextView _counterView;
+        [SerializeField, RequireInterface(typeof(ITextView))] private MonoBehaviour _counterView;
         [SerializeField] private InputRoot _inputRoot;
         [SerializeField] private DifficultyConfig _difficultyConfig;
         [SerializeField] private PointsInAreaSpawner _pointsInAreaSpawner;
         [SerializeField] private ScoreRoot _scoreRoot;
-        [SerializeField] private IPointsSwitch _pointsSwitch;
         [SerializeField] private PointsRandomPositionsSpawner _randomPositionsSpawner;
 
+        private readonly PointsSwitch _pointsSwitch = new();
         private readonly List<IDisposable> _disposables = new();
         private readonly List<IUpdateble> _updatebles = new();
         private readonly PauseBroadcaster _pause = new();
@@ -38,20 +38,19 @@ namespace CheckYourSpeed.Root
 
         public override void Compose()
         {
-            var pointsSwitch = new PointsSwitch();
-            _waveSpawner.Init(pointsSwitch);
+            _waveSpawner.Init(_pointsSwitch);
             _timer = new Timer(_difficultyConfig.GetSelected().CatchTime);
             var gameState = new GameState(_pause, _timer);
             IUser user = _userConfig.GetUser();
             _inputRoot.Init(_pause);
             _inputRoot.Compose();
             var sessionStorage = new SessionsCounterStorage(new BinaryStorage());
-            var sessionCounter = new SessionsCounter(_timer, user, sessionStorage, _counterView);
+            var sessionCounter = new SessionsCounter(_timer, user, sessionStorage, _counterView as ITextView);
             _waves.Init(new PointsFactory(_timer, _waveSpawner, _pointsSwitch, _pointsInAreaSpawner));
             _loseTimerView.Init(_timer);
             var score = _scoreRoot.Compose();
-            _randomPositionsSpawner.Init(score, pointsSwitch, _waves);
-            _pointsInAreaSpawner.Init(score, pointsSwitch, _waves);
+            _randomPositionsSpawner.Init(score, _pointsSwitch, _waves);
+            _pointsInAreaSpawner.Init(score, _pointsSwitch, _waves);
             _pointsPositionsSpawner.Spawn();
             _scoreView.Init(score);
             _waveSpawner.Spawn(true);

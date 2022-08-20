@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace CheckYourSpeed.Loging
 {
-    public sealed class UserLogInStorage
+    public sealed class UsersStorage
     {
         private readonly IStorage _storage;
 
         private const string UsersPath = "UsersAll";
 
-        public UserLogInStorage(IStorage storage)
+        public UsersStorage(IStorage storage)
         {
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
         }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CheckYourSpeed.Utils
 {
-    public static class Vector2Extensions
+    public static class Vector2Utils
     {
         private static Vector2 _previousPoint;
         private static Vector2 _point;

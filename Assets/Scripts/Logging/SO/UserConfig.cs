@@ -8,15 +8,15 @@ namespace CheckYourSpeed.Loging
     {
         private IUser _user;
 
-        public void SetUser(IUser user)
+        public void SaveUser(IUser user)
         {
-            _user = user ?? throw new System.ArgumentNullException(nameof(user));
+            _user = user ?? throw new global::System.ArgumentNullException(nameof(user));
         }
 
         public IUser GetUser()
         {
             if (_user == null)
-                throw new System.InvalidOperationException("User is null, please set in User Config!");
+                throw new global::System.InvalidOperationException("User is null, please set in User Config!");
             return _user;
         }
     }

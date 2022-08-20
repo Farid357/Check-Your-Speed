@@ -3,27 +3,14 @@ using UnityEngine.UI;
 
 namespace CheckYourSpeed.Loging
 {
-    public sealed class HelpBox : MonoBehaviour
+    public sealed class HelpBox : MonoBehaviour, IHelpBox
     {
-        [SerializeField] private LogInField _logging;
         [SerializeField] private GameObject _helpBox;
         [SerializeField] private Image _checkMark;
 
-        private void OnEnable()
-        {
-            _logging.OnFoundInvalidSymbols += DisplayBox;
-            _logging.OnWrote += DisplayCheckMark;
-        }
+        public void VisualizeError() => Display(false);
 
-        private void OnDisable()
-        {
-            _logging.OnFoundInvalidSymbols -= DisplayBox;
-            _logging.OnWrote -= DisplayCheckMark;
-        }
-
-        private void DisplayBox() => Display(false);
-
-        private void DisplayCheckMark() => Display(true);
+        public void VisualizeCorrect() => Display(true);
 
         private void Display(bool valid)
         {

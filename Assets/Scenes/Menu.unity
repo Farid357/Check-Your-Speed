@@ -2217,7 +2217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd59ad4aef03794796a3d497b89c843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _logging: {fileID: 418114196}
   _helpBox: {fileID: 387032298}
   _checkMark: {fileID: 615388726}
 --- !u!114 &418114196
@@ -2234,6 +2233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputField: {fileID: 418114192}
   _container: {fileID: 11400000, guid: ccb0a21f770917141b3bbda6de9e2004, type: 2}
+  _helpBox: {fileID: 418114195}
 --- !u!1 &463047152
 GameObject:
   m_ObjectHideFlags: 0
@@ -3309,7 +3309,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd59ad4aef03794796a3d497b89c843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _logging: {fileID: 822515226}
   _helpBox: {fileID: 463047152}
   _checkMark: {fileID: 1319471886}
 --- !u!114 &822515226
@@ -3326,6 +3325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputField: {fileID: 822515221}
   _container: {fileID: 11400000, guid: ccb0a21f770917141b3bbda6de9e2004, type: 2}
+  _helpBox: {fileID: 822515225}
 --- !u!1 &833698818
 GameObject:
   m_ObjectHideFlags: 0
@@ -4534,7 +4534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4414745c6c0d3824c8365243be71119b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _userLogIn: {fileID: 1345154072}
   _showDelay: 1.8
 --- !u!114 &991738123
 MonoBehaviour:
@@ -5284,9 +5283,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 818b71aea49afb94592b08267e3f3a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameField: {fileID: 822515226}
   _passwordField: {fileID: 1499131328}
-  _logButton: {fileID: 1305977855}
+  _nameField: {fileID: 822515226}
+  _button: {fileID: 1305977855}
 --- !u!114 &1124517035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5539,9 +5538,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1246354557}
   - component: {fileID: 1246354556}
-  - component: {fileID: 1246354555}
   - component: {fileID: 1246354559}
   - component: {fileID: 1246354560}
+  - component: {fileID: 1246354561}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -5549,20 +5548,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1246354555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246354554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84f42475cc9a0524ca23b635cff9ae2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _text: {fileID: 73018177}
-  _duration: 1.4
 --- !u!114 &1246354556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5575,19 +5560,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33762f84375bffa49945421ef72be2a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sessionsCounterView: {fileID: 1246354555}
-  _userLogIn: {fileID: 1345154072}
+  _textView: {fileID: 1246354561}
+  _logIn: {fileID: 1345154072}
   _registration: {fileID: 1124517034}
-  _logInNameField: {fileID: 1694017869}
   _config: {fileID: 11400000, guid: ea673605f1a2979419825b9efe759881, type: 2}
   _close: {fileID: 1849427390}
   _loggInView: {fileID: 1345154073}
   _registrationView: {fileID: 1124517035}
-  _passwordField: {fileID: 418114196}
-  _notFoundUserTexts:
-  - {fileID: 991738122}
-  - {fileID: 2062368899}
-  _registrationField: {fileID: 822515226}
 --- !u!4 &1246354557
 Transform:
   m_ObjectHideFlags: 0
@@ -5633,6 +5612,21 @@ MonoBehaviour:
   _difficulties: {fileID: 11400000, guid: 6b8a8715b2290214cafdab6aa7d15553, type: 2}
   _selector: {fileID: 118303013}
   _dropdown: {fileID: 118303012}
+--- !u!114 &1246354561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246354554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c8dc0766e5f49041a087808a9c3e186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 73018177}
+  _duration: 0.75
+  _scrambleMode: 4
 --- !u!1 &1305977853
 GameObject:
   m_ObjectHideFlags: 0
@@ -5928,9 +5922,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3923c89f95e5b1840b5106f83eb34366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameField: {fileID: 1694017869}
+  _registerButton: {fileID: 1226467043}
   _passwordField: {fileID: 418114196}
-  _logButton: {fileID: 1226467043}
+  _nameField: {fileID: 1694017869}
 --- !u!114 &1345154073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6307,7 +6301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd59ad4aef03794796a3d497b89c843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _logging: {fileID: 1499131328}
   _helpBox: {fileID: 64678724}
   _checkMark: {fileID: 997359003}
 --- !u!114 &1499131328
@@ -6324,6 +6317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputField: {fileID: 1499131323}
   _container: {fileID: 11400000, guid: ccb0a21f770917141b3bbda6de9e2004, type: 2}
+  _helpBox: {fileID: 1499131327}
 --- !u!1 &1532649737
 GameObject:
   m_ObjectHideFlags: 0
@@ -7091,7 +7085,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd59ad4aef03794796a3d497b89c843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _logging: {fileID: 1694017869}
   _helpBox: {fileID: 1024236423}
   _checkMark: {fileID: 1584804299}
 --- !u!114 &1694017869
@@ -7108,6 +7101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputField: {fileID: 1694017865}
   _container: {fileID: 11400000, guid: ccb0a21f770917141b3bbda6de9e2004, type: 2}
+  _helpBox: {fileID: 1694017868}
 --- !u!1 &1739688966
 GameObject:
   m_ObjectHideFlags: 0
@@ -8264,7 +8258,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4414745c6c0d3824c8365243be71119b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _userLogIn: {fileID: 1124517034}
   _showDelay: 1.8
 --- !u!114 &2062368900
 MonoBehaviour:
