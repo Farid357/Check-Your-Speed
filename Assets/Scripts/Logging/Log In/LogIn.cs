@@ -39,7 +39,7 @@ namespace CheckYourSpeed.Loging
 
         private bool NotContainsSameUserData(List<User> users)
         {
-            if (users == null)
+            if (users.Count == 0)
                 return false;
 
             return users.Any(user => user.Name == _nameField.Text)
