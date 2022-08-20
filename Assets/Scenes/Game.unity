@@ -702,7 +702,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pointsPositionsSpawner: {fileID: 953188339}
   _waveSpawner: {fileID: 877091191}
-  _scoreView: {fileID: 558577010}
   _loseTimerView: {fileID: 737540036}
   _waves: {fileID: 877091192}
   _waveSpawnerView: {fileID: 877091189}
@@ -800,6 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _recordView: {fileID: 1253421042}
+  _scoreView: {fileID: 558577010}
 --- !u!1 &875126256
 GameObject:
   m_ObjectHideFlags: 0
