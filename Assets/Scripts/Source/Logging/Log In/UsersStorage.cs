@@ -8,7 +8,7 @@ namespace CheckYourSpeed.Loging
     {
         private readonly IStorage _storage;
 
-        private const string UsersPath = "UsersStorage";
+        private const string UsersPath = "UsersStorageAll";
 
         public UsersStorage(IStorage storage)
         {
@@ -21,7 +21,14 @@ namespace CheckYourSpeed.Loging
             return users;
         }
 
-        public void Save(List<IUserWithAccount> users) => _storage.Save(UsersPath, users);
+        public void Save(List<IUserWithAccount> users)
+        {
+            if (users is null)
+            {
+                throw new ArgumentNullException(nameof(users));
+            }
 
+            _storage.Save(UsersPath, users);
+        }
     }
 }

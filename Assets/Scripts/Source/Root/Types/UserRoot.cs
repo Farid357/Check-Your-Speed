@@ -21,7 +21,7 @@ namespace CheckYourSpeed.Root
         public override void Compose()
         {
             _close.onClick.AddListener(Close);
-            _config.SaveUser(new WithoutRegisteringUser());
+            _config.SaveUser(new WithoutAccountUser());
             var storage = new UsersStorage(new BinaryStorage());
             _logIn.Init(storage);
             _loggInView.Init(_logIn.System);
@@ -33,14 +33,14 @@ namespace CheckYourSpeed.Root
 
         private void Close()
         {
-            _config.SaveUser(new WithoutRegisteringUser());
+            _config.SaveUser(new WithoutAccountUser());
             _loggInView.ShowMenu();
         }
 
         private void SwicthUser(IUserWithAccount user)
         {
-            var sessionStorage = new SessionsCounterStorage(new BinaryStorage());
-            _sessionsCounter = new SessionsCounter(new FakeTimer(), user, sessionStorage, _textView as ITextView);
+            var sessionStorage = new SessionCounterStorage(user);
+            _sessionsCounter = new SessionsCounter(new FakeTimer(), sessionStorage, _textView.ToInterface<ITextView>());
             _config.SaveUser(user);
             _loggInView.ShowMenu();
             var textView = _textView as ITextView;

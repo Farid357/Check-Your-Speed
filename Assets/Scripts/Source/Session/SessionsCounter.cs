@@ -7,16 +7,14 @@ namespace CheckYourSpeed.Loging
     {
         private readonly ITextView _textView;
         private readonly ITimer _timer;
-        private readonly IUserWithAccount _user;
-        private readonly SessionsCounterStorage _storage;
+        private readonly IUserCounterStorage _storage;
 
-        public SessionsCounter(ITimer timer, IUserWithAccount user, SessionsCounterStorage storage, ITextView textView)
+        public SessionsCounter(ITimer timer, IUserCounterStorage storage, ITextView textView)
         {
             _timer = timer ?? throw new ArgumentNullException(nameof(timer));
-            _user = user ?? throw new ArgumentNullException(nameof(user));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _textView = textView ?? throw new ArgumentNullException(nameof(textView));
-            Count = storage.Load(user);
+            Count = storage.Load();
         }
 
         public int Count { get; private set; }
@@ -24,7 +22,7 @@ namespace CheckYourSpeed.Loging
         private void TryIncrease()
         {
             Count++;
-            _storage.Save(_user, Count);
+            _storage.Save(Count);
             _textView.Visualize(Count);
         }
 

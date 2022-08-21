@@ -7,17 +7,35 @@ namespace CheckYourSpeed.Loging
     public sealed class UserConfig : ScriptableObject, IUserConfig
     {
         private IUser _user;
+        private IUserWithAccount _userWithAccount;
 
         public void SaveUser(IUser user)
         {
             _user = user ?? throw new ArgumentNullException(nameof(user));
         }
 
-        public IUser LoadUser()
+        public void SaveUser(IUserWithAccount userWithAccount)
         {
-            if (_user == null)
-                throw new InvalidOperationException("User is null, please set in User Config!");
-            return _user;
+            _userWithAccount = userWithAccount ?? throw new ArgumentNullException(nameof(userWithAccount));
+            _user = null;
+        }
+
+        public bool TryLoad(out IUserWithAccount userWithAccount)
+        {
+            if (_user == null && _userWithAccount == null)
+                throw new InvalidOperationException("User is null, please save in User Config!");
+
+            if (_user != null)
+            {
+                userWithAccount = null;
+                return false;
+            }
+
+            else
+            {
+                userWithAccount = _userWithAccount;
+                return true;
+            }
         }
     }
 }

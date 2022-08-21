@@ -4,7 +4,7 @@ using CheckYourSpeed.Utils;
 
 namespace CheckYourSpeed.Loging
 {
-    public abstract class InputField : MonoBehaviour
+    public abstract class InputField : MonoBehaviour, IInputField
     {
         [SerializeField] private TMP_InputField _inputField;
         [SerializeField] private InvalidSymbolsContainer _container;
@@ -38,5 +38,12 @@ namespace CheckYourSpeed.Loging
                 HelpBox.VisualizeCorrect();
             }
         }
+    }
+
+    public interface IInputField
+    {
+        public bool TextInvalid { get; }
+
+        public bool TextNotEmpty { get; }
     }
 }

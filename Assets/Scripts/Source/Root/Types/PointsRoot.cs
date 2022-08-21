@@ -37,28 +37,26 @@ namespace CheckYourSpeed.Root
 
         public override void Compose()
         {
-            _waveSpawner.Init(_pointsSwitch);
+            _waveSpawner.Init(_waveSpawnerView);
             var timer = new Timer(_difficultyConfig.GetSelected().CatchTime);
             var losePause = new LosePause(_pause, timer);
-            IUser user = _userConfig.LoadUser();
             _inputRoot.Init(_pause);
             _inputRoot.Compose();
-            var sessionStorage = new SessionsCounterStorage(new BinaryStorage());
 
-            if (user.CanHaveAccount(out var userWithAccount))
+            if (_userConfig.TryLoad(out var userWithAccount))
             {
-                _sessionCounter = new SessionsCounter(timer, userWithAccount, sessionStorage, _counterView as ITextView);
+                var sessionStorage = new SessionCounterStorage(userWithAccount);
+                _sessionCounter = new SessionsCounter(timer, sessionStorage, _counterView as ITextView);
             }
-            _waves.Init(new PointsFactory(timer, _waveSpawner, _pointsSwitch, _pointsInAreaSpawner));
+            _waves.Init(new PointsFactory(timer, _pointsSwitch, _pointsInAreaSpawner));
             _loseTimerView.Init(timer);
-            var score = _scoreRoot.Compose();
+            var score = _scoreRoot.Compose(_userConfig);
             _randomPositionsSpawner.Init(score, _pointsSwitch, _waves);
             _pointsInAreaSpawner.Init(score, _pointsSwitch, _waves);
             _pointsPositionsSpawner.Spawn();
             _waveSpawner.Spawn(true);
             _randomPositionsSpawner.Init(_pointsPositionsSpawner.Positions.ToArray());
-            _pointsCounter = new(_waveSpawner, timer);
-            _waveSpawnerView.Init(_waveSpawner);
+            _pointsCounter = new(_waveSpawner, timer, _pointsSwitch);
             _disposables.AddRange(_pointsCounter);
             _updatebles.AddRange(losePause, timer);
 

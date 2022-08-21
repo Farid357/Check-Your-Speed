@@ -4,17 +4,17 @@ using System;
 
 public sealed class WavePointFactory : IFactory
 {
-    private readonly IWaveCleaner _waveCleaner;
+    private readonly IPointsSwitch _pointsSwitch;
     private readonly ITimer _loseTimer;
 
-    public WavePointFactory(ITimer loseTimer, IWaveCleaner waveCleaner)
+    public WavePointFactory(ITimer loseTimer, IPointsSwitch pointsSwitch)
     {
-        _waveCleaner = waveCleaner ?? throw new ArgumentNullException(nameof(waveCleaner));
+        _pointsSwitch = pointsSwitch ?? throw new ArgumentNullException(nameof(pointsSwitch));
         _loseTimer = loseTimer ?? throw new ArgumentNullException(nameof(loseTimer));
     }
 
     public IPoint Create()
     {
-        return new WavePoint(_waveCleaner, new TimerPoint(_loseTimer));
+        return new WavePoint(_pointsSwitch, new TimerPoint(_loseTimer));
     }
 }

@@ -21,8 +21,7 @@ namespace CheckYourSpeed.Loging
 
         private void Visualize(IUserWithAccount user)
         {
-            var userView = _userView as IUserEnterView;
-            userView.Visualize(user);
+            _userView.ToInterface<IUserEnterView>().Visualize(user);
             ShowMenu();
         }
 

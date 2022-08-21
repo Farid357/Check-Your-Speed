@@ -5,7 +5,7 @@
 
     }
 
-    public interface IPasswordField
+    public interface IPasswordField : IInputField
     {
         public string Text { get; }
     }

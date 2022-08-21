@@ -6,9 +6,7 @@ namespace CheckYourSpeed.SaveSystem
 {
     public sealed class BinaryStorage : IStorage, IDeletable
     {
-        private readonly BinaryFormatter _formatter;
-
-        public BinaryStorage() => _formatter = new BinaryFormatter();
+        private readonly BinaryFormatter _formatter = new();
 
         public void Delete(string path)
         {

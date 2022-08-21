@@ -48,7 +48,10 @@ namespace CheckYourSpeed.Utils
         private bool InvalidObject(UnityEngine.Object obj, Type type)
         {
             var go = obj as MonoBehaviour;
-            return go != null ? false : true;
+            if (go != null)
+                return go.GetComponent(type) == null;
+
+            return true;
         }
 
         private void TryClearValues(SerializedProperty property, Type type)

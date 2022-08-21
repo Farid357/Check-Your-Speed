@@ -3,20 +3,20 @@ using System.Collections.Generic;
 
 namespace CheckYourSpeed.Model
 {
-    public sealed class Score : IPointsSubscriber, IScore, ILateUpdateble
+    public sealed class Score : IPointsSubscriber
     {
+        private readonly IScoreView _view;
+        private readonly IScoreRecord _record;
         private readonly ScoreCounter _counter = new();
         private readonly List<IPoint> _points = new();
-        private readonly IScoreView _scoreView;
+        private int _count;
 
-        public Score(IScoreView scoreView)
+        public Score(IScoreView view, IScoreRecord record)
         {
-            _scoreView = scoreView ?? throw new ArgumentNullException(nameof(scoreView));
+            _view = view ?? throw new ArgumentNullException(nameof(view));
+            _record = record ?? throw new ArgumentNullException(nameof(record));
         }
 
-        public bool WasCountChanged { get; private set; }
-
-        public int Count { get; private set; }
 
         public void Subscribe(IPoint point)
         {
@@ -34,12 +34,10 @@ namespace CheckYourSpeed.Model
         private void Add(IPoint point)
         {
             _counter.Visit((dynamic)point);
-            Count = _counter.Score;
-            _scoreView.Visualize(Count);
-            WasCountChanged = true;
+            _count = _counter.Score;
+            _view.Visualize(_count);
+            _record.TryIncrease(_count);
         }
-
-        public void LateUpdate() => WasCountChanged = false;
 
         private sealed class ScoreCounter : IPointVisitor
         {

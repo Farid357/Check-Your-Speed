@@ -10,26 +10,28 @@ namespace CheckYourSpeed.Loging
         private readonly IPasswordField _passwordField;
         private readonly UsersStorage _storage;
 
-        public readonly List<IUserWithAccount> EnteredUsers;
+        private readonly List<IUserWithAccount> _enteredUsers;
 
         public System(INameField nameField, IPasswordField passwordField, UsersStorage storage)
         {
             _nameField = nameField ?? throw new ArgumentNullException(nameof(nameField));
             _passwordField = passwordField ?? throw new ArgumentNullException(nameof(passwordField));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
-            EnteredUsers = storage.Load();
+            _enteredUsers = storage.Load();
         }
+
+        public IReadOnlyList<IUserWithAccount> EnteredUsers => _enteredUsers;
 
         public event Action<IUserWithAccount> OnUserEntered;
 
         public void CreateNewUser()
         {
             IUserWithAccount user = new User(_nameField.Text, _passwordField.Text);
-            if (EnteredUsers.Any(enteredUser => enteredUser.Name == user.Name || enteredUser.Password == user.Password))
+            if (_enteredUsers.Any(enteredUser => enteredUser.Name == user.Name || enteredUser.Password == user.Password))
                 throw new InvalidOperationException("System already exist same user!");
 
-            EnteredUsers.Add(user);
-            _storage.Save(EnteredUsers);
+            _enteredUsers.Add(user);
+            _storage.Save(_enteredUsers);
             OnUserEntered?.Invoke(user);
         }
 

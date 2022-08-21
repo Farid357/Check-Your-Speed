@@ -24,5 +24,11 @@ namespace CheckYourSpeed.Loging
         public string Name { get; }
 
         public string Password { get; }
+
+        public bool HaveAccount(out IUserWithAccount accountableUser)
+        {
+            accountableUser = this;
+            return true;
+        }
     }
 }

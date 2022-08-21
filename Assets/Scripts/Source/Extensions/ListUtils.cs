@@ -6,7 +6,7 @@ namespace CheckYourSpeed.Utils
 {
     public static class ListUtils
     {
-        public static bool HasNotAny<T>(this List<T> list, Func<T, bool> predicate)
+        public static bool HasNotAny<T>(this IReadOnlyList<T> list, Func<T, bool> predicate)
         {
             return list.Any(item => predicate.Invoke(item)) == false;
         }
@@ -16,7 +16,7 @@ namespace CheckYourSpeed.Utils
             list.AddRange(enumerable);
         }
 
-        public static Queue<T> ToQueue<T>(this List<T> list)
+        public static Queue<T> ToQueue<T>(this IReadOnlyList<T> list)
         {
             if (list.Count == 0)
                 throw new InvalidOperationException(nameof(list));

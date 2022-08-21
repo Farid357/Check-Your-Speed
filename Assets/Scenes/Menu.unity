@@ -483,9 +483,9 @@ RectTransform:
   m_Father: {fileID: 2097676600}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -100.345}
   m_SizeDelta: {x: 100, y: 152.69}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &148817792
@@ -1223,8 +1223,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 2097676600}
-  m_Horizontal: 1
-  m_Vertical: 1
+  m_Horizontal: 0
+  m_Vertical: 0
   m_MovementType: 0
   m_Elasticity: 0.1
   m_Inertia: 1
@@ -3361,9 +3361,9 @@ RectTransform:
   m_Father: {fileID: 2097676600}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150, y: -100.345}
   m_SizeDelta: {x: 100, y: 152.69}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &833698820
@@ -4535,6 +4535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showDelay: 1.8
+  _text: {fileID: 991738123}
 --- !u!114 &991738123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5200,6 +5201,7 @@ GameObject:
   - component: {fileID: 1124517034}
   - component: {fileID: 1124517035}
   - component: {fileID: 1124517036}
+  - component: {fileID: 1124517037}
   m_Layer: 5
   m_Name: Registartion
   m_TagString: Untagged
@@ -5283,8 +5285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 818b71aea49afb94592b08267e3f3a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _passwordField: {fileID: 1499131328}
-  _nameField: {fileID: 822515226}
+  _inputFields: {fileID: 1124517037}
+  _notFoundUserView: {fileID: 2062368902}
   _button: {fileID: 1305977855}
 --- !u!114 &1124517035
 MonoBehaviour:
@@ -5315,6 +5317,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _helloText: {fileID: 351128042}
   _delay: 1.8
+--- !u!114 &1124517037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124517030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e58051e960507bd4f9a23926ec2c868a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _password: {fileID: 1499131328}
+  _name: {fileID: 822515226}
 --- !u!1 &1173060198
 GameObject:
   m_ObjectHideFlags: 0
@@ -5922,9 +5938,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3923c89f95e5b1840b5106f83eb34366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _notFoundUserView: {fileID: 991738122}
+  _inputFields: {fileID: 1694017870}
   _registerButton: {fileID: 1226467043}
-  _passwordField: {fileID: 418114196}
-  _nameField: {fileID: 1694017869}
 --- !u!114 &1345154073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6908,6 +6924,7 @@ GameObject:
   - component: {fileID: 1694017865}
   - component: {fileID: 1694017868}
   - component: {fileID: 1694017869}
+  - component: {fileID: 1694017870}
   m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
@@ -7102,6 +7119,20 @@ MonoBehaviour:
   _inputField: {fileID: 1694017865}
   _container: {fileID: 11400000, guid: ccb0a21f770917141b3bbda6de9e2004, type: 2}
   _helpBox: {fileID: 1694017868}
+--- !u!114 &1694017870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694017863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e58051e960507bd4f9a23926ec2c868a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _password: {fileID: 418114196}
+  _name: {fileID: 1694017869}
 --- !u!1 &1739688966
 GameObject:
   m_ObjectHideFlags: 0
@@ -8218,7 +8249,7 @@ GameObject:
   - component: {fileID: 2062368898}
   - component: {fileID: 2062368901}
   - component: {fileID: 2062368900}
-  - component: {fileID: 2062368899}
+  - component: {fileID: 2062368902}
   m_Layer: 5
   m_Name: NotFoundUser (1)
   m_TagString: Untagged
@@ -8246,19 +8277,6 @@ RectTransform:
   m_AnchoredPosition: {x: -136, y: 40}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2062368899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062368897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4414745c6c0d3824c8365243be71119b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _showDelay: 1.8
 --- !u!114 &2062368900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8356,6 +8374,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062368897}
   m_CullTransparentMesh: 1
+--- !u!114 &2062368902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062368897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4414745c6c0d3824c8365243be71119b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showDelay: 1.8
+  _text: {fileID: 2062368900}
 --- !u!1 &2087835229
 GameObject:
   m_ObjectHideFlags: 0

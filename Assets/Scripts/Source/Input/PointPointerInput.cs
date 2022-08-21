@@ -4,11 +4,11 @@ using CheckYourSpeed.Model;
 
 namespace CheckYourSpeed.GameLogic
 {
-    public sealed class PointerInput : IPointInput, IUpdateble
+    public sealed class PointPointerInput : IPointInput, IUpdateble
     {
         private readonly Camera _camera;
 
-        public PointerInput(Camera camera)
+        public PointPointerInput(Camera camera)
         {
             _camera = camera ?? throw new ArgumentNullException(nameof(camera));
         }

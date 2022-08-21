@@ -2,6 +2,6 @@
 {
     public interface IUserConfig
     {
-        public IUser LoadUser();
+        public bool TryLoad(out IUserWithAccount userWithAccount);
     }
 }

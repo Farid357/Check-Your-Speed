@@ -2,19 +2,7 @@
 {
     public interface IUser
     {
-        public bool CanHaveAccount(out IUserWithAccount accountableUser)
-        {
-            if (this is IUserWithAccount user)
-            {
-                accountableUser = user;
-                return true;
-            }
+        public bool HaveAccount(out IUserWithAccount accountableUser);
 
-            else
-            {
-                accountableUser = null;
-                return false;
-            }
-        }
     }
 }

@@ -1,9 +1,7 @@
-﻿using UniRx;
-
-namespace CheckYourSpeed.Model
+﻿namespace CheckYourSpeed.Model
 {
     public interface IScoreRecord
     {
-        public IReadOnlyReactiveProperty<int> Count { get; }
+        public void TryIncrease(int scoreCount);
     }
 }

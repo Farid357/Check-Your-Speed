@@ -9,7 +9,6 @@ namespace CheckYourSpeed.GameLogic
     {
         [SerializeField] private ParticleSystem _particle;
         private IPoint _point;
-        private SpriteRenderer _spriteRenderer;
         private Action _onDisabled;
 
         public bool Enable => gameObject.activeInHierarchy;
@@ -17,8 +16,6 @@ namespace CheckYourSpeed.GameLogic
         public Vector3 Position => transform.position;
 
         public event Action OnDisabled { add => _onDisabled = value; remove => _onDisabled -= value; }
-
-        private void Awake() => _spriteRenderer ??= GetComponent<SpriteRenderer>();
 
         private void OnDisable()
         {
@@ -30,7 +27,7 @@ namespace CheckYourSpeed.GameLogic
         {
             _point = point ?? throw new ArgumentNullException(nameof(point));
             _point.OnApplied += Disable;
-            _spriteRenderer.color = color;
+            GetComponent<SpriteRenderer>().color = color;
         }
 
         public void Apply() => _point.Apply();

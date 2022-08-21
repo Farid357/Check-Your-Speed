@@ -1,10 +1,14 @@
-﻿namespace CheckYourSpeed.Model
+﻿using System;
+
+namespace CheckYourSpeed.Model
 {
     public interface IPointsSwitch
     {
         public void DisableAll();
 
-        public void Disable(int count);
+        public void TryDisable(int count);
+
+        public event Action OnDisabledAll;
 
     }
 }

@@ -10,12 +10,12 @@ namespace CheckYourSpeed.Root
         [SerializeField] private ContinueButton _continueButton;
         [SerializeField] private PointsInAreaSpawner _pointsInAreaSpawner;
         private PauseBroadcaster _pauseBroadcaster;
-        private PointerInput _input;
+        private PointPointerInput _input;
 
         public void Init(PauseBroadcaster pauseBroadcaster)
         {
             _pauseBroadcaster = pauseBroadcaster ?? throw new System.ArgumentNullException(nameof(pauseBroadcaster));
-            _input = new PointerInput(Camera.main);
+            _input = new PointPointerInput(Camera.main);
         }
 
         public void Compose()

@@ -24,7 +24,7 @@ namespace CheckYourSpeed.Model
             OnApplied?.Invoke(this);
             for (int i = 0; i < _count; i++)
             {
-                _pointsSpawner.Spawn(new Factory.PointType[] { Factory.PointType.Standart });
+                _pointsSpawner.SpawnRandomFrom(new Factory.PointType[] { Factory.PointType.Standart });
             }
         }
     }

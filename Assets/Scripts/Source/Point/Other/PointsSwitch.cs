@@ -8,11 +8,19 @@ namespace CheckYourSpeed.Model
     {
         private readonly List<IPointView> _points = new();
 
+        public event Action OnDisabledAll;
+
         private List<IPointView> _enablePoints => _points.Where(point => point.Enable).ToList();
 
-        public void DisableAll() => _enablePoints.ForEach(point => point.Disable());
+        public IEnumerable<IPointView> All => _points;
 
-        public void Disable(int count)
+        public void DisableAll()
+        {
+            _enablePoints.ForEach(point => point.Disable());
+            OnDisabledAll?.Invoke();
+        }
+
+        public void TryDisable(int count)
         {
             try
             {

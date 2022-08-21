@@ -19,7 +19,7 @@ namespace CheckYourSpeed.Model
         public void Apply()
         {
             _point.Apply();
-            _pointsSwicth.Disable(DisableCount);
+            _pointsSwicth.TryDisable(DisableCount);
             OnApplied?.Invoke(this);
         }
     }

@@ -4,7 +4,7 @@ namespace CheckYourSpeed.Model
 {
     public interface IPointsSpawner
     {
-        public void Spawn(PointType[] pointTypes);
+        public void SpawnRandomFrom(PointType[] pointTypes);
 
     }
 }

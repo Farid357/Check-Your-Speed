@@ -4,12 +4,12 @@ namespace CheckYourSpeed.Model
 {
     public sealed class WavePoint : IPoint
     {
-        private readonly IWaveCleaner _cleaner;
+        private readonly IPointsSwitch _pointsSwitch;
         private readonly IPoint _point;
 
-        public WavePoint(IWaveCleaner cleaner, IPoint point)
+        public WavePoint(IPointsSwitch pointsSwitch, IPoint point)
         {
-            _cleaner = cleaner ?? throw new ArgumentNullException(nameof(cleaner));
+            _pointsSwitch = pointsSwitch ?? throw new ArgumentNullException(nameof(pointsSwitch));
             _point = point ?? throw new ArgumentNullException(nameof(point));
         }
 
@@ -18,7 +18,7 @@ namespace CheckYourSpeed.Model
         public void Apply()
         {
             _point.Apply();
-            _cleaner.CleanWave();
+            _pointsSwitch.DisableAll();
             OnApplied?.Invoke(this);
         }
     }

@@ -5,7 +5,7 @@
 
     }
 
-    public interface INameField
+    public interface INameField : IInputField
     {
         public string Text { get; }
     }
