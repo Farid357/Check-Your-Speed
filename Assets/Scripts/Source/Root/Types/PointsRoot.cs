@@ -31,7 +31,7 @@ namespace CheckYourSpeed.Root
         private readonly PointsSwitch _pointsSwitch = new();
         private readonly List<IDisposable> _disposables = new();
         private readonly List<IUpdateble> _updatebles = new();
-        private readonly PauseBroadcaster _pause = new();
+        private readonly PauseBroadcaster _pauseBroadcaster = new();
         private PointsCounter _pointsCounter;
         private SessionsCounter _sessionCounter;
 
@@ -39,15 +39,19 @@ namespace CheckYourSpeed.Root
         {
             _waveSpawner.Init(_waveSpawnerView);
             var timer = new Timer(_difficultyConfig.GetSelected().CatchTime);
-            var losePause = new LosePause(_pause, timer);
-            _inputRoot.Init(_pause);
+            var losePause = new LosePause(_pauseBroadcaster, timer);
+            _inputRoot.Init(_pauseBroadcaster);
             _inputRoot.Compose();
+
+            IUserCounterStorage sessionStorage = new FakeSessionStorage();
 
             if (_userConfig.TryLoad(out var userWithAccount))
             {
-                var sessionStorage = new SessionCounterStorage(userWithAccount);
-                _sessionCounter = new SessionsCounter(timer, sessionStorage, _counterView as ITextView);
+                sessionStorage = new SessionCounterStorage(userWithAccount);
             }
+
+            _sessionCounter = new SessionsCounter(timer, sessionStorage, _counterView.ToInterface<ITextView>());
+
             _waves.Init(new PointsFactory(timer, _pointsSwitch, _pointsInAreaSpawner));
             _loseTimerView.Init(timer);
             var score = _scoreRoot.Compose(_userConfig);
@@ -64,9 +68,9 @@ namespace CheckYourSpeed.Root
 
         private void Update()
         {
-            if (_pause.IsPaused == false)
+            if (_pauseBroadcaster.GameIsPaused == false)
             {
-                _sessionCounter?.Update(Time.deltaTime);
+                _sessionCounter.Update(Time.deltaTime);
             }
 
             _updatebles.ForEach(updateble => updateble.Update(Time.deltaTime));

@@ -2,10 +2,10 @@
 {
     public sealed class PauseBroadcaster : IPauseBroadcaster, IPauseSwitch
     {
-        public bool IsPaused { get; private set; }
+        public bool GameIsPaused { get; private set; }
 
-        public void Pause() => IsPaused = true;
+        public void Pause() => GameIsPaused = true;
 
-        public void UnPause() => IsPaused = false;
+        public void UnPause() => GameIsPaused = false;
     }
 }

@@ -25,6 +25,6 @@ namespace CheckYourSpeed.App
 
     public interface IPauseBroadcaster
     {
-        public bool IsPaused { get; }
+        public bool GameIsPaused { get; }
     }
 }

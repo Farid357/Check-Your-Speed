@@ -27,7 +27,7 @@ namespace CheckYourSpeed.Root
 
         private void Update()
         {
-            if (_pauseBroadcaster.IsPaused == false)
+            if (_pauseBroadcaster.GameIsPaused == false)
                 _input.Update(Time.deltaTime);
         }
     }

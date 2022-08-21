@@ -9,9 +9,11 @@ namespace CheckYourSpeed.SaveSystem
 
         public T Load<T>(string path) 
         {
-            if (Exists(path))
+            var jsonPath = Path.Combine(Application.persistentDataPath + path);
+
+            if (Exists(jsonPath))
             {
-                var saveJson = File.ReadAllText(path);
+                var saveJson = File.ReadAllText(jsonPath);
                 return JsonUtility.FromJson<T>(saveJson);
             }
             return default;
@@ -20,7 +22,8 @@ namespace CheckYourSpeed.SaveSystem
         public void Save<T>(string path, T saveObject)
         {
             var saveJson = JsonUtility.ToJson(saveObject);
-            File.WriteAllText(path, saveJson);
+            var jsonPath = Path.Combine(Application.persistentDataPath + path);
+            File.WriteAllText(jsonPath, saveJson);
         }
     }
 }
