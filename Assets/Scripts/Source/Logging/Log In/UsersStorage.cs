@@ -8,7 +8,7 @@ namespace CheckYourSpeed.Loging
     {
         private readonly IStorage _storage;
 
-        private const string UsersPath = "UsersStorageAll";
+        private const string UsersPath = "Users!ll";
 
         public UsersStorage(IStorage storage)
         {

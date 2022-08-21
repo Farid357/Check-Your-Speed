@@ -1,12 +1,10 @@
 ﻿namespace CheckYourSpeed.Model
 {
-    public interface ITimer
+    public interface ITimer : IReadOnlyTimer
     {
         public void Reset();
 
-        public void ResetWithAdd(float time);
-
-        public bool FinishedCountdown { get; }
+        public void Add(float time);
 
     }
 }

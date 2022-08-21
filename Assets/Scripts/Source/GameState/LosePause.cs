@@ -5,18 +5,18 @@ namespace CheckYourSpeed.App
 {
     public sealed class LosePause : IUpdateble
     {
-        private readonly ITimer _loseTimer;
+        private readonly IReadOnlyTimer _timer;
         private readonly IPauseSwitch _pauseSwitch;
 
-        public LosePause(IPauseSwitch pauseSwitch, ITimer loseTimer)
+        public LosePause(IPauseSwitch pauseSwitch, IReadOnlyTimer timer)
         {
             _pauseSwitch = pauseSwitch ?? throw new ArgumentNullException(nameof(pauseSwitch));
-            _loseTimer = loseTimer ?? throw new ArgumentNullException(nameof(loseTimer));
+            _timer = timer ?? throw new ArgumentNullException(nameof(timer));
         }
 
         public void Update(float deltaTime)
         {
-            if (_loseTimer.FinishedCountdown)
+            if (_timer.FinishedCountdown)
             {
                 _pauseSwitch.Pause();
             }

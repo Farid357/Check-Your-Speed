@@ -40,7 +40,7 @@ namespace CheckYourSpeed.Root
         private void SwicthUser(IUserWithAccount user)
         {
             var sessionStorage = new SessionCounterStorage(user);
-            _sessionsCounter = new SessionsCounter(new FakeTimer(), sessionStorage, _textView.ToInterface<ITextView>());
+            _sessionsCounter = new SessionsCounter(new DummyTimer(), sessionStorage, _textView.ToInterface<ITextView>());
             _config.SaveUser(user);
             _loggInView.ShowMenu();
             var textView = _textView as ITextView;

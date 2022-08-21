@@ -51,7 +51,8 @@ namespace CheckYourSpeed.GameLogic
 
         private void Reset(in Wave wave)
         {
-            _loseTimer.ResetWithAdd(wave.DelayAfterEnd);
+            _loseTimer.Reset();
+            _loseTimer.Add(wave.DelayAfterEnd);
             _count = 0;
             _waveSpawner.SpawnWithDelay();
         }

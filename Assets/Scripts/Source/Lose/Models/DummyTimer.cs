@@ -1,6 +1,6 @@
 ﻿namespace CheckYourSpeed.Model
 {
-    public sealed class FakeTimer : ITimer
+    public sealed class DummyTimer : ITimer
     {
         public bool FinishedCountdown { get; }
 
@@ -9,7 +9,7 @@
 
         }
 
-        public void ResetWithAdd(float time)
+        public void Add(float time)
         {
 
         }

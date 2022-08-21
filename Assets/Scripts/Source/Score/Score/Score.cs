@@ -9,14 +9,13 @@ namespace CheckYourSpeed.Model
         private readonly IScoreRecord _record;
         private readonly ScoreCounter _counter = new();
         private readonly List<IPoint> _points = new();
-        private int _count;
 
         public Score(IScoreView view, IScoreRecord record)
         {
             _view = view ?? throw new ArgumentNullException(nameof(view));
             _record = record ?? throw new ArgumentNullException(nameof(record));
         }
-
+        public int Count { get; private set; }
 
         public void Subscribe(IPoint point)
         {
@@ -34,9 +33,9 @@ namespace CheckYourSpeed.Model
         private void Add(IPoint point)
         {
             _counter.Visit((dynamic)point);
-            _count = _counter.Score;
-            _view.Visualize(_count);
-            _record.TryIncrease(_count);
+            Count = _counter.Score;
+            _view.Visualize(Count);
+            _record.TryIncrease(Count);
         }
 
         private sealed class ScoreCounter : IPointVisitor
