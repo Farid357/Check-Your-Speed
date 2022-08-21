@@ -1,3 +1,4 @@
+using CheckYourSpeed.Loging;
 using CheckYourSpeed.Model;
 using NUnit.Framework;
 
@@ -15,7 +16,7 @@ namespace CheckYourSpeed.Tests
         [Test]
         public void ScoreRecordIncreaseCountCorrectly()
         {
-            var record = new ScoreRecordWithoutSave(new DummyTextView());
+            var record = new ScoreRecord(new DummyTextView(), new FakeUserCounterStorage());
             record.TryIncrease(50);
             Assert.AreEqual(record.Count, 50);
         }

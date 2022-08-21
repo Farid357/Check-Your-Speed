@@ -16,16 +16,13 @@ namespace CheckYourSpeed.Root
 
         public Score Compose(IUserConfig userConfig)
         {
+            IUserCounterStorage recordStorage = new FakeUserCounterStorage();
             if (userConfig.TryLoad(out var userWithAccount))
             {
-                IUserCounterStorage recordStorage = new UserCounterStorage(new BinaryStorage(), userWithAccount, "ScoreRecird");
-                _record = new ScoreRecord(_recordView.ToInterface<ITextView>(), recordStorage);
+                recordStorage = new UserCounterStorage(new BinaryStorage(), userWithAccount, "ScoreRecird");
             }
 
-            else
-            {
-                _record = new ScoreRecordWithoutSave(_recordView.ToInterface<ITextView>());
-            }
+            _record = new ScoreRecord(_recordView.ToInterface<ITextView>(), recordStorage);
 
             return new Score(_scoreView.ToInterface<IScoreView>(), _record);
         }

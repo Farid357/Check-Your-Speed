@@ -7,23 +7,23 @@ namespace CheckYourSpeed.Model
     {
         private readonly ITextView _textView;
         private readonly IUserCounterStorage _scoreStorage;
-        private int _count;
 
         public ScoreRecord(ITextView textView, IUserCounterStorage scoreStorage)
         {
             _scoreStorage = scoreStorage ?? throw new ArgumentNullException(nameof(scoreStorage));
             _textView = textView ?? throw new ArgumentNullException(nameof(textView));
-            _count = _scoreStorage.Load();
-            _textView.Visualize(_count);
+            Count = _scoreStorage.Load();
+            _textView.Visualize(Count);
         }
+        public int Count { get; private set; }
 
         public void TryIncrease(int scoreCount)
         {
-            if (_count < scoreCount)
+            if (Count < scoreCount)
             {
-                _count = scoreCount;
-                _textView.Visualize(_count);
-                _scoreStorage.Save(_count);
+                Count = scoreCount;
+                _textView.Visualize(Count);
+                _scoreStorage.Save(Count);
             }
         }
     }

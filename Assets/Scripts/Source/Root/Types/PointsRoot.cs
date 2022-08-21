@@ -43,7 +43,7 @@ namespace CheckYourSpeed.Root
             _inputRoot.Init(_pauseBroadcaster);
             _inputRoot.Compose();
 
-            IUserCounterStorage sessionStorage = new FakeSessionStorage();
+            IUserCounterStorage sessionStorage = new FakeUserCounterStorage();
 
             if (_userConfig.TryLoad(out var userWithAccount))
             {

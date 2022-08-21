@@ -1,6 +1,6 @@
 namespace CheckYourSpeed.Loging
 {
-    public sealed class FakeSessionStorage : IUserCounterStorage
+    public sealed class FakeUserCounterStorage : IUserCounterStorage
     {
         public int Load() => 0;
 
