@@ -9,7 +9,7 @@ namespace CheckYourSpeed.Tests
         [Test]
         public void IsTimerFinishCountdown()
         {
-            var timer = new Timer(1);
+            var timer = new Timer(1, new DummyTimerVisualization());
             timer.Update(1);
             Assert.That(timer.FinishedCountdown);
         }
@@ -17,7 +17,7 @@ namespace CheckYourSpeed.Tests
         [Test]
         public void IsTimerAddsTimeCorrectly()
         {
-            var timer = new Timer(2);
+            var timer = new Timer(2, new DummyTimerVisualization());
             timer.Add(2);
             Assert.That(timer.Time == 4);
         }
@@ -25,7 +25,7 @@ namespace CheckYourSpeed.Tests
         [Test]
         public void IsTimerResetsTimeCorrectly()
         {
-            var timer = new Timer(2);
+            var timer = new Timer(2, new DummyTimerVisualization());
             timer.Add(4);
             timer.Reset();
             Assert.That(timer.Time == 2);
@@ -34,8 +34,8 @@ namespace CheckYourSpeed.Tests
         [Test]
         public void IsTimerThrowLessOrEqualZeroException()
         {
-            Assert.Throws<LessOrEqualZeroException>(() => new Timer(0));
-            Assert.Throws<LessOrEqualZeroException>(() => new Timer(-1));
+            Assert.Throws<LessOrEqualZeroException>(() => new Timer(0, new DummyTimerVisualization()));
+            Assert.Throws<LessOrEqualZeroException>(() => new Timer(-1, new DummyTimerVisualization()));
         }
     }
 }

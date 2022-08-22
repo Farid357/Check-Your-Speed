@@ -9,14 +9,13 @@ namespace CheckYourSpeed.Root
 {
     public sealed class UserRoot : CompositeRoot
     {
-        [SerializeField, RequireInterface(typeof(ITextView))] private MonoBehaviour _textView;
+        [SerializeField, RequireInterface(typeof(IVisualization<int>))] private MonoBehaviour _textView;
         [SerializeField] private LogIn _logIn;
         [SerializeField] private Registration _registration;
         [SerializeField] private UserConfig _config;
         [SerializeField] private Button _close;
         [SerializeField] private UserLogInView _loggInView;
         [SerializeField] private UserLogInView _registrationView;
-        private SessionsCounter _sessionsCounter;
 
         public override void Compose()
         {
@@ -40,11 +39,9 @@ namespace CheckYourSpeed.Root
         private void SwicthUser(IUserWithAccount user)
         {
             var sessionStorage = new SessionCounterStorage(user);
-            _sessionsCounter = new SessionsCounter(new DummyTimer(), sessionStorage, _textView.ToInterface<ITextView>());
+            var sessionsCounter = new SessionsCounter(new DummyTimer(), sessionStorage, _textView.ToInterface<IVisualization<int>>());
             _config.SaveUser(user);
             _loggInView.ShowMenu();
-            var textView = _textView as ITextView;
-            textView.Visualize(_sessionsCounter.Count);
         }
 
         private void OnDisable()

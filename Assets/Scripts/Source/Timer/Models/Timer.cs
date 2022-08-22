@@ -5,11 +5,13 @@ namespace CheckYourSpeed.Model
 {
     public sealed class Timer : ITimer, IUpdateble
     {
+        private readonly IVisualization<float> _visualization;
         private readonly float _startTime;
 
-        public Timer(float time)
+        public Timer(float time, IVisualization<float> visualization)
         {
             Time = time.TryThrowLessOrEqualZeroException();
+            _visualization = visualization ?? throw new ArgumentNullException(nameof(visualization));
             _startTime = Time;
         }
 
@@ -25,7 +27,10 @@ namespace CheckYourSpeed.Model
             Time += time;
         }
 
-        public void Update(float deltaTime) => Time = MathF.Max(0, Time - deltaTime);
-
+        public void Update(float deltaTime)
+        {
+            Time = MathF.Max(0, Time - deltaTime);
+            _visualization.Visualize(Time);
+        }
     }
 }

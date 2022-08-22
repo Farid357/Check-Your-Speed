@@ -3,5 +3,7 @@
     public interface IReadOnlyTimer
     {
         public bool FinishedCountdown { get; }
+
+        public float Time { get; }
     }
 }

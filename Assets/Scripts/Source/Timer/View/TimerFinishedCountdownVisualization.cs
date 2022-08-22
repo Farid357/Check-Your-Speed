@@ -6,7 +6,7 @@ using DG.Tweening;
 
 namespace CheckYourSpeed.GameLogic
 {
-    public sealed class TimerFinishedCountdownView : MonoBehaviour
+    public sealed class TimerFinishedCountdownVisualization : MonoBehaviour
     {
         [SerializeField] private LoseWindow _panel;
         [SerializeField] private float _delay = 0.9f;

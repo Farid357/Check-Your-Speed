@@ -5,7 +5,7 @@ using CheckYourSpeed.Model;
 
 namespace CheckYourSpeed.GameLogic
 {
-    public sealed class TextView : MonoBehaviour, ITextView
+    public sealed class CountVisualization : MonoBehaviour, IVisualization<int>
     {
         [SerializeField] private TMP_Text _text;
         [SerializeField] private float _duration = 1.5f;

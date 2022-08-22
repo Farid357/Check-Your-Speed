@@ -8,7 +8,7 @@ namespace Tests
         private const string Path = "114";
 
         [Test]
-        public void PlayerPrefsStorageSavesCorrectly()
+        public void JSONStorageSavesCorrectly()
         {
             IStorage storage = new JSONStorage();
             storage.Save(Path, 44);

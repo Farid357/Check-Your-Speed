@@ -5,15 +5,15 @@ namespace CheckYourSpeed.Model
 {
     public sealed class ScoreRecord : IScoreRecord
     {
-        private readonly ITextView _textView;
+        private readonly IVisualization<int> _visualization;
         private readonly IUserCounterStorage _scoreStorage;
 
-        public ScoreRecord(ITextView textView, IUserCounterStorage scoreStorage)
+        public ScoreRecord(IVisualization<int> visualization, IUserCounterStorage scoreStorage)
         {
             _scoreStorage = scoreStorage ?? throw new ArgumentNullException(nameof(scoreStorage));
-            _textView = textView ?? throw new ArgumentNullException(nameof(textView));
+            _visualization = visualization ?? throw new ArgumentNullException(nameof(visualization));
             Count = _scoreStorage.Load();
-            _textView.Visualize(Count);
+            _visualization.Visualize(Count);
         }
         public int Count { get; private set; }
 
@@ -22,7 +22,7 @@ namespace CheckYourSpeed.Model
             if (Count < scoreCount)
             {
                 Count = scoreCount;
-                _textView.Visualize(Count);
+                _visualization.Visualize(Count);
                 _scoreStorage.Save(Count);
             }
         }

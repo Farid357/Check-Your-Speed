@@ -5,16 +5,17 @@ namespace CheckYourSpeed.Loging
 {
     public sealed class SessionsCounter : IUpdateble, ISessionCounter
     {
-        private readonly ITextView _textView;
+        private readonly IVisualization<int> _visualization;
         private readonly ITimer _timer;
         private readonly IUserCounterStorage _storage;
 
-        public SessionsCounter(ITimer timer, IUserCounterStorage storage, ITextView textView)
+        public SessionsCounter(ITimer timer, IUserCounterStorage storage, IVisualization<int> visualization)
         {
             _timer = timer ?? throw new ArgumentNullException(nameof(timer));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
-            _textView = textView ?? throw new ArgumentNullException(nameof(textView));
+            _visualization = visualization ?? throw new ArgumentNullException(nameof(visualization));
             Count = storage.Load();
+            visualization.Visualize(Count);
         }
 
         public int Count { get; private set; }
@@ -23,7 +24,7 @@ namespace CheckYourSpeed.Loging
         {
             Count++;
             _storage.Save(Count);
-            _textView.Visualize(Count);
+            _visualization.Visualize(Count);
         }
 
         public void Update(float deltaTime)

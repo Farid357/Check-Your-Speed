@@ -17,17 +17,17 @@ namespace CheckYourSpeed.Root
     {
         [SerializeField] private PointsPositionsSpawner _pointsPositionsSpawner;
         [SerializeField] private WaveSpawner _waveSpawner;
-        [SerializeField] private TimerFinishedCountdownView _loseTimerView;
+        [SerializeField] private TimerFinishedCountdownVisualization _loseTimerView;
         [SerializeField] private Waves _waves;
         [SerializeField] private WaveSpawnerView _waveSpawnerView;
         [SerializeField] private UserConfig _userConfig;
-        [SerializeField, RequireInterface(typeof(ITextView))] private MonoBehaviour _counterView;
+        [SerializeField, RequireInterface(typeof(IVisualization<int>))] private MonoBehaviour _counterView;
         [SerializeField] private InputRoot _inputRoot;
         [SerializeField] private DifficultyConfig _difficultyConfig;
         [SerializeField] private PointsInAreaSpawner _pointsInAreaSpawner;
         [SerializeField] private ScoreRoot _scoreRoot;
         [SerializeField] private PointsRandomPositionsSpawner _randomPositionsSpawner;
-
+        [SerializeField, RequireInterface(typeof(IVisualization<float>))] private MonoBehaviour _timerView;
         private readonly PointsSwitch _pointsSwitch = new();
         private readonly List<IDisposable> _disposables = new();
         private readonly List<IUpdateble> _updatebles = new();
@@ -38,7 +38,7 @@ namespace CheckYourSpeed.Root
         public override void Compose()
         {
             _waveSpawner.Init(_waveSpawnerView);
-            var timer = new Timer(_difficultyConfig.GetSelected().CatchTime);
+            var timer = new Timer(_difficultyConfig.GetSelected().CatchTime, _timerView.ToInterface<IVisualization<float>>());
             var losePause = new LosePause(_pauseBroadcaster, timer);
             _inputRoot.Init(_pauseBroadcaster);
             _inputRoot.Compose();
@@ -50,7 +50,7 @@ namespace CheckYourSpeed.Root
                 sessionStorage = new SessionCounterStorage(userWithAccount);
             }
 
-            _sessionCounter = new SessionsCounter(timer, sessionStorage, _counterView.ToInterface<ITextView>());
+            _sessionCounter = new SessionsCounter(timer, sessionStorage, _counterView.ToInterface<IVisualization<int>>());
 
             _waves.Init(new PointsFactory(timer, _pointsSwitch, _pointsInAreaSpawner));
             _loseTimerView.Init(timer);
