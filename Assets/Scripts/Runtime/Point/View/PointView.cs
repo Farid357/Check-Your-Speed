@@ -1,4 +1,5 @@
 ﻿using CheckYourSpeed.Model;
+using CheckYourSpeed.Utils;
 using System;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace CheckYourSpeed.GameLogic
     {
         [SerializeField] private ParticleSystem _particle;
         private IPoint _point;
+        private IPool<PointView> _pool;
         private Action _onDisabled;
 
         public bool Enable => gameObject.activeInHierarchy;
@@ -17,31 +19,26 @@ namespace CheckYourSpeed.GameLogic
 
         public event Action OnDisabled { add => _onDisabled = value; remove => _onDisabled -= value; }
 
-        private void OnDisable()
-        {
-            if (_point != null)
-                _point.OnApplied -= Disable;
-        }
+        private void OnDisable() => _pool.Release(this);
 
-        public void Init(IPoint point, Color color)
+        public void Init(IPoint point, IPool<PointView> pool, Color color)
         {
             _point = point ?? throw new ArgumentNullException(nameof(point));
-            _point.OnApplied += Disable;
+            _pool = pool ?? throw new ArgumentNullException(nameof(pool));
             GetComponent<SpriteRenderer>().color = color;
         }
 
-        public void Apply() => _point.Apply();
+        public void Apply()
+        {
+            _point.Apply();
+            _onDisabled?.Invoke();
+            Disable();
+        }
 
         public void Disable()
         {
             Instantiate(_particle, transform.position, Quaternion.identity).Play();
             gameObject.SetActive(false);
-        }
-
-        private void Disable(IPoint point)
-        {
-            _onDisabled?.Invoke();
-            Disable();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace CheckYourSpeed.GameLogic
             var randomPoint = _waves.CreateRandomPoint(pointTypes);
             _pointsSubscriber.Subscribe(randomPoint);
             pointView.transform.position = GetSpawnPoint();
-            pointView.Init(randomPoint, _colorFactory.CreateFrom(randomPoint));
+            pointView.Init(randomPoint, _pool, _colorFactory.CreateFrom(randomPoint));
             _pointsContainer.Add(pointView);
         }
 
