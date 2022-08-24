@@ -14,6 +14,7 @@ namespace CheckYourSpeed.Shop
         public void Init(IClient client)
         {
             _client = client ?? throw new ArgumentNullException(nameof(client));
+            _button = GetComponent<Button>();
             _button.onClick.AddListener(Buy);
         }
 

@@ -14,6 +14,8 @@ namespace CheckYourSpeed.Shop.Data
 
         [field: SerializeField] public GoodAlreadyBoughtVisualization AlreadyBoughtVisualization { get; private set; }
 
+        [field: SerializeField] public Sprite Sprite { get; private set; }
+
         private void OnValidate()
         {
             if (string.IsNullOrWhiteSpace(Name))

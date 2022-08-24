@@ -7,7 +7,7 @@ namespace CheckYourSpeed.Shop
 {
     public sealed class SelectableGoodVisualization : MonoBehaviour, ISelectableGood
     {
-        [SerializeField] private GoodAlreadyBoughtVisualization _alreadyBoughtVisualization;
+        [SerializeField] private GoodAlreadyBoughtVisualization _IsBuyedVisualization;
         private IGoodVisualization _goodView;
         private bool _hasVisualizedBuying;
 
@@ -35,7 +35,7 @@ namespace CheckYourSpeed.Shop
 
         public void VisualizeBuying()
         {
-            _alreadyBoughtVisualization.Visualize();
+            _IsBuyedVisualization.Visualize();
             _hasVisualizedBuying = true;
         }
     }

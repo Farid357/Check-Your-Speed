@@ -43,7 +43,7 @@ namespace CheckYourSpeed.Shop.Model
             }
         }
 
-        public bool IsBuyed(IGood good) => _buyedGoods.Contains(good);
+        public bool HasBought(IGood good) => _buyedGoods.Contains(good);
 
     }
 }

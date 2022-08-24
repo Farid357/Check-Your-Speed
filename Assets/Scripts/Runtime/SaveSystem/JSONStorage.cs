@@ -7,15 +7,10 @@ namespace CheckYourSpeed.SaveSystem
     {
         public bool Exists(string path) => File.Exists(path);
 
-        public T Load<T>(string path)
+        public T Load<T>(string name)
         {
-            var jsonPath = string.Empty;
+            var jsonPath = CreatePath(name);
 
-#if UNITY_ANDROID && !UNITY_EDITOR
-            jsonPath = Path.Combine(Application.persistentDataPath + path);
-#else
-            jsonPath = Path.Combine(Application.dataPath + path);
-#endif
             if (Exists(jsonPath))
             {
                 var saveJson = File.ReadAllText(jsonPath);
@@ -24,16 +19,16 @@ namespace CheckYourSpeed.SaveSystem
             return default;
         }
 
-        public void Save<T>(string path, T saveObject)
+        public void Save<T>(string name, T saveObject)
         {
-            var jsonPath = string.Empty;
-#if UNITY_ANDROID && !UNITY_EDITOR
-            jsonPath = Path.Combine(Application.persistentDataPath + path);
-#else
-            jsonPath = Path.Combine(Application.dataPath + path);
-#endif
+            var jsonPath = CreatePath(name);
             var saveJson = JsonUtility.ToJson(saveObject);
             File.WriteAllText(jsonPath, saveJson);
+        }
+
+        private string CreatePath(string name)
+        {
+            return Path.Combine(Application.dataPath, name);
         }
     }
 }

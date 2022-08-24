@@ -1,6 +1,6 @@
 {
     "name": "CheckYourSpeed.Tests",
-    "rootNamespace": "Tests",
+    "rootNamespace": "CheckYourSpeed.Tests",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",

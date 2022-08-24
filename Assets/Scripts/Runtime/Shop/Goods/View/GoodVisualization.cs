@@ -10,9 +10,10 @@ namespace CheckYourSpeed.Shop.Visualization
         private Image _image;
         private Color _startColor;
 
-        public void Init()
+        public void Init(Sprite sprite)
         {
             _image = GetComponent<Image>();
+            _image.sprite = sprite ?? throw new System.ArgumentNullException(nameof(sprite));
             _startColor = _image.color;
         }
 

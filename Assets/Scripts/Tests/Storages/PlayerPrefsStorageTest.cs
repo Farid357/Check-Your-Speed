@@ -5,7 +5,7 @@ namespace Tests
 {
     public sealed class PlayerPrefsStorageTest
     {
-        private const string Path = "104";
+        private const string Path = "104.txt";
 
         [Test]
         public void PlayerPrefsStorageSavesCorrectly()

@@ -49,7 +49,7 @@ namespace CheckYourSpeed.Shop
         {
             selectableGood.Select();
             _goods.Add(selectableGood);
-            if (_client.IsBuyed(good))
+            if (_client.HasBought(good))
             {
                 selectableGood.VisualizeBuying();
             }

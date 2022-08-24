@@ -10,7 +10,7 @@ namespace CheckYourSpeed.SaveSystem
 
         public void Delete(string path)
         {
-            var allPath = Path.Combine(Application.persistentDataPath, path);
+            var allPath = CreatePath(path);
             if (Exists(allPath))
             {
                 File.Delete(allPath);
@@ -19,7 +19,7 @@ namespace CheckYourSpeed.SaveSystem
 
         public T Load<T>(string path)
         {
-            var allPath = Path.Combine(Application.persistentDataPath, path);
+            var allPath = CreatePath(path);
             if (Exists(allPath))
             {
                 using FileStream file = File.Open(allPath, FileMode.Open);
@@ -29,17 +29,18 @@ namespace CheckYourSpeed.SaveSystem
             return default;
         }
 
-        public bool Exists(string path)
-        {
-            var allPath = Path.Combine(Application.persistentDataPath, path);
-            return File.Exists(allPath);
-        }
+        public bool Exists(string path) => File.Exists(path);
 
         public void Save<T>(string path, T saveObject)
         {
-            var allPath = Path.Combine(Application.persistentDataPath, path);
+            var allPath = CreatePath(path);
             using var file = File.Create(allPath);
             _formatter.Serialize(file, saveObject);
+        }
+
+        private string CreatePath(string name)
+        {
+            return Path.Combine(Application.persistentDataPath, name);
         }
     }
 }

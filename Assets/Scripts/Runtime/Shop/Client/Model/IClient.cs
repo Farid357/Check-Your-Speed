@@ -4,7 +4,7 @@
     {
         public void Buy();
 
-        public bool IsBuyed(IGood good);
+        public bool HasBought(IGood good);
 
     }
 }
