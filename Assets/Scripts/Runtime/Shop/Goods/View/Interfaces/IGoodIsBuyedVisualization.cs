@@ -1,6 +1,6 @@
 ﻿namespace CheckYourSpeed.Shop
 {
-    public interface IGoodIsBuyedVisualization
+    public interface IGoodIsBuyedVisualization : IGoodVisualization
     {
         public void Visualize();
     }

@@ -10,7 +10,7 @@ namespace CheckYourSpeed.Model
 
         public Timer(float time, IVisualization<float> visualization)
         {
-            Time = time.TryThrowLessOrEqualZeroException();
+            Time = time.TryThrowLessOrEqualsToZeroException();
             _visualization = visualization ?? throw new ArgumentNullException(nameof(visualization));
             _startTime = Time;
         }
@@ -23,7 +23,7 @@ namespace CheckYourSpeed.Model
 
         public void Add(float time)
         {
-            time.TryThrowLessOrEqualZeroException();
+            time.TryThrowLessOrEqualsToZeroException();
             Time += time;
         }
 

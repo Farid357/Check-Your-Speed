@@ -7,8 +7,9 @@ namespace CheckYourSpeed.Shop
     public sealed class Good : IGood
     {
         private readonly IVisualization<string> _visualization;
+        private readonly IGoodIsBuyedVisualization _isBuyedVisualization;
 
-        public Good(int price, string name, IVisualization<string> visualization)
+        public Good(int price, string name, IVisualization<string> visualization, IGoodIsBuyedVisualization isBuyedVisualization)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -16,7 +17,8 @@ namespace CheckYourSpeed.Shop
             }
 
             _visualization = visualization ?? throw new ArgumentNullException(nameof(visualization));
-            Price = price.TryThrowLessOrEqualZeroException();
+            _isBuyedVisualization = isBuyedVisualization ?? throw new ArgumentNullException(nameof(isBuyedVisualization));
+            Price = price.TryThrowLessOrEqualsToZeroException();
             Name = name;
         }
 
@@ -27,6 +29,7 @@ namespace CheckYourSpeed.Shop
         public void Use()
         {
             _visualization.Visualize(Name);
+            _isBuyedVisualization.Visualize();
         }
     }
 }

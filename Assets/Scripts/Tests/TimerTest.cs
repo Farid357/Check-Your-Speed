@@ -34,8 +34,8 @@ namespace CheckYourSpeed.Tests
         [Test]
         public void IsTimerThrowLessOrEqualZeroException()
         {
-            Assert.Throws<LessOrEqualZeroException>(() => new Timer(0, new DummyTimerVisualization()));
-            Assert.Throws<LessOrEqualZeroException>(() => new Timer(-1, new DummyTimerVisualization()));
+            Assert.Throws<LessOrEqualsToZeroException>(() => new Timer(0, new DummyTimerVisualization()));
+            Assert.Throws<LessOrEqualsToZeroException>(() => new Timer(-1, new DummyTimerVisualization()));
         }
     }
 }

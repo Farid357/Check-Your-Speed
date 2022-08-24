@@ -19,7 +19,7 @@ namespace CheckYourSpeed.Shop
 
         public void Put(int money)
         {
-            money.TryThrowLessOrEqualZeroException();
+            money.TryThrowLessOrEqualsToZeroException();
             _money += money;
             _visualization.Visualize(money);
             _moneyStorage.Save(money);
@@ -27,7 +27,7 @@ namespace CheckYourSpeed.Shop
 
         public void Take(int money)
         {
-            money.TryThrowLessOrEqualZeroException();
+            money.TryThrowLessOrEqualsToZeroException();
             if (TryTake(money) == false)
                 throw new InvalidOperationException("Enough money!");
 

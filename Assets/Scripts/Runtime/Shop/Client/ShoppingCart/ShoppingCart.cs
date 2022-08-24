@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CheckYourSpeed.Model;
+using System;
 using System.Collections.Generic;
 
 namespace CheckYourSpeed.Shop
@@ -6,6 +7,12 @@ namespace CheckYourSpeed.Shop
     public sealed class ShoppingCart : IShoppingCart
     {
         private readonly List<IGood> _goods = new();
+        private readonly IVisualization<int> _visualization;
+
+        public ShoppingCart(IVisualization<int> visualization)
+        {
+            _visualization = visualization ?? throw new ArgumentNullException(nameof(visualization));
+        }
 
         public IEnumerable<IGood> Goods => _goods;
 
@@ -24,6 +31,7 @@ namespace CheckYourSpeed.Shop
             }
 
             _goods.Add(good);
+            _visualization.Visualize(_goods.Count);
         }
 
         public void Remove(IGood good)
@@ -39,6 +47,7 @@ namespace CheckYourSpeed.Shop
             }
 
             _goods.Remove(good);
+            _visualization.Visualize(_goods.Count);
         }
 
     }
