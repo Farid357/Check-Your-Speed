@@ -36,7 +36,6 @@ namespace CheckYourSpeed.Shop
                         if(_client.IsBuyed(good))
                         {
                             selectableGood.VisualizeBuying();
-                            return;
                         }
                         selectableGood.Select();
                         _goods.Add(selectableGood);
