@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System;
+using CheckYourSpeed.Shop.Model;
+using CheckYourSpeed.Shop.Visualization;
 
 namespace CheckYourSpeed.Shop
 {
     public sealed class SelectableGoodVisualization : MonoBehaviour, ISelectableGood
     {
-        [SerializeField] private GoodIsBuyedVisualization _IsBuyedVisualization;
+        [SerializeField] private GoodAlreadyBoughtVisualization _alreadyBoughtVisualization;
         private IGoodVisualization _goodView;
         private bool _hasVisualizedBuying;
 
@@ -33,7 +35,7 @@ namespace CheckYourSpeed.Shop
 
         public void VisualizeBuying()
         {
-            _IsBuyedVisualization.Visualize();
+            _alreadyBoughtVisualization.Visualize();
             _hasVisualizedBuying = true;
         }
     }

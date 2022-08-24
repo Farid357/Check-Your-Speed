@@ -2,7 +2,7 @@
 using System;
 using CheckYourSpeed.Model;
 
-namespace CheckYourSpeed.Shop
+namespace CheckYourSpeed.Shop.Model
 {
     public sealed class Wallet : IWallet
     {
@@ -28,7 +28,7 @@ namespace CheckYourSpeed.Shop
         public void Take(int money)
         {
             money.TryThrowLessOrEqualsToZeroException();
-            if (TryTake(money) == false)
+            if (CanTake(money) == false)
                 throw new InvalidOperationException("Enough money!");
 
             _money -= money;
@@ -36,7 +36,7 @@ namespace CheckYourSpeed.Shop
             _moneyStorage.Save(money);
         }
 
-        public bool TryTake(int money) => _money - money >= 0;
+        public bool CanTake(int money) => _money - money >= 0;
 
     }
 }

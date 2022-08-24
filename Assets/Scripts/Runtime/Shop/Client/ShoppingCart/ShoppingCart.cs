@@ -2,16 +2,18 @@
 using System;
 using System.Collections.Generic;
 
-namespace CheckYourSpeed.Shop
+namespace CheckYourSpeed.Shop.Model
 {
     public sealed class ShoppingCart : IShoppingCart
     {
-        private readonly List<IGood> _goods = new();
         private readonly IVisualization<int> _visualization;
+        private readonly IVisualization<int> _totalPriceVisualization;
+        private readonly List<IGood> _goods = new();
 
-        public ShoppingCart(IVisualization<int> visualization)
+        public ShoppingCart(IVisualization<int> countVisualization, IVisualization<int> totalPriceVisualization)
         {
-            _visualization = visualization ?? throw new ArgumentNullException(nameof(visualization));
+            _visualization = countVisualization ?? throw new ArgumentNullException(nameof(countVisualization));
+            _totalPriceVisualization = totalPriceVisualization ?? throw new ArgumentNullException(nameof(totalPriceVisualization));
         }
 
         public IEnumerable<IGood> Goods => _goods;
@@ -25,30 +27,26 @@ namespace CheckYourSpeed.Shop
 
         public void Add(IGood good)
         {
-            if (good is null)
-            {
-                throw new ArgumentNullException(nameof(good));
-            }
-
+            Validate(good);
             _goods.Add(good);
             _visualization.Visualize(_goods.Count);
+            _totalPriceVisualization.Visualize(GetTotalPrice());
         }
 
         public void Remove(IGood good)
+        {
+            Validate(good);
+            _goods.Remove(good);
+            _visualization.Visualize(_goods.Count);
+            _totalPriceVisualization.Visualize(GetTotalPrice());
+        }
+
+        private void Validate(IGood good)
         {
             if (good is null)
             {
                 throw new ArgumentNullException(nameof(good));
             }
-
-            if (_goods.Contains(good) == false)
-            {
-                throw new InvalidOperationException("Good list is not contains this good!");
-            }
-
-            _goods.Remove(good);
-            _visualization.Visualize(_goods.Count);
         }
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+using CheckYourSpeed.Shop.Model;
 
 namespace CheckYourSpeed.Shop
 {

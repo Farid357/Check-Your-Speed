@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CheckYourSpeed.Shop
+namespace CheckYourSpeed.Shop.Model
 {
     public sealed class Client : IClient
     {
@@ -29,7 +29,7 @@ namespace CheckYourSpeed.Shop
             if (_buyedGoods.ContainsElementFrom(_shoppingCart.Goods))
                 throw new InvalidOperationException("This item is already buyed!");
 
-            if (_wallet.TryTake(totalPrice))
+            if (_wallet.CanTake(totalPrice))
             {
                 _wallet.Take(totalPrice);
                 _buyedGoods.AddRange(_shoppingCart.Goods);

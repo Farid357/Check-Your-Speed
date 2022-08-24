@@ -1,7 +1,6 @@
-﻿using CheckYourSpeed.Shop;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace CheckYourSpeed.Root
+namespace CheckYourSpeed.Shop.Data
 {
     [CreateAssetMenu(fileName = "Selectable Good Data", menuName = "Create/Selectable Good Data")]
 

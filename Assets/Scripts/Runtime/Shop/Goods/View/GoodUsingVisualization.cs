@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using CheckYourSpeed.Model;
 
-namespace CheckYourSpeed.Shop
+namespace CheckYourSpeed.Shop.Visualization
 {
     public sealed class GoodUsingVisualization : MonoBehaviour, IVisualization<string>
     {

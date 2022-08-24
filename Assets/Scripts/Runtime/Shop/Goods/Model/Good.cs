@@ -2,7 +2,7 @@
 using System;
 using CheckYourSpeed.Model;
 
-namespace CheckYourSpeed.Shop
+namespace CheckYourSpeed.Shop.Model
 {
     public sealed class Good : IGood
     {

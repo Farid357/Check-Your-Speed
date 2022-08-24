@@ -1,4 +1,4 @@
-﻿namespace CheckYourSpeed.Shop
+﻿namespace CheckYourSpeed.Shop.Model
 {
     public interface ISelectableGood
     {

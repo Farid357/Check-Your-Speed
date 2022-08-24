@@ -1,4 +1,4 @@
-﻿namespace CheckYourSpeed.Shop
+﻿namespace CheckYourSpeed.Shop.Model
 {
     public interface IWallet
     {
@@ -7,6 +7,6 @@
 
         public void Take(int money);
 
-        public bool TryTake(int money);
+        public bool CanTake(int money);
     }
 }

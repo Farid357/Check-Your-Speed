@@ -3,6 +3,7 @@ using CheckYourSpeed.Utils;
 using System;
 using System.Collections.Generic;
 using CheckYourSpeed.Model;
+using CheckYourSpeed.Shop.Model;
 
 namespace CheckYourSpeed.Shop
 {

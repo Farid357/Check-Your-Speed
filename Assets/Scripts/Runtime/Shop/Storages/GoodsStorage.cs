@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using CheckYourSpeed.SaveSystem;
 
-namespace CheckYourSpeed.Shop
+namespace CheckYourSpeed.Shop.Model
 {
     public sealed class GoodsStorage
     {

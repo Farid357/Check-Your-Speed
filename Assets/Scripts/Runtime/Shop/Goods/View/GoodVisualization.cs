@@ -1,25 +1,26 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
-namespace CheckYourSpeed.Shop
+namespace CheckYourSpeed.Shop.Visualization
 {
-    [RequireComponent(typeof(SpriteRenderer))]
+    [RequireComponent(typeof(Image))]
     public sealed class GoodVisualization : MonoBehaviour, IGoodVisualization
     {
         [SerializeField] private Color _selected;
-        private SpriteRenderer _spriteRenderer;
+        private Image _image;
         private Color _startColor;
 
         public void Init()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            _startColor = _spriteRenderer.color;
+            _image = GetComponent<Image>();
+            _startColor = _image.color;
         }
 
         public void Select() => SwitchColor(_selected);
 
         public void Unselect() => SwitchColor(_startColor);
 
-        private void SwitchColor(Color color) => _spriteRenderer.color = color;
+        private void SwitchColor(Color color) => _image.color = color;
 
     }
 }
