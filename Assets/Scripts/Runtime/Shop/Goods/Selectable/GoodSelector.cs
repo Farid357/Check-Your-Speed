@@ -27,29 +27,43 @@ namespace CheckYourSpeed.Shop
                 var mousePosistion = _camera.ScreenToWorldPoint(Input.mousePosition);
                 var raycast = Physics2D.Raycast(mousePosistion, Vector2.zero);
 
-                if (raycast.Hit<ISelectableGood>(out var selectableGood))
-                {
-                    var good = selectableGood.Good;
-                    Debug.Log("e");
-                    if (_goods.Contains(selectableGood) == false)
-                    {
-                        if(_client.IsBuyed(good))
-                        {
-                            selectableGood.VisualizeBuying();
-                        }
-                        selectableGood.Select();
-                        _goods.Add(selectableGood);
-                        _shoppingCart.Add(good);
-                    }
+                if (raycast.Hit<ISelectableGood>(out var selectableGood) == false)
+                    return;
 
-                    else
-                    {
-                        selectableGood.Unselect();
-                        _goods.Remove(selectableGood);
-                        _shoppingCart.Remove(good);
-                    }
+                var good = selectableGood.Good;
+                Debug.Log("e");
+                if (_goods.Contains(selectableGood) == false)
+                {
+                    Select(selectableGood, good);
+                }
+
+                else
+                {
+                    Unselect(selectableGood, good);
                 }
             }
         }
+
+        private void Select(ISelectableGood selectableGood, IGood good)
+        {
+            selectableGood.Select();
+            _goods.Add(selectableGood);
+            if (_client.IsBuyed(good))
+            {
+                selectableGood.VisualizeBuying();
+            }
+            else
+            {
+                _shoppingCart.Add(good);
+            }
+        }
+
+        private void Unselect(ISelectableGood selectableGood, IGood good)
+        {
+            selectableGood.Unselect();
+            _goods.Remove(selectableGood);
+            _shoppingCart.Remove(good);
+        }
+
     }
 }
