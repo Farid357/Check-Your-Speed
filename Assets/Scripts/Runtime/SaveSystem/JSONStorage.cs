@@ -5,13 +5,13 @@ namespace CheckYourSpeed.SaveSystem
 {
     public sealed class JSONStorage : IStorage
     {
-        public bool Exists(string path) => File.Exists(path);
+        public bool Exists(string name) => File.Exists(CreatePath(name));
 
         public T Load<T>(string name)
         {
             var jsonPath = CreatePath(name);
 
-            if (Exists(jsonPath))
+            if (Exists(name))
             {
                 var saveJson = File.ReadAllText(jsonPath);
                 return JsonUtility.FromJson<T>(saveJson);
@@ -28,7 +28,7 @@ namespace CheckYourSpeed.SaveSystem
 
         private string CreatePath(string name)
         {
-            return Application.persistentDataPath + name;
+            return Path.Combine(Application.persistentDataPath, name);
         }
     }
 }

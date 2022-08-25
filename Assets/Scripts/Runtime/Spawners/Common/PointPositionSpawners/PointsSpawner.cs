@@ -11,16 +11,16 @@ namespace CheckYourSpeed.GameLogic
     {
         [SerializeField] private PointView _prefab;
         [SerializeField] private PointColorFactory _colorFactory;
-        private IPointsSubscriber _pointsSubscriber;
+        private IPointsSubscriber[] _pointsSubscribers;
         private IndependentPool<PointView> _pool;
         private IPointsContainer _pointsContainer;
         private Waves _waves;
 
         public IEnumerable<IPointView> SpawnedPoints => _pointsContainer.All;
 
-        public void Init(IPointsSubscriber pointsSubscriber, IPointsContainer pointsContainer, Waves waves)
+        public void Init(IPointsSubscriber[] pointsSubscribers, IPointsContainer pointsContainer, Waves waves)
         {
-            _pointsSubscriber = pointsSubscriber ?? throw new ArgumentNullException(nameof(pointsSubscriber));
+            _pointsSubscribers = pointsSubscribers ?? throw new ArgumentNullException(nameof(pointsSubscribers));
             _waves = waves ?? throw new ArgumentNullException(nameof(waves));
             _pointsContainer = pointsContainer ?? throw new ArgumentNullException(nameof(pointsContainer));
             _pool = new IndependentPool<PointView>(new GameObjectsFactory<PointView>(_prefab, transform));
@@ -35,10 +35,10 @@ namespace CheckYourSpeed.GameLogic
 
             var pointView = _pool.Get();
             var randomPoint = _waves.CreateRandomPoint(pointTypes);
-            pointView.gameObject.SetActive(true);
-            _pointsSubscriber.Subscribe(randomPoint);
-            pointView.transform.position = GetSpawnPoint();
             pointView.Init(randomPoint, _colorFactory.CreateFrom(randomPoint));
+            pointView.gameObject.SetActive(true);
+            _pointsSubscribers.ForEach(subscriber => subscriber.Subscribe(randomPoint));
+            pointView.transform.position = GetSpawnPoint();
             _pointsContainer.Add(pointView);
         }
 

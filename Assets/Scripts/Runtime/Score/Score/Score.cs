@@ -15,6 +15,7 @@ namespace CheckYourSpeed.Model
             _view = view ?? throw new ArgumentNullException(nameof(view));
             _record = record ?? throw new ArgumentNullException(nameof(record));
         }
+        
         public int Count { get; private set; }
 
         public void Subscribe(IPoint point)

@@ -4,7 +4,7 @@ namespace CheckYourSpeed.SaveSystem
 {
     public sealed class PlayerPrefsStorage : IStorage
     {
-        public bool Exists(string key) => PlayerPrefs.HasKey(key);
+        public bool Exists(string name) => PlayerPrefs.HasKey(name);
 
         public T Load<T>(string key)
         {

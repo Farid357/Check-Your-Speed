@@ -8,7 +8,7 @@ namespace CheckYourSpeed.Tests
         [Test]
         public void StorageWithNameSaveObjectSaveCorrectly()
         {
-            var storage = new StorageWithNameSaveObject<int>();
+            var storage = new StorageWithNameSaveObject<StorageWithNameSaveObjectTest, int>();
             storage.Save(44);
             Assert.That(storage.Load() == 44);
         }

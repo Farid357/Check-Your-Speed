@@ -11,7 +11,7 @@ namespace CheckYourSpeed.Model
 
         public MultiplePoint(int count, IPointsSpawner pointsSpawner, IPoint point)
         {
-            _count = count.TryThrowLessOrEqualsToZeroException();
+            _count = count.TryThrowLessThanOrEqualsToZeroException();
             _pointsSpawner = pointsSpawner ?? throw new ArgumentNullException(nameof(pointsSpawner));
             _point = point ?? throw new ArgumentNullException(nameof(point));
         }

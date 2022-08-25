@@ -17,7 +17,7 @@ namespace CheckYourSpeed.Loging
 
         public void Save(int count)
         {
-            count.TryThrowLessOrEqualsToZeroException();
+            count.TryThrowLessThanOrEqualsToZeroException();
             _counterStorage.Save(count);
         }
     }

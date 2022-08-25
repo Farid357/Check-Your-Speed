@@ -18,7 +18,7 @@ namespace CheckYourSpeed.Shop.Model
 
             _visualization = visualization ?? throw new ArgumentNullException(nameof(visualization));
             _isBuyedVisualization = isBuyedVisualization ?? throw new ArgumentNullException(nameof(isBuyedVisualization));
-            Price = price.TryThrowLessOrEqualsToZeroException();
+            Price = price.TryThrowLessThanOrEqualsToZeroException();
             Name = name;
         }
 

@@ -5,7 +5,7 @@ namespace Tests
 {
     public sealed class JSONStorageTest
     {
-        private const string Path = @"\mon";
+        private const string Path = "mono";
 
         [Test]
         public void JSONStorageSavesCorrectly()

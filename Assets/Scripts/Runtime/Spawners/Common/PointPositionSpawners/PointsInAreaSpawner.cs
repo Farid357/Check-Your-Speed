@@ -12,7 +12,6 @@ namespace CheckYourSpeed.GameLogic
         [SerializeField] private float _radius = 2f;
         private IPointInput _pointInput;
         private Queue<Collider2D> _positionPrimitiveColliders = new();
-        private const int Count = 3;
 
         public void Init(IPointInput pointInput)
         {
@@ -26,11 +25,11 @@ namespace CheckYourSpeed.GameLogic
 
         protected override Vector2 GetSpawnPoint()
         {
-            if (_positionPrimitiveColliders.Count <= Count)
+            if (_positionPrimitiveColliders.Count <= 3)
             {
-                var colliders = new Collider2D[Count];
-                Physics2D.OverlapCircleNonAlloc(transform.position, _radius, colliders);
-                _positionPrimitiveColliders = colliders.ToList().Where(point => point.TryGetComponent(out PointPositionPrimitive pointPositionPrimitive)).ToList().ToQueue();
+                var colliders = new List<Collider2D>();
+                Physics2D.OverlapCircleNonAlloc(transform.position, _radius, colliders.ToArray());
+                _positionPrimitiveColliders = colliders.Where(point => point.TryGetComponent(out PointPositionPrimitive pointPositionPrimitive)).ToList().ToQueue();
 
                 if (_positionPrimitiveColliders.Count < 3)
                     throw new InvalidOperationException("Increase radius!");

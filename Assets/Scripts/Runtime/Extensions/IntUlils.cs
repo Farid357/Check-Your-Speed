@@ -20,10 +20,10 @@
             return false;
         }
 
-        public static int TryThrowLessOrEqualsToZeroException(this int number)
+        public static int TryThrowLessThanOrEqualsToZeroException(this int number)
         {
             if (number <= 0)
-                throw new LessOrEqualsToZeroException(nameof(number));
+                throw new LessThanOrEqualsToZeroException(nameof(number));
 
             return number;
         }

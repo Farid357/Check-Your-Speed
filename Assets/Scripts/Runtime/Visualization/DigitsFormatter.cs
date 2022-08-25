@@ -16,13 +16,14 @@ namespace CheckYourSpeed.GameLogic
         public string TryFormat(int count)
         {
             var text = count.ToString();
+
             foreach (var (Digit, Prefix) in _digitsPrefixes)
             {
                 if (count < Digit)
                     continue;
 
                 var value = Math.Round(count / (double)Digit, 1);
-                text = string.Format("{0}{1}", value, Prefix);
+                text = $"{value}{Prefix}";
             }
 
             return text;

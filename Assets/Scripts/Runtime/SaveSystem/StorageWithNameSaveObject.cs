@@ -2,7 +2,7 @@
 
 namespace CheckYourSpeed.SaveSystem
 {
-    public sealed class StorageWithNameSaveObject<T>
+    public sealed class StorageWithNameSaveObject<TStorageUser, TStoreValue>
     {
         private readonly IStorage _storage;
         private readonly string _path;
@@ -10,7 +10,7 @@ namespace CheckYourSpeed.SaveSystem
         public StorageWithNameSaveObject(IStorage storage)
         {
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
-            _path = typeof(T).Name;
+            _path = typeof(TStoreValue).Name + typeof(TStorageUser).Name;
         }
 
         public StorageWithNameSaveObject() : this(new BinaryStorage())
@@ -20,8 +20,8 @@ namespace CheckYourSpeed.SaveSystem
         
         public bool HasSave() => _storage.Exists(_path);
 
-        public T Load() => _storage.Load<T>(_path);
+        public TStoreValue Load() => _storage.Load<TStoreValue>(_path);
 
-        public void Save(T self) => _storage.Save(_path, self);
+        public void Save(TStoreValue self) => _storage.Save(_path, self);
     }
 }

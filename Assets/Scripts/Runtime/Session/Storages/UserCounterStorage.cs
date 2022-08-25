@@ -43,7 +43,7 @@ namespace CheckYourSpeed.Loging
             public UserData(IUserWithAccount user, int count)
             {
                 User = user ?? throw new ArgumentNullException(nameof(user));
-                Count = count.TryThrowLessOrEqualsToZeroException();
+                Count = count.TryThrowLessThanOrEqualsToZeroException();
             }
         }
     }

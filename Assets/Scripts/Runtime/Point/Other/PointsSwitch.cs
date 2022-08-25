@@ -8,11 +8,12 @@ namespace CheckYourSpeed.Model
     {
         private readonly List<IPointView> _points = new();
 
-        public event Action OnDisabledAll;
-
         private List<IPointView> _enablePoints => _points.Where(point => point.Enable).ToList();
-
+        
         public IEnumerable<IPointView> All => _points;
+        
+        public event Action OnDisabledAll;
+        
 
         public void DisableAll()
         {

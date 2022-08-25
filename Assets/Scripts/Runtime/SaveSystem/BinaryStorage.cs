@@ -20,7 +20,7 @@ namespace CheckYourSpeed.SaveSystem
         public T Load<T>(string path)
         {
             var allPath = CreatePath(path);
-            if (Exists(allPath))
+            if (Exists(path))
             {
                 using FileStream file = File.Open(allPath, FileMode.Open);
                 return (T)_formatter.Deserialize(file);
@@ -29,7 +29,7 @@ namespace CheckYourSpeed.SaveSystem
             return default;
         }
 
-        public bool Exists(string path) => File.Exists(path);
+        public bool Exists(string name) => File.Exists(CreatePath(name));
 
         public void Save<T>(string path, T saveObject)
         {

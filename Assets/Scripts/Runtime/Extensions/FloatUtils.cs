@@ -5,7 +5,7 @@
         public static float TryThrowLessOrEqualsToZeroException(this float number)
         {
             if (number <= 0)
-                throw new LessOrEqualsToZeroException(nameof(number));
+                throw new LessThanOrEqualsToZeroException(nameof(number));
 
             return number;
         }
