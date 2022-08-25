@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace CheckYourSpeed.Utils
 {
-    public sealed class Pool<T> : IPool<T> where T : MonoBehaviour
+    public sealed class Pool<T> : IPool<T>
     {
         private readonly IFactory<T> _factory;
         private readonly Stack<T> _objects = new();

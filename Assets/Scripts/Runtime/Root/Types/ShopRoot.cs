@@ -21,35 +21,32 @@ namespace CheckYourSpeed.Root
         [SerializeField] private SelectableGoodData[] _goodDatas;
         [SerializeField] private TMP_Text _alreadyBoughtText;
 
-        private IUpdateble _updateble;
+        private IUpdateble _goodSelector;
 
         public override void Compose()
         {
             var shoppingCart = new ShoppingCart((IVisualization<int>)_shoppingCartGoodCountVisualization, (IVisualization<int>)_shoppingCartTotalPriceVisualization);
-            var moneyStorage = new MoneyStorage(new BinaryStorage());
-            var wallet = new Wallet(_moneyVisualization.ToInterface<IVisualization<int>>(), moneyStorage);
-            var goodsStorage = new GoodsStorage(new BinaryStorage());
-            var notEnoughMoneyVisualization = _notEnoughMoneyVisualization;
-            var client = new Client(wallet, shoppingCart, goodsStorage, (INotEnoughMoneyVisualization)_notEnoughMoneyVisualization);
-            _updateble = new GoodSelector(shoppingCart, Camera.main, client);
+            var wallet = new Wallet(_moneyVisualization.ToInterface<IVisualization<int>>(), new BinaryStorage());
+            var client = new Client(wallet, shoppingCart, new BinaryStorage(), (INotEnoughMoneyVisualization)_notEnoughMoneyVisualization);
+            _goodSelector = new GoodSelector(shoppingCart, Camera.main, client);
             _buyingButton.Init(client);
 
 
-            for (int i = 0; i < _goodDatas.Length; i++)
+            foreach (var data in _goodDatas)
             {
-                var goodData = _goodDatas[i].Data;
+                var goodData = data.Data;
                 var goodVisualization = _goodSpawner.Spawn(goodData.Visualization);
                 goodVisualization.Init(goodData.Sprite);
                 var good = new Good(goodData.Price, goodData.Name, (IVisualization<string>)_goodUsingVisualization, goodData.AlreadyBoughtVisualization);
                 if (client.HasBought(good))
                     goodData.AlreadyBoughtVisualization.Init(_alreadyBoughtText);
-                _goodDatas[i].Selectable.Init(goodVisualization, good);
+                data.Selectable.Init(goodVisualization, good);
             }
         }
 
         private void Update()
         {
-            _updateble.Update(Time.deltaTime);
+            _goodSelector.Update(Time.deltaTime);
         }
     }
 }

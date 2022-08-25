@@ -28,7 +28,7 @@ namespace CheckYourSpeed.SaveSystem
 
         private string CreatePath(string name)
         {
-            return Path.Combine(Application.dataPath, name);
+            return Path.Combine(Application.persistentDataPath, name);
         }
     }
 }

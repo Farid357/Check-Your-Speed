@@ -1,6 +1,7 @@
 ﻿using CheckYourSpeed.Utils;
 using System;
 using System.Collections.Generic;
+using CheckYourSpeed.SaveSystem;
 
 namespace CheckYourSpeed.Shop.Model
 {
@@ -10,31 +11,32 @@ namespace CheckYourSpeed.Shop.Model
         private readonly IReadOnlyShoppingCart _shoppingCart;
         private readonly INotEnoughMoneyVisualization _notEnoughMoney;
 
-        private readonly GoodsStorage _goodsStorage;
-        private readonly List<IGood> _buyedGoods;
+        private readonly StorageWithNameSaveObject<List<IGood>> _goodsStorage;
+        private readonly List<IGood> _boughtGoods;
 
-        public Client(IWallet wallet, IReadOnlyShoppingCart shoppingCart, GoodsStorage goodsStorage, INotEnoughMoneyVisualization visualization)
+        public Client(IWallet wallet, IReadOnlyShoppingCart shoppingCart, IStorage storage,
+            INotEnoughMoneyVisualization visualization)
         {
             _wallet = wallet ?? throw new ArgumentNullException(nameof(wallet));
             _shoppingCart = shoppingCart ?? throw new ArgumentNullException(nameof(shoppingCart));
-            _goodsStorage = goodsStorage ?? throw new ArgumentNullException(nameof(goodsStorage));
             _notEnoughMoney = visualization ?? throw new ArgumentNullException(nameof(visualization));
-            _buyedGoods = _goodsStorage.HasSave() ? _goodsStorage.Load() : new();
+            _goodsStorage = new StorageWithNameSaveObject<List<IGood>>(storage);
+            _boughtGoods = _goodsStorage.HasSave() ? _goodsStorage.Load() : new();
         }
 
         public void Buy()
         {
             var totalPrice = _shoppingCart.GetTotalPrice();
 
-            if (_buyedGoods.ContainsElementFrom(_shoppingCart.Goods))
-                throw new InvalidOperationException("This item is already buyed!");
+            if (_boughtGoods.ContainsElementFrom(_shoppingCart.Goods))
+                throw new InvalidOperationException("This item is already bought!");
 
             if (_wallet.CanTake(totalPrice))
             {
                 _wallet.Take(totalPrice);
-                _buyedGoods.AddRange(_shoppingCart.Goods);
+                _boughtGoods.AddRange(_shoppingCart.Goods);
                 _shoppingCart.Goods.ForEach(good => good.Use());
-                _goodsStorage.Save(_buyedGoods);
+                _goodsStorage.Save(_boughtGoods);
             }
 
             else
@@ -43,7 +45,6 @@ namespace CheckYourSpeed.Shop.Model
             }
         }
 
-        public bool HasBought(IGood good) => _buyedGoods.Contains(good);
-
+        public bool HasBought(IGood good) => _boughtGoods.Contains(good);
     }
 }

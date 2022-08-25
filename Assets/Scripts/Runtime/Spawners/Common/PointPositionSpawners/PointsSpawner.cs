@@ -12,7 +12,7 @@ namespace CheckYourSpeed.GameLogic
         [SerializeField] private PointView _prefab;
         [SerializeField] private PointColorFactory _colorFactory;
         private IPointsSubscriber _pointsSubscriber;
-        private IPool<PointView> _pool;
+        private IndependentPool<PointView> _pool;
         private IPointsContainer _pointsContainer;
         private Waves _waves;
 
@@ -23,7 +23,7 @@ namespace CheckYourSpeed.GameLogic
             _pointsSubscriber = pointsSubscriber ?? throw new ArgumentNullException(nameof(pointsSubscriber));
             _waves = waves ?? throw new ArgumentNullException(nameof(waves));
             _pointsContainer = pointsContainer ?? throw new ArgumentNullException(nameof(pointsContainer));
-            _pool = new Pool<PointView>(new GameObjectsFactory<PointView>(_prefab, transform));
+            _pool = new IndependentPool<PointView>(new GameObjectsFactory<PointView>(_prefab, transform));
         }
 
         public void SpawnRandomFrom(PointType[] pointTypes)
@@ -37,9 +37,11 @@ namespace CheckYourSpeed.GameLogic
             var randomPoint = _waves.CreateRandomPoint(pointTypes);
             _pointsSubscriber.Subscribe(randomPoint);
             pointView.transform.position = GetSpawnPoint();
-            pointView.Init(randomPoint, _pool, _colorFactory.CreateFrom(randomPoint));
+            pointView.Init(randomPoint, _colorFactory.CreateFrom(randomPoint));
             _pointsContainer.Add(pointView);
         }
+
+        private void Update() => _pool.Update(Time.deltaTime);
 
         protected abstract Vector2 GetSpawnPoint();
     }
