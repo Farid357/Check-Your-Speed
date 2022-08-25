@@ -14,13 +14,13 @@ namespace CheckYourSpeed.Shop.Model
         private readonly StorageWithNameSaveObject<List<IGood>> _goodsStorage;
         private readonly List<IGood> _boughtGoods;
 
-        public Client(IWallet wallet, IReadOnlyShoppingCart shoppingCart, IStorage storage,
+        public Client(IWallet wallet, IReadOnlyShoppingCart shoppingCart,
             INotEnoughMoneyVisualization visualization)
         {
             _wallet = wallet ?? throw new ArgumentNullException(nameof(wallet));
             _shoppingCart = shoppingCart ?? throw new ArgumentNullException(nameof(shoppingCart));
             _notEnoughMoney = visualization ?? throw new ArgumentNullException(nameof(visualization));
-            _goodsStorage = new StorageWithNameSaveObject<List<IGood>>(storage);
+            _goodsStorage = new StorageWithNameSaveObject<List<IGood>>();
             _boughtGoods = _goodsStorage.HasSave() ? _goodsStorage.Load() : new();
         }
 

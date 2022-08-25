@@ -9,6 +9,7 @@ namespace CheckYourSpeed.Utils
     {
         private readonly IPool<T> _pool;
         private readonly GameObjectsContainerFactory<T> _factory;
+        private readonly List<T> _releasedObjects = new();
         
         public IndependentPool(GameObjectsFactory<T> gameObjectsFactory)
         {
@@ -29,9 +30,15 @@ namespace CheckYourSpeed.Utils
         {
             foreach (var item in CreatedObjects)
             {
-                if (item.gameObject.activeInHierarchy == false)
+                if (item.gameObject.activeInHierarchy == false && _releasedObjects.Contains(item) == false)
                 {
+                    _releasedObjects.Add(item);
                     Release(item);
+                }
+                else
+                {
+                    if(_releasedObjects.Contains(item))
+                    _releasedObjects.Remove(item);
                 }
             }
         }

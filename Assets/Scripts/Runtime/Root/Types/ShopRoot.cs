@@ -26,8 +26,8 @@ namespace CheckYourSpeed.Root
         public override void Compose()
         {
             var shoppingCart = new ShoppingCart((IVisualization<int>)_shoppingCartGoodCountVisualization, (IVisualization<int>)_shoppingCartTotalPriceVisualization);
-            var wallet = new Wallet(_moneyVisualization.ToInterface<IVisualization<int>>(), new BinaryStorage());
-            var client = new Client(wallet, shoppingCart, new BinaryStorage(), (INotEnoughMoneyVisualization)_notEnoughMoneyVisualization);
+            var wallet = new Wallet(_moneyVisualization.ToInterface<IVisualization<int>>());
+            var client = new Client(wallet, shoppingCart, (INotEnoughMoneyVisualization)_notEnoughMoneyVisualization);
             _goodSelector = new GoodSelector(shoppingCart, Camera.main, client);
             _buyingButton.Init(client);
 

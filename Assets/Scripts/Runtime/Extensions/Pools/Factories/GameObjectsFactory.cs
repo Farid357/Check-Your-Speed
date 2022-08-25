@@ -17,7 +17,6 @@ namespace CheckYourSpeed.Utils
         public T Create()
         {
             var createObject = UnityEngine.Object.Instantiate(_prefab, _parent);
-            createObject.gameObject.SetActive(true);
             return createObject;
         }
     }

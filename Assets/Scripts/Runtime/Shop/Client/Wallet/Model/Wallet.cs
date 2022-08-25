@@ -2,7 +2,6 @@
 using System;
 using CheckYourSpeed.Model;
 using CheckYourSpeed.SaveSystem;
-using JetBrains.Annotations;
 
 namespace CheckYourSpeed.Shop.Model
 {
@@ -12,10 +11,10 @@ namespace CheckYourSpeed.Shop.Model
         private readonly StorageWithNameSaveObject<int> _moneyStorage;
         private int _money;
 
-        public Wallet(IVisualization<int> visualization, IStorage moneyStorage)
+        public Wallet(IVisualization<int> visualization)
         {
             _visualization = visualization ?? throw new ArgumentNullException(nameof(visualization));
-            _moneyStorage = new StorageWithNameSaveObject<int>(moneyStorage);
+            _moneyStorage = new StorageWithNameSaveObject<int>();
             _money = _moneyStorage.HasSave() ? _moneyStorage.Load() : 25;
         }
 

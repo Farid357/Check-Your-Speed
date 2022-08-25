@@ -10,7 +10,12 @@ namespace CheckYourSpeed.SaveSystem
         public StorageWithNameSaveObject(IStorage storage)
         {
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
-            _path = nameof(T);
+            _path = typeof(T).Name;
+        }
+
+        public StorageWithNameSaveObject() : this(new BinaryStorage())
+        {
+            
         }
         
         public bool HasSave() => _storage.Exists(_path);

@@ -3,11 +3,9 @@ using CheckYourSpeed.Model;
 using UnityEngine;
 using System.Linq;
 using CheckYourSpeed.Loging;
-using CheckYourSpeed.SaveSystem;
 using System.Collections.Generic;
 using CheckYourSpeed.App;
 using CheckYourSpeed.Settings;
-using UniRx;
 using CheckYourSpeed.Factory;
 using CheckYourSpeed.Utils;
 
@@ -32,7 +30,6 @@ namespace CheckYourSpeed.Root
         private readonly List<IDisposable> _disposables = new();
         private readonly List<IUpdateble> _updatebles = new();
         private readonly PauseBroadcaster _pauseBroadcaster = new();
-        private PointsCounter _pointsCounter;
         private SessionsCounter _sessionCounter;
 
         public override void Compose()
@@ -60,8 +57,8 @@ namespace CheckYourSpeed.Root
             _pointsPositionsSpawner.Spawn();
             _waveSpawner.Spawn(true);
             _randomPositionsSpawner.Init(_pointsPositionsSpawner.Positions.ToArray());
-            _pointsCounter = new(_waveSpawner, timer, _pointsSwitch);
-            _disposables.AddRange(_pointsCounter);
+            var pointsCounter = new PointsCounter(_waveSpawner, timer, _pointsSwitch);
+            _disposables.AddRange(pointsCounter);
             _updatebles.AddRange(losePause, timer);
 
         }
