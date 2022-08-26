@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CheckYourSpeed.SaveSystem;
 
 namespace CheckYourSpeed.Loging
 {
@@ -8,16 +9,16 @@ namespace CheckYourSpeed.Loging
     {
         private readonly INameField _nameField;
         private readonly IPasswordField _passwordField;
-        private readonly UsersStorage _storage;
+        private readonly StorageWithNameSaveObject<System, List<IUserWithAccount>> _storage;
 
         private readonly List<IUserWithAccount> _enteredUsers;
 
-        public System(INameField nameField, IPasswordField passwordField, UsersStorage storage)
+        public System(INameField nameField, IPasswordField passwordField, IStorage storage)
         {
             _nameField = nameField ?? throw new ArgumentNullException(nameof(nameField));
             _passwordField = passwordField ?? throw new ArgumentNullException(nameof(passwordField));
-            _storage = storage ?? throw new ArgumentNullException(nameof(storage));
-            _enteredUsers = storage.Load();
+            _storage = new StorageWithNameSaveObject<System, List<IUserWithAccount>>(storage);
+            _enteredUsers = _storage.HasSave() ? _storage.Load() : new();
         }
 
         public IReadOnlyList<IUserWithAccount> EnteredUsers => _enteredUsers;

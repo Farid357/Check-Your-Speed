@@ -1,7 +1,7 @@
 ﻿using CheckYourSpeed.SaveSystem;
 using NUnit.Framework;
 
-namespace Tests
+namespace CheckYourSpeed.Tests.Storages
 {
     public sealed class JSONStorageTest
     {
@@ -10,9 +10,10 @@ namespace Tests
         [Test]
         public void JSONStorageSavesCorrectly()
         {
-            IStorage storage = new JSONStorage();
-            storage.Save(Path, 45);
-            Assert.That(storage.Load<int>(Path) == 44);
+            IStorage storage = new JsonStorage();
+            const int count = 45;
+            storage.Save(Path, count);
+            Assert.That(storage.Load<int>(Path) == count);
         }
     }
 }

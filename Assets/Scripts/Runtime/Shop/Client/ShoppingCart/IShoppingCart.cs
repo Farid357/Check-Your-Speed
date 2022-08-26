@@ -6,5 +6,6 @@
 
         public void Remove(IGood good);
 
+        public void Clear();
     }
 }

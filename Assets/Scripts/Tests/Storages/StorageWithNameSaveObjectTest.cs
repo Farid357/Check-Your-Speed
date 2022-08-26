@@ -1,7 +1,7 @@
 using CheckYourSpeed.SaveSystem;
 using NUnit.Framework;
 
-namespace CheckYourSpeed.Tests
+namespace CheckYourSpeed.Tests.Storages
 {
     public sealed class StorageWithNameSaveObjectTest
     {
@@ -9,8 +9,9 @@ namespace CheckYourSpeed.Tests
         public void StorageWithNameSaveObjectSaveCorrectly()
         {
             var storage = new StorageWithNameSaveObject<StorageWithNameSaveObjectTest, int>();
-            storage.Save(44);
-            Assert.That(storage.Load() == 44);
+            const int count = 44;
+            storage.Save(count);
+            Assert.That(storage.Load() == count);
         }
     }
 }

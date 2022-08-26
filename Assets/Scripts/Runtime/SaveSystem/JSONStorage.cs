@@ -3,7 +3,7 @@ using System.IO;
 
 namespace CheckYourSpeed.SaveSystem
 {
-    public sealed class JSONStorage : IStorage
+    public sealed class JsonStorage : IStorage
     {
         public bool Exists(string name) => File.Exists(CreatePath(name));
 

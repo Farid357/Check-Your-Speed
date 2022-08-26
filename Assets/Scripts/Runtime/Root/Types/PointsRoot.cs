@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using CheckYourSpeed.App;
 using CheckYourSpeed.Settings;
 using CheckYourSpeed.Factory;
-using CheckYourSpeed.Shop.Model;
+using CheckYourSpeed.SaveSystem;
 using CheckYourSpeed.Utils;
 
 namespace CheckYourSpeed.Root
@@ -27,9 +27,8 @@ namespace CheckYourSpeed.Root
         [SerializeField] private ScoreRoot _scoreRoot;
         [SerializeField] private PointsRandomPositionsSpawner _randomPositionsSpawner;
         [SerializeField, RequireInterface(typeof(IVisualization<float>))] private MonoBehaviour _timerView;
+        [SerializeField] private WalletRoot _walletRoot;
 
-        [SerializeField, RequireInterface(typeof(IVisualization<int>))] private MonoBehaviour _moneyVisualization;
-        
         private readonly PointsSwitch _pointsSwitch = new();
         private readonly List<IDisposable> _disposables = new();
         private readonly List<IUpdateble> _updatebles = new();
@@ -47,18 +46,19 @@ namespace CheckYourSpeed.Root
 
             if (_userConfig.TryLoad(out var userWithAccount))
             {
-                sessionStorage = new SessionCounterStorage(userWithAccount);
+                sessionStorage = new UserCounterStorage<SessionsCounter, int, BinaryStorage>(userWithAccount);
             }
 
             var sessionCounter = new SessionsCounter(timer, sessionStorage, (IVisualization<int>)_counterView);
-            _waves.Init(new PointsFactory(timer, _pointsSwitch, _pointsInAreaSpawner));
+            var pointsFactory = new PointsFactory(timer, _pointsSwitch, _pointsInAreaSpawner);
+            _waves.Init(pointsFactory);
             _loseTimerView.Init(timer);
             var score = _scoreRoot.Compose(_userConfig);
-            var wallet = new Wallet((IVisualization<int>)_moneyVisualization);
+            var wallet = _walletRoot.Compose();
             var moneyWithChanceAdder = new MoneyWithConstantChanceAdder(wallet, new MoneyFactor(1));
             var pointsSubscribers = new IPointsSubscriber[] { score, moneyWithChanceAdder };
-            _randomPositionsSpawner.Init(pointsSubscribers, _pointsSwitch, _waves);
-            _pointsInAreaSpawner.Init(pointsSubscribers, _pointsSwitch, _waves);
+            _randomPositionsSpawner.Init(_pointsSwitch, pointsSubscribers, _waves);
+            _pointsInAreaSpawner.Init( _pointsSwitch, pointsSubscribers, _waves);
             _pointsPositionsSpawner.Spawn();
             _waveSpawner.Spawn(true);
             _randomPositionsSpawner.Init(_pointsPositionsSpawner.Positions.ToArray());

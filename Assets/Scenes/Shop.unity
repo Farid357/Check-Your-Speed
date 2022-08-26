@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 140636922}
   - component: {fileID: 140636921}
   - component: {fileID: 140636923}
+  - component: {fileID: 140636924}
   m_Layer: 5
   m_Name: MoneyText
   m_TagString: Untagged
@@ -446,8 +447,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1938dd4599986e47a3d33fd5901b67e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lineVisualization: {fileID: 140636924}
+--- !u!114 &140636924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140636919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943f19d95ec64940984e0ffc01c20a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _text: {fileID: 140636921}
-  _seconds: 1.5
+  _duration: 0
   _scrambleMode: 4
 --- !u!1 &416642277
 GameObject:
@@ -1178,6 +1192,7 @@ GameObject:
   - component: {fileID: 950303399}
   - component: {fileID: 950303400}
   - component: {fileID: 950303401}
+  - component: {fileID: 950303402}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -1199,7 +1214,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buyingButton: {fileID: 1269122123}
   _notEnoughMoneyVisualization: {fileID: 1630645410}
-  _moneyVisualization: {fileID: 140636923}
   _goodUsingVisualization: {fileID: 950303400}
   _shoppingCartGoodCountVisualization: {fileID: 1276439807}
   _shoppingCartTotalPriceVisualization: {fileID: 578930965}
@@ -1207,6 +1221,7 @@ MonoBehaviour:
   _goodDatas:
   - {fileID: 11400000, guid: bbecb06eae6914246b8cf854d8e43ac0, type: 2}
   _alreadyBoughtText: {fileID: 943106357}
+  _walletRoot: {fileID: 950303402}
 --- !u!4 &950303398
 Transform:
   m_ObjectHideFlags: 0
@@ -1264,6 +1279,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _roots:
   - {fileID: 950303397}
+--- !u!114 &950303402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950303396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43dfaca179d9c2944a190685a846185b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moneyVisualization: {fileID: 140636923}
 --- !u!1 &1094608050
 GameObject:
   m_ObjectHideFlags: 0

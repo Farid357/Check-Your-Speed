@@ -1,7 +1,7 @@
 ﻿using CheckYourSpeed.SaveSystem;
 using NUnit.Framework;
 
-namespace Tests
+namespace CheckYourSpeed.Tests.Storages
 {
     public sealed class PlayerPrefsStorageTest
     {
@@ -11,8 +11,9 @@ namespace Tests
         public void PlayerPrefsStorageSavesCorrectly()
         {
             IStorage storage = new PlayerPrefsStorage();
-            storage.Save(Path, 54);
-            Assert.That(storage.Load<int>(Path) == 54);
+            const int count = 54;
+            storage.Save(Path, count);
+            Assert.That(storage.Load<int>(Path) == count);
         }
     }
 }

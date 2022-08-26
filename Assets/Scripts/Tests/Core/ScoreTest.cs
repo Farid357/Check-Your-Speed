@@ -16,7 +16,7 @@ namespace CheckYourSpeed.Tests
         [Test]
         public void ScoreRecordIncreaseCountCorrectly()
         {
-            var record = new ScoreRecord(new DummyTextView(), new FakeUserCounterStorage());
+            var record = new ScoreRecord(new DummyCountVisualization(), new FakeUserCounterStorage());
             record.TryIncrease(50);
             Assert.AreEqual(record.Count, 50);
         }

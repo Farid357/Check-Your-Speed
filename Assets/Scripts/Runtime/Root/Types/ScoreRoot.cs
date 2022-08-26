@@ -19,7 +19,7 @@ namespace CheckYourSpeed.Root
             IUserCounterStorage recordStorage = new FakeUserCounterStorage();
             if (userConfig.TryLoad(out var userWithAccount))
             {
-                recordStorage = new UserCounterStorage(new BinaryStorage(), userWithAccount, "ScoreRecird");
+                recordStorage = new UserCounterStorage<ScoreRecord, int, BinaryStorage>(userWithAccount);
             }
 
             _record = new ScoreRecord(_recordView.ToInterface<IVisualization<int>>(), recordStorage);

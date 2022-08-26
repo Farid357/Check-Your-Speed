@@ -1,5 +1,4 @@
 ﻿using CheckYourSpeed.Model;
-using CheckYourSpeed.SaveSystem;
 using CheckYourSpeed.Shop;
 using CheckYourSpeed.Shop.Data;
 using CheckYourSpeed.Shop.Model;
@@ -13,20 +12,20 @@ namespace CheckYourSpeed.Root
     {
         [SerializeField] private BuyingButton _buyingButton;
         [SerializeField, RequireInterface(typeof(INotEnoughMoneyVisualization))] private MonoBehaviour _notEnoughMoneyVisualization;
-        [SerializeField, RequireInterface(typeof(IVisualization<int>))] private MonoBehaviour _moneyVisualization;
         [SerializeField, RequireInterface(typeof(IVisualization<string>))] private MonoBehaviour _goodUsingVisualization;
         [SerializeField, RequireInterface(typeof(IVisualization<int>))] private MonoBehaviour _shoppingCartGoodCountVisualization;
         [SerializeField, RequireInterface(typeof(IVisualization<int>))] private MonoBehaviour _shoppingCartTotalPriceVisualization;
         [SerializeField] private GoodSpawner _goodSpawner;
         [SerializeField] private SelectableGoodData[] _goodDatas;
         [SerializeField] private TMP_Text _alreadyBoughtText;
-
+        [SerializeField] private WalletRoot _walletRoot;
+        
         private IUpdateble _goodSelector;
 
         public override void Compose()
         {
             var shoppingCart = new ShoppingCart((IVisualization<int>)_shoppingCartGoodCountVisualization, (IVisualization<int>)_shoppingCartTotalPriceVisualization);
-            var wallet = new Wallet(_moneyVisualization.ToInterface<IVisualization<int>>());
+            var wallet = _walletRoot.Compose();
             var client = new Client(wallet, shoppingCart, (INotEnoughMoneyVisualization)_notEnoughMoneyVisualization);
             _goodSelector = new GoodSelector(shoppingCart, Camera.main, client);
             _buyingButton.Init(client);

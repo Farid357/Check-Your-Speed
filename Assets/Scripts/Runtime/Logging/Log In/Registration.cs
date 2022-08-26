@@ -1,5 +1,5 @@
 ﻿using CheckYourSpeed.Utils;
-using System;
+using CheckYourSpeed.SaveSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,9 +14,8 @@ namespace CheckYourSpeed.Loging
 
         public ISystem System => _system;
 
-        public void Init(UsersStorage storage)
+        public void Init(IStorage storage)
         {
-            storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _system = new System(_inputFields.Name, _inputFields.Password, storage);
             _button.onClick.AddListener(TryRegister);
         }

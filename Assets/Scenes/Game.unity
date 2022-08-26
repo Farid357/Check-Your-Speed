@@ -847,6 +847,7 @@ GameObject:
   - component: {fileID: 805216452}
   - component: {fileID: 805216456}
   - component: {fileID: 805216457}
+  - component: {fileID: 805216458}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -879,7 +880,7 @@ MonoBehaviour:
   _scoreRoot: {fileID: 805216457}
   _randomPositionsSpawner: {fileID: 677338672}
   _timerView: {fileID: 737540038}
-  _moneyVisualization: {fileID: 1268704853}
+  _walletRoot: {fileID: 805216458}
 --- !u!4 &805216450
 Transform:
   m_ObjectHideFlags: 0
@@ -968,6 +969,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _recordView: {fileID: 1253421042}
   _scoreView: {fileID: 558577010}
+--- !u!114 &805216458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805216446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43dfaca179d9c2944a190685a846185b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moneyVisualization: {fileID: 1268704853}
 --- !u!1 &875126256
 GameObject:
   m_ObjectHideFlags: 0

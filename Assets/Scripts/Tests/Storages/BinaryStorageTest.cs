@@ -1,7 +1,7 @@
 using CheckYourSpeed.SaveSystem;
 using NUnit.Framework;
 
-namespace Tests
+namespace CheckYourSpeed.Tests.Storages
 {
     public sealed class BinaryStorageTest
     {
@@ -11,8 +11,9 @@ namespace Tests
         public void BinaryStorageSavesCorrectly()
         {
             IStorage storage = new BinaryStorage();
-            storage.Save(Path, 44);
-            Assert.That(storage.Load<int>(Path) == 44);
+            const int count = 44;
+            storage.Save(Path, count);
+            Assert.That(storage.Load<int>(Path) == count);
         }
     }
 }

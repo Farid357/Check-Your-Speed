@@ -4,35 +4,33 @@ using System;
 
 namespace CheckYourSpeed.Loging
 {
-    public sealed class UserCounterStorage : IUserCounterStorage
+    public sealed class UserCounterStorage<TStorageUser, TStoredValue, TStorage> : IUserCounterStorage
+        where TStorage : IStorage, new()
     {
         private readonly IStorage _storage;
         private readonly IUserWithAccount _user;
-        private readonly string _path = "AttemptCount";
+        private readonly string _pathName;
 
-        public UserCounterStorage(IStorage storage, IUserWithAccount user, string path)
+        public UserCounterStorage(IUserWithAccount user)
         {
-            if (string.IsNullOrWhiteSpace(path))
-            {
-                throw new ArgumentException($"\"{nameof(path)}\" не может быть пустым или содержать только пробел.", nameof(path));
-            }
-
-            _storage = storage ?? throw new ArgumentNullException(nameof(storage));
+            _storage = new TStorage();
             _user = user ?? throw new ArgumentNullException(nameof(user));
-            _path = path;
+            _pathName = typeof(TStorageUser).Name + typeof(TStoredValue).Name;
         }
 
         public int Load()
         {
-            var data = _storage.Load<UserData>(_path + _user.Password + _user.Name);
+            var data = _storage.Load<UserData>(CreatePath(_user, _pathName));
             return data.Count;
         }
 
         public void Save(int count)
         {
             var data = new UserData(_user, count);
-            _storage.Save(_path + _user.Password + _user.Name, data);
+            _storage.Save(CreatePath(_user, _pathName), data);
         }
+
+        private string CreatePath(IUserWithAccount user, string name) => name + user.Password + user.Name;
 
         [Serializable]
         private readonly struct UserData

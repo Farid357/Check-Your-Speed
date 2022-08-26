@@ -27,26 +27,28 @@ namespace CheckYourSpeed.Shop.Model
 
         public void Add(IGood good)
         {
-            Validate(good);
+            good = good ?? throw new ArgumentNullException(nameof(good));
             _goods.Add(good);
-            _visualization.Visualize(_goods.Count);
-            _totalPriceVisualization.Visualize(GetTotalPrice());
+            VisualizeAll();
         }
 
         public void Remove(IGood good)
         {
-            Validate(good);
+            good = good ?? throw new ArgumentNullException(nameof(good));
             _goods.Remove(good);
-            _visualization.Visualize(_goods.Count);
-            _totalPriceVisualization.Visualize(GetTotalPrice());
+            VisualizeAll();
+        }
+        
+        public void Clear()
+        {
+            _goods.Clear();
+            VisualizeAll();
         }
 
-        private void Validate(IGood good)
+        private void VisualizeAll()
         {
-            if (good is null)
-            {
-                throw new ArgumentNullException(nameof(good));
-            }
+            _visualization.Visualize(_goods.Count);
+            _totalPriceVisualization.Visualize(GetTotalPrice());
         }
     }
 }

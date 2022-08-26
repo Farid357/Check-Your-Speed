@@ -18,10 +18,10 @@ namespace CheckYourSpeed.GameLogic
 
         public IEnumerable<IPointView> SpawnedPoints => _pointsContainer.All;
 
-        public void Init(IPointsSubscriber[] pointsSubscribers, IPointsContainer pointsContainer, Waves waves)
+        public void Init(IPointsContainer pointsContainer, IPointsSubscriber[] pointsSubscribers, Waves waves)
         {
-            _pointsSubscribers = pointsSubscribers ?? throw new ArgumentNullException(nameof(pointsSubscribers));
             _waves = waves ?? throw new ArgumentNullException(nameof(waves));
+            _pointsSubscribers = pointsSubscribers ?? throw new ArgumentNullException(nameof(pointsSubscribers));
             _pointsContainer = pointsContainer ?? throw new ArgumentNullException(nameof(pointsContainer));
             _pool = new IndependentPool<PointView>(new GameObjectsFactory<PointView>(_prefab, transform));
         }
