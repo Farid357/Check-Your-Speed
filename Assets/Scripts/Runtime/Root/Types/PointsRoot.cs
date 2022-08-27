@@ -55,7 +55,7 @@ namespace CheckYourSpeed.Root
             _loseTimerView.Init(timer);
             var score = _scoreRoot.Compose(_userConfig);
             var wallet = _walletRoot.Compose();
-            var moneyWithChanceAdder = new MoneyWithConstantChanceAdder(wallet, new MoneyFactor(1));
+            var moneyWithChanceAdder = new MoneyWithConstantChanceAdder(wallet, 1);
             var pointsSubscribers = new IPointsSubscriber[] { score, moneyWithChanceAdder };
             _randomPositionsSpawner.Init(_pointsSwitch, pointsSubscribers, _waves);
             _pointsInAreaSpawner.Init( _pointsSwitch, pointsSubscribers, _waves);

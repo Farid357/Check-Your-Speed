@@ -8,13 +8,13 @@ namespace CheckYourSpeed.Shop.Model
     public sealed class Client : IClient
     {
         private readonly IWallet _wallet;
-        private readonly IShoppingCart _shoppingCart;
+        private readonly IReadOnlyShoppingCart _shoppingCart;
         private readonly INotEnoughMoneyVisualization _notEnoughMoney;
 
         private readonly StorageWithNameSaveObject<Client, List<IGood>> _goodsStorage;
         private readonly List<IGood> _boughtGoods;
 
-        public Client(IWallet wallet, IShoppingCart shoppingCart,
+        public Client(IWallet wallet, IReadOnlyShoppingCart shoppingCart,
             INotEnoughMoneyVisualization visualization)
         {
             _wallet = wallet ?? throw new ArgumentNullException(nameof(wallet));
@@ -36,7 +36,6 @@ namespace CheckYourSpeed.Shop.Model
                 _wallet.Take(totalPrice);
                 _boughtGoods.AddRange(_shoppingCart.Goods);
                 _shoppingCart.Goods.ForEach(good => good.Use());
-                _shoppingCart.Clear();
                 _goodsStorage.Save(_boughtGoods);
             }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CheckYourSpeed.Shop.Model;
+using CheckYourSpeed.Utils;
 
 namespace CheckYourSpeed.Model
 {
@@ -12,12 +13,12 @@ namespace CheckYourSpeed.Model
         
         private readonly List<IPoint> _points = new();
         private readonly IWallet _wallet;
-        private readonly IMoneyFactor _moneyFactor;
+        private readonly int _moneyFactor;
 
-        public MoneyWithConstantChanceAdder(IWallet wallet, IMoneyFactor moneyFactor)
+        public MoneyWithConstantChanceAdder(IWallet wallet, int moneyFactor)
         {
             _wallet = wallet ?? throw new ArgumentNullException(nameof(wallet));
-            _moneyFactor = moneyFactor ?? throw new ArgumentNullException(nameof(moneyFactor));
+            _moneyFactor = moneyFactor.TryThrowLessThanOrEqualsToZeroException();
         }
 
         public void Subscribe(IPoint point)
@@ -32,7 +33,7 @@ namespace CheckYourSpeed.Model
 
             if (chance >= MaxChance / 2)
             {
-                var money = _moneyFactor.TryIcrease(MoneyWithoutFactor);
+                var money = MoneyWithoutFactor * _moneyFactor;
                 _wallet.Put(money);
             }
         }

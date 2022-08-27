@@ -28,7 +28,7 @@ namespace CheckYourSpeed.Root
             var wallet = _walletRoot.Compose();
             var client = new Client(wallet, shoppingCart, (INotEnoughMoneyVisualization)_notEnoughMoneyVisualization);
             _goodSelector = new GoodSelector(shoppingCart, Camera.main, client);
-            _buyingButton.Init(client);
+            _buyingButton.Init(client, shoppingCart);
 
 
             foreach (var data in _goodDatas)
