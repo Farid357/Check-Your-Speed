@@ -4,37 +4,38 @@ using UnityEngine;
 
 namespace CheckYourSpeed.Utils
 {
-    public sealed class UnityDictionary<TKey, TValue> : MonoBehaviour
+    [Serializable]
+    public abstract class UnityDictionary<TKey, TValue>
     {
         [SerializeField] private List<TKey> _keys;
-        [SerializeField] private List<TValue> _value;
+        [SerializeField] private List<TValue> _values;
 
         public TValue this[int index]
         {
-            get => Value[index];
-            set => _value[index] = value;
+            get => Values[index];
+            set => _values[index] = value;
         }
 
         public int Count => _keys.Count;
 
-        public IReadOnlyList<TValue> Value => _value;
+        public IReadOnlyList<TValue> Values => _values;
 
         public IReadOnlyList<TKey> Keys => _keys;
 
         private void Start() => CheckNullFields();
 
-        private void OnValidate() => TuneDictionary(_value);
+        private void OnValidate() => TuneDictionary(_values);
 
         public void Add(TKey key, TValue value)
         {
             _keys.Add(key);
-            _value.Add(value);
+            _values.Add(value);
         }
 
         public void Clear()
         {
             _keys = null;
-            _value = null;
+            _values = null;
         }
 
         public void Clear(int index)
@@ -43,34 +44,34 @@ namespace CheckYourSpeed.Utils
                 throw new ArgumentOutOfRangeException();
 
             _keys.RemoveAt(index);
-            _value.RemoveAt(index);
+            _values.RemoveAt(index);
         }
 
         public void Clear(TKey key)
         {
-            _value.RemoveAt(_keys.IndexOf(key));
+            _values.RemoveAt(_keys.IndexOf(key));
             _keys.Remove(key);
         }
 
         public void Clear(TValue value)
         {
-            _keys.RemoveAt(_value.IndexOf(value));
-            _value.Remove(value);
+            _keys.RemoveAt(_values.IndexOf(value));
+            _values.Remove(value);
         }
 
         public void Clear(int index, int count)
         {
             _keys.RemoveRange(index, count);
-            _value.RemoveRange(index, count);
+            _values.RemoveRange(index, count);
         }
 
-        public bool ContainsValue(TValue value) => _value.Contains(value);
+        public bool ContainsValue(TValue value) => _values.Contains(value);
 
         public bool ContainsKey(TKey value) => _keys.Contains(value);
 
         private void CheckNullFields()
         {
-            foreach (var value in _value)
+            foreach (var value in _values)
             {
                 if (value == null)
                     Debug.LogError("Value is null!");

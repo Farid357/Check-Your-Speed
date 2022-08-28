@@ -17,10 +17,9 @@ namespace CheckYourSpeed.GameLogic
 
         public event Action OnDisabled { add => _onDisabled = value; remove => _onDisabled -= value; }
         
-        public void Init(IPoint point,  Color color)
+        public void Init(IPoint point)
         {
             _point = point ?? throw new ArgumentNullException(nameof(point));
-            GetComponent<SpriteRenderer>().color = color;
         }
 
         public void Apply()

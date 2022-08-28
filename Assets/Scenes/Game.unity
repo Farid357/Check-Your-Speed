@@ -438,8 +438,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e16c13f56f48bd4c8d295661d583d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 2868406419382348793, guid: b8a81e7ca49f7ed4fb09f0d8b0768224, type: 3}
-  _colorFactory: {fileID: 805216451}
+  _points:
+    _keys: 0300000002000000010000000400000000000000
+    _values:
+    - {fileID: 2868406419382348793, guid: 5c5aeaca38c314049b5348e52fde3663, type: 3}
+    - {fileID: 2868406419382348793, guid: 3d1b3208e300c924c94508b1819cdfb7, type: 3}
+    - {fileID: 2868406419382348793, guid: b8a81e7ca49f7ed4fb09f0d8b0768224, type: 3}
+    - {fileID: 2868406419382348793, guid: c24b3de6ff75f3e46abff4d99bbbd109, type: 3}
+    - {fileID: 2868406419382348793, guid: 7a518accef2158444bb51e33a103d03a, type: 3}
   _radius: 6
 --- !u!4 &469621790
 Transform:
@@ -752,8 +758,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa622bfc0a2681e47a2e3721970db45f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 2868406419382348793, guid: b8a81e7ca49f7ed4fb09f0d8b0768224, type: 3}
-  _colorFactory: {fileID: 805216451}
+  _points:
+    _keys: 0000000001000000020000000400000003000000
+    _values:
+    - {fileID: 2868406419382348793, guid: 7a518accef2158444bb51e33a103d03a, type: 3}
+    - {fileID: 2868406419382348793, guid: b8a81e7ca49f7ed4fb09f0d8b0768224, type: 3}
+    - {fileID: 2868406419382348793, guid: 3d1b3208e300c924c94508b1819cdfb7, type: 3}
+    - {fileID: 2868406419382348793, guid: c24b3de6ff75f3e46abff4d99bbbd109, type: 3}
+    - {fileID: 2868406419382348793, guid: 5c5aeaca38c314049b5348e52fde3663, type: 3}
 --- !u!4 &677338673
 Transform:
   m_ObjectHideFlags: 0
@@ -842,7 +854,6 @@ GameObject:
   m_Component:
   - component: {fileID: 805216450}
   - component: {fileID: 805216449}
-  - component: {fileID: 805216451}
   - component: {fileID: 805216453}
   - component: {fileID: 805216452}
   - component: {fileID: 805216456}
@@ -896,23 +907,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &805216451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 805216446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5e10429a1656314592fe6606885ef82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _wave: {r: 0.7415894, g: 0.15471691, b: 1, a: 1}
-  _score: {r: 1, g: 0.54863906, b: 0, a: 0.62352943}
-  _disable: {r: 0.39864218, g: 1, b: 0, a: 1}
-  _miltiple: {r: 0, g: 1, b: 0.9192662, a: 1}
-  _random: {r: 0.539953, g: 0.07326444, b: 0.9245283, a: 1}
 --- !u!114 &805216452
 MonoBehaviour:
   m_ObjectHideFlags: 0
