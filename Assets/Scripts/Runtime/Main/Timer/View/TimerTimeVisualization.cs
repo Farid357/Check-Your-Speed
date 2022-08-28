@@ -13,7 +13,17 @@ namespace CheckYourSpeed.GameLogic
             var minutes = GetMinutes(seconds);
             int leftSeconds = (int)(seconds - minutes * SecondsInMinute);
             var text = minutes == 0 ? $"{leftSeconds}" : $"{minutes}:{leftSeconds}";
-            _lineVisualization.Visualize(text);
+            
+            if (minutes == 0 && leftSeconds == 0)
+            {
+                _lineVisualization.Visualize(string.Empty);
+            }
+            
+            else
+            {
+                _lineVisualization.Visualize(text);
+
+            }
         }
 
         private int GetMinutes(float seconds)

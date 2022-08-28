@@ -22,11 +22,7 @@ namespace CheckYourSpeed.GameLogic
             _waves.ForEach(wave => _wavesQueue.Enqueue(wave));
         }
 
-        public IPoint CreateRandomPoint(PointType[] pointTypes)
-        {
-            var randomPointType = new System.Random().GetRandomFromArray(pointTypes);
-            return _pointsFactory.CreateFrom(randomPointType);
-        }
+        public IPoint CreateRandomPoint(PointType pointType) => _pointsFactory.CreateFrom(pointType);
 
         public Wave GetNext()
         {

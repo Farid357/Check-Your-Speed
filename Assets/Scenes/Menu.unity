@@ -779,7 +779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9678836a47b4f0419863f582913b21a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mode: 1
+  _mode: 0
   _screen: {fileID: 705833513}
   _loaderScene: {fileID: 11400000, guid: 46bcef569df73a74ab67006a6fa34d3b, type: 2}
 --- !u!4 &175789215
@@ -1768,7 +1768,7 @@ MonoBehaviour:
         m_MethodName: Load
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: cc416e820c2b2174f85b4e33157a1af5, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 53a729ec1c5b08a47b0e7bc83adcd4ef, type: 2}
           m_ObjectArgumentAssemblyTypeName: Snake.LoadSystem.SceneData, SourceScripts
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -5897,7 +5897,7 @@ MonoBehaviour:
   _loggInView: {fileID: 1345154073}
   _registrationView: {fileID: 1124517035}
   _timerButton: {fileID: 345406636}
-  _timerButtonSeconds: 10
+  _timerButtonSeconds: 120
   _timerTimeVisualization: {fileID: 574081341}
 --- !u!4 &1246354557
 Transform:

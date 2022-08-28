@@ -39,7 +39,7 @@ namespace CheckYourSpeed.GameLogic
 
             var pointType = new System.Random().GetRandomFromArray(pointTypes);
             var pointView = _pools[pointType].Get();
-            var randomPoint = _waves.CreateRandomPoint(pointTypes);
+            var randomPoint = _waves.CreateRandomPoint(pointType);
             pointView.Init(randomPoint);
             pointView.gameObject.SetActive(true);
             _pointsSubscribers.ForEach(subscriber => subscriber.Subscribe(randomPoint));
